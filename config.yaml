@@ -25,3 +25,52 @@ subscriptions:
     stage: A
     diff_threshold_pct: 15
   keyword_recall_mode: or
+  intent_profiles:
+    - tag: path-agent
+      description: 病理Agent相关的论文
+      enabled: true
+      paper_sources:
+        - arxiv
+      keywords:
+        - keyword: pathology agent
+          keyword_cn: 病理智能体
+          query: pathology agent
+        - keyword: pathological diagnosis agent
+          keyword_cn: 病理诊断智能体
+          query: pathological diagnosis agent
+        - keyword: medical pathology agent
+          keyword_cn: 医学病理智能体
+          query: medical pathology agent
+        - keyword: histopathology agent
+          keyword_cn: 组织病理学智能体
+          query: histopathology agent
+        - keyword: pathology AI agent
+          keyword_cn: 病理AI智能体
+          query: pathology AI agent
+      intent_queries:
+        - query: papers on pathology agents for medical diagnosis
+          query_cn: 关于病理智能体在医学诊断中的论文
+          enabled: true
+          source: manual
+          note: ''
+        - query: research on digital pathology agents for histopathological analysis
+          query_cn: 数字病理智能体在组织病理学分析中的研究
+          enabled: true
+          source: manual
+          note: ''
+      updated_at: '2026-07-06T07:28:48.615Z'
+source_backends:
+  arxiv:
+    papers_table: arxiv_papers
+    use_vector_rpc: true
+    vector_rpc: match_arxiv_papers
+    vector_rpc_exact: match_arxiv_papers_exact
+    use_bm25_rpc: true
+    bm25_rpc: match_arxiv_papers_bm25
+    sync_table: arxiv_sync_status
+    sync_success_value: success
+    schema: public
+    kind: supabase
+    enabled: true
+    url: https://lyucdwgefyfbmaiopjbk.supabase.co
+    anon_key: sb_publishable_lX-oi64Uxyd7SIVv3_w2Uw_MTOojeKq
