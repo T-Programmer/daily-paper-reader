@@ -1,0 +1,131 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-07-06T07:34:38.852966+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 2,
+    "deep_cap": 6,
+    "deep_selected": 2,
+    "quick_candidates": 1,
+    "quick_skim_target": 11,
+    "quick_selected": 1
+  },
+  "deep_dive": [
+    {
+      "id": "2606.30020v1",
+      "source": "arxiv",
+      "title": "Uncertainty Estimation in Pathology Foundation Models via Deep Mutual Learning",
+      "abstract": "Pathology foundation models (PFMs) offer generalizable representations for whole-slide image (WSI) analysis, yet their clinical adoption remains limited. Specifically, their predictions lack reliable confidence estimates, and no single PFM is universally best across tasks, which severely undermines trust in medical settings. To overcome this, we propose $\\mathtt{DICE}$, a plug-and-play framework that ensembles $K$ frozen PFMs and models their disagreement as a proxy for uncertainty estimation. To ensure this proxy yields meaningful estimates, we align the ensemble members via deep mutual learning, and theoretically show that this objective upper-bounds the model uncertainty. Additionally, we demonstrate that the ensemble's consensus localizes abnormalities at the patch level without any explicit supervision. We evaluate $\\mathtt{DICE}$ on three challenging WSI benchmarks. Notably, our framework provides reliable uncertainty estimates that accurately flag failure-prone cases under in- and out-of-distribution settings, while matching or outperforming SOTA baselines in classification, calibration, and localization. Overall, $\\mathtt{DICE}$ takes a crucial step toward translating PFMs into uncertainty-aware decision-support systems.",
+      "authors": [
+        "Gbègninougbo Aurel Davy Tchokponhoue",
+        "Sevda Öğüt",
+        "Ali Idri",
+        "Dorina Thanou",
+        "Pascal Frossard"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-06-29T09:24:22+00:00",
+      "link": "https://arxiv.org/pdf/2606.30020v1",
+      "tags": [
+        "keyword:path-agent",
+        "query:path-agent"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "pathology foundation model uncertainty estimation",
+      "llm_evidence_cn": "病理基础模型的不确定性估计",
+      "llm_evidence": "病理基础模型的不确定性估计",
+      "canonical_evidence": "病理基础模型的不确定性估计",
+      "llm_tldr_en": "Proposes DICE framework for uncertainty estimation in pathology foundation models via deep mutual learning, enabling reliable confidence estimates for WSI analysis.",
+      "llm_tldr_cn": "病理基础模型在临床应用中缺乏可靠的置信度估计，且没有单一模型在所有任务中表现最佳。本文提出DICE框架，通过深度互学习集成多个冻结的病理基础模型，将模型间的分歧作为不确定性的代理。理论证明该目标上界了模型不确定性，实验表明集成的共识能定位不确定性区域。该工作提升了病理AI的可信度，推动了临床采纳。",
+      "llm_tldr": "病理基础模型在临床应用中缺乏可靠的置信度估计，且没有单一模型在所有任务中表现最佳。本文提出DICE框架，通过深度互学习集成多个冻结的病理基础模型，将模型间的分歧作为不确定性的代理。理论证明该目标上界了模型不确定性，实验表明集成的共识能定位不确定性区域。该工作提升了病理AI的可信度，推动了临床采纳。",
+      "llm_tags": [
+        "query:path-agent"
+      ],
+      "matched_query_tag": "query:path-agent",
+      "matched_query_text": "pathology AI agent",
+      "matched_requirement_id": "req-5",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2606.31100v1",
+      "source": "arxiv",
+      "title": "TaxoMIL: Taxonomy-Constrained Learning for Hierarchical Whole Slide Image Analysis",
+      "abstract": "Whole slide image (WSI) analysis is central to computational pathology, with multiple instance learning (MIL) emerging as the standard pipeline for slide-level diagnosis. However, conventional approaches formulate WSI diagnosis as a flat classification task over discrete labels, contradicting the inherently hierarchical, coarse-to-fine nature of clinical reasoning. Although recent hierarchical classifiers and vision-language models (VLMs) have sought to address this structural gap, they either fail to capture semantic continuity between related diagnoses or suffer from unconstrained text generation that produces taxonomic hallucinations and parent-child label violations. To address these limitations, we propose TaxoMIL, a taxonomy-constrained framework that reformulates WSI diagnosis as a multi-granularity text generation task. TaxoMIL utilizes a dual-head Transformer decoder to generate coarse- and fine-level diagnostic text, and introduces taxonomy-guided objectives that explicitly structure the label embedding space and strictly ground slide-level visual representations within the clinical taxonomy. Extensive experiments across three diverse WSI datasets demonstrate that TaxoMIL consistently outperforms state-of-the-art MIL classifiers and VLM-based generative methods, yielding accurate and hierarchy-aware diagnostic predictions. The code is released at https://github.com/QuIIL/TaxoMIL",
+      "authors": [
+        "Chaeyeon Lee",
+        "Khang Nguyen Quoc",
+        "Jinsol Song",
+        "Yosep Chong",
+        "Kwangil Yim",
+        "Jin Tae Kwak"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-06-30T03:48:57+00:00",
+      "link": "https://arxiv.org/pdf/2606.31100v1",
+      "tags": [
+        "keyword:path-agent",
+        "query:path-agent"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "hierarchical whole slide image analysis for pathology",
+      "llm_evidence_cn": "病理全切片图像的层次化分析",
+      "llm_evidence": "病理全切片图像的层次化分析",
+      "canonical_evidence": "病理全切片图像的层次化分析",
+      "llm_tldr_en": "TaxoMIL proposes taxonomy-constrained learning for hierarchical WSI analysis in computational pathology, addressing flat classification limitations.",
+      "llm_tldr_cn": "传统全切片图像分析将诊断视为扁平分类，忽略了临床推理的层次性。本文提出TaxoMIL，通过约束学习的层次分类方法，利用分类学结构避免幻觉和标签违规。实验表明该方法在层次病理分类上优于现有方法，更贴合临床推理过程。",
+      "llm_tldr": "传统全切片图像分析将诊断视为扁平分类，忽略了临床推理的层次性。本文提出TaxoMIL，通过约束学习的层次分类方法，利用分类学结构避免幻觉和标签违规。实验表明该方法在层次病理分类上优于现有方法，更贴合临床推理过程。",
+      "llm_tags": [
+        "query:path-agent"
+      ],
+      "matched_query_tag": "query:path-agent",
+      "matched_query_text": "pathology AI agent",
+      "matched_requirement_id": "req-5",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": [
+    {
+      "id": "2607.02133v1",
+      "source": "arxiv",
+      "title": "Quaternion Nondecimated Wavelet Descriptors for Multiclass Breast Histology Classification",
+      "abstract": "Breast histology images carry diagnostic information in color, texture, orientation, and tissue architecture across a range of scales. In H&E microscopy this information is inherently chromatic and is not fully recovered when the red, green, and blue (RGB) channels are reduced to grayscale or transformed as independent scalar images. We propose an interpretable quaternion nondecimated wavelet framework for breast histology classification. Each RGB image is encoded as a pure quaternion field, and a quaternion nondecimated wavelet transform in two dimensions (QNDWT2D) produces multiscale, directional, color-coupled coefficient fields on the original image grid, keeping color as a single vector quantity rather than three separate channels. From these coefficients we build interpretable feature families summarizing stain balance, wavelet energy, amplitude heterogeneity, quaternion phase concentration, color-axis geometry, directional anisotropy, orientation entropy, and scale-dependent energy decay, each tied to a histopathological property such as nuclear density or glandular organization. We evaluate the descriptors on the BreAst Cancer Histology (BACH) challenge, a balanced four-class set of normal, benign, in situ, and invasive tissue, using a radial-kernel support vector machine (SVM) with repeated nested cross-validation. The descriptors yield balanced recognition across classes, with errors concentrated among adjacent categories while normal and invasive are rarely reversed. Permutation importance shows that directional, phase-concentration, anisotropy, scale, and amplitude-variability groups all contribute, indicating that the classifier draws on genuine quaternion and multiscale geometry rather than global color alone. The framework uses no pretrained networks, learned filters, or external databases, offering a reproducible, interpretable baseline for computational pathology.",
+      "authors": [
+        "Sara Antonijevic",
+        "Brani Vidakovic"
+      ],
+      "primary_category": "stat.AP",
+      "categories": [
+        "stat.AP"
+      ],
+      "published": "2026-07-02T13:09:50+00:00",
+      "link": "https://arxiv.org/pdf/2607.02133v1",
+      "tags": [
+        "keyword:path-agent",
+        "query:path-agent"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "breast histology classification using quaternion wavelet descriptors",
+      "llm_evidence_cn": "使用四元数小波描述符进行乳腺组织学分类",
+      "llm_evidence": "使用四元数小波描述符进行乳腺组织学分类",
+      "canonical_evidence": "使用四元数小波描述符进行乳腺组织学分类",
+      "llm_tldr_en": "Proposes interpretable quaternion nondecimated wavelet framework for breast histology classification, preserving color as vector quantity.",
+      "llm_tldr_cn": "乳腺组织学图像中的颜色、纹理等信息对诊断至关重要。本文提出可解释的四元数非抽取小波框架，将RGB图像编码为纯四元数场，进行多尺度、方向性、颜色耦合的系数提取。该方法在不需要深度网络的情况下实现组织学分类，保持了颜色信息的完整性。",
+      "llm_tldr": "乳腺组织学图像中的颜色、纹理等信息对诊断至关重要。本文提出可解释的四元数非抽取小波框架，将RGB图像编码为纯四元数场，进行多尺度、方向性、颜色耦合的系数提取。该方法在不需要深度网络的情况下实现组织学分类，保持了颜色信息的完整性。",
+      "llm_tags": [
+        "query:path-agent"
+      ],
+      "matched_query_tag": "query:path-agent",
+      "matched_query_text": "histopathology agent",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    }
+  ]
+}
