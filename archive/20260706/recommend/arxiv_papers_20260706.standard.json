@@ -1,0 +1,413 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-07-06T20:33:15.667741+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 3,
+    "deep_cap": 6,
+    "deep_selected": 3,
+    "quick_candidates": 6,
+    "quick_skim_target": 11,
+    "quick_selected": 6
+  },
+  "deep_dive": [
+    {
+      "id": "2606.29463v1",
+      "source": "arxiv",
+      "title": "CellDETR: A Detection-Guided Framework for Scalable Cell Representation Learning from Histopathology Images",
+      "abstract": "Recent advances in pathology foundation models have substantially improved patch and slide level representation learning from whole-slide images (WSIs).However, cell-level representations learning remain underexplored, limiting cell resolved interpretability, biological discovery, and clinical translation. We propose CellDETR, a detection-guided framework built on Deformable DETR for scalable cell representation learning from WSIs. By introducing location feature decoupling and box-constrained attention mechanism, CellDETR enables automated extraction of cell-level embeddings, and outperform existing state-of-the-art methods in supervised cell classification on PanNuke data. In addition, by incorporating contrastive learning design, we build a CellDETR-based pretraining model for scalable cell representation learning from unlabeled WSIs, which improves downstream cell classification performance. Furthermore, we show that after pretraining with Xenium spatial transcriptomics-derived cell annotations, CellDETR achieves accurate cross-dataset cell classification, demonstrating the transferability and biological relevance of the learned cell embeddings. Together, CellDETR provides a scalable route toward general cell-level representation learning framework for interpretable computational patholog",
+      "authors": [
+        "Shikang Zhang",
+        "Guojun Li",
+        "Yicong Mao",
+        "Chulin Sha"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-06-28T15:39:44+00:00",
+      "link": "https://arxiv.org/pdf/2606.29463v1",
+      "tags": [
+        "keyword:path-agent",
+        "query:path-agent"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "Cell representation learning from histopathology images, directly enabling cell-level analysis for pathology agents",
+      "llm_evidence_cn": "从组织病理学图像学习细胞表示，直接赋能病理智能体的细胞级分析",
+      "llm_evidence": "从组织病理学图像学习细胞表示，直接赋能病理智能体的细胞级分析",
+      "canonical_evidence": "从组织病理学图像学习细胞表示，直接赋能病理智能体的细胞级分析",
+      "llm_tldr_en": "CellDETR: a detection-guided framework using Deformable DETR for scalable cell representation learning from whole-slide histopathology images, outperforming SOTA on PanNuke.",
+      "llm_tldr_cn": "该论文针对组织病理学全切片图像中细胞级表示学习不足的问题，提出了CellDETR框架。该框架基于Deformable DETR，通过位置特征解耦和框约束注意力机制，能从全切片图像中自动提取细胞级嵌入。在PanNuke数据集上的有监督细胞分类任务中，CellDETR超越了现有最先进方法。这项工作为病理智能体提供了可扩展的细胞级视觉理解能力，有助于实现细粒度的病理诊断。",
+      "llm_tldr": "该论文针对组织病理学全切片图像中细胞级表示学习不足的问题，提出了CellDETR框架。该框架基于Deformable DETR，通过位置特征解耦和框约束注意力机制，能从全切片图像中自动提取细胞级嵌入。在PanNuke数据集上的有监督细胞分类任务中，CellDETR超越了现有最先进方法。这项工作为病理智能体提供了可扩展的细胞级视觉理解能力，有助于实现细粒度的病理诊断。",
+      "llm_tags": [
+        "query:path-agent"
+      ],
+      "matched_query_tag": "query:path-agent",
+      "matched_query_text": "histopathology agent",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2607.00499v1",
+      "source": "arxiv",
+      "title": "Prior-Anchored Debiasing for Long-Tailed Multi-Organ Pathology Report Generation",
+      "abstract": "Automated pathology report generation from Whole Slide Images (WSIs) has   attracted increasing attention in digital pathology. However, existing methods   are predominantly developed under single-organ settings, overlooking the   multi-organ scenarios encountered in clinical practice, where organ types   typically follow a long-tailed distribution. To address this gap, we identify   two critical biases: (1) visual representation bias, where the encoder favors   head-class patterns over tail-class discriminative features, and (2) textual   decoding bias, where the decoder overfits to head-class narrative patterns,   yielding diagnostically unreliable outputs for tail-class organs. To mitigate   these two biases, we propose a novel Prior-anchored multi-Organ pathology   report Generation framework (PriOrGen). Specifically, a Visual-Prototype   Anchored Bottleneck module leverages the information bottleneck principle with   learnable anchor representations to selectively retain diagnostically relevant   visual information while filtering out head-biased redundancy. Secondly, a   Meta-Report Anchored Bank module constructs an organ-specific meta-report   anchored bank and retrieves organ-faithful textual priors to steer the decoder   away from head-class narrative patterns. Extensive experiments on a multi-   organ pathology dataset demonstrate that our method effectively mitigates   long-tail biases and achieves superior report generation performance across   both head and tail organ categories compared to state-of-the-art methods.",
+      "authors": [
+        "Feng Yang",
+        "Jie Liu",
+        "Yubo Pang",
+        "Peilin Chen",
+        "Xinheng Lyu",
+        "Shiqi Wang",
+        "Howard Leung",
+        "Ping Chen"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-07-01T06:31:39+00:00",
+      "link": "https://arxiv.org/pdf/2607.00499v1",
+      "tags": [
+        "keyword:path-agent",
+        "query:path-agent"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "multi-organ pathology report generation from WSIs; directly addresses digital pathology agent for histopathological analysis",
+      "llm_evidence_cn": "从全切片图像生成多器官病理报告；直接针对数字病理代理的组织病理学分析",
+      "llm_evidence": "从全切片图像生成多器官病理报告；直接针对数字病理代理的组织病理学分析",
+      "canonical_evidence": "从全切片图像生成多器官病理报告；直接针对数字病理代理的组织病理学分析",
+      "llm_tldr_en": "This paper tackles long-tailed multi-organ pathology report generation from WSIs, identifying visual and textual biases. It proposes prior-anchored debiasing to improve diagnostic reliability for tail-class organs, directly serving as a core module for a digital pathology agent.",
+      "llm_tldr_cn": "现有病理报告生成主要针对单器官，忽略临床多器官场景中长尾分布导致的偏差。本文识别出视觉表示偏差和文本解码偏差，提出先验锚定去偏方法：利用器官先验引导编码器关注尾类判别特征，并约束解码器避免过度拟合头类叙事模式。在多个数据集上实验表明，该方法显著提升了尾类器官的诊断可靠性，可集成到数字病理代理流水线中实现自动化组织病理学分析。",
+      "llm_tldr": "现有病理报告生成主要针对单器官，忽略临床多器官场景中长尾分布导致的偏差。本文识别出视觉表示偏差和文本解码偏差，提出先验锚定去偏方法：利用器官先验引导编码器关注尾类判别特征，并约束解码器避免过度拟合头类叙事模式。在多个数据集上实验表明，该方法显著提升了尾类器官的诊断可靠性，可集成到数字病理代理流水线中实现自动化组织病理学分析。",
+      "llm_tags": [
+        "query:path-agent"
+      ],
+      "matched_query_tag": "query:path-agent",
+      "matched_query_text": "research on digital pathology agents for histopathological analysis",
+      "matched_requirement_id": "req-7",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2607.00499v2",
+      "source": "arxiv",
+      "title": "Prior-Anchored Debiasing for Long-Tailed Multi-Organ Pathology Report Generation",
+      "abstract": "Automated pathology report generation from Whole Slide Images (WSIs) has attracted increasing attention in digital pathology. However, existing methods are predominantly developed under single-organ settings, overlooking the multi-organ scenarios encountered in clinical practice, where organ types typically follow a long-tailed distribution. To address this gap, we identify two critical biases: (1) visual representation bias, where the encoder favors head-class patterns over tail-class discriminative features, and (2) textual decoding bias, where the decoder overfits to head-class narrative patterns, yielding diagnostically unreliable outputs for tail-class organs. To mitigate these two biases, we propose a novel Prior-anchored multi-Organ pathology report Generation framework (PriOrGen). Specifically, a Visual-Prototype Anchored Bottleneck module leverages the information bottleneck principle with learnable anchor representations to selectively retain diagnostically relevant visual information while filtering out head-biased redundancy. Secondly, a Meta-Report Anchored Bank module constructs an organ-specific meta-report anchored bank and retrieves organ-faithful textual priors to steer the decoder away from head-class narrative patterns. Extensive experiments on a multi-organ pathology dataset demonstrate that our method effectively mitigates long-tail biases and achieves superior report generation performance across both head and tail organ categories compared to state-of-the-art methods.",
+      "authors": [
+        "Feng Yang",
+        "Jie Liu",
+        "Yubo Pang",
+        "Peilin Chen",
+        "Xinheng Lyu",
+        "Shiqi Wang",
+        "Howard Leung",
+        "Ping Chen"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-07-01T06:31:39+00:00",
+      "link": "https://arxiv.org/pdf/2607.00499v2",
+      "tags": [
+        "keyword:path-agent",
+        "query:path-agent"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "pathology report generation from WSIs with debiasing",
+      "llm_evidence_cn": "基于全切片图像的病理报告生成与去偏",
+      "llm_evidence": "基于全切片图像的病理报告生成与去偏",
+      "canonical_evidence": "基于全切片图像的病理报告生成与去偏",
+      "llm_tldr_en": "Prior-Anchored Debiasing mitigates visual and textual biases for long-tailed multi-organ pathology report generation from whole slide images.",
+      "llm_tldr_cn": "现有病理报告生成方法多针对单器官，忽略多器官长尾分布导致的偏差。本文提出先验锚定去偏方法，同时缓解视觉表示偏差和文本解码偏差。在包含多个器官的数据集上，该方法显著改善了尾部器官的生成质量，使病理报告更准确可靠，推动了自动化报告生成在临床多器官场景中的应用。",
+      "llm_tldr": "现有病理报告生成方法多针对单器官，忽略多器官长尾分布导致的偏差。本文提出先验锚定去偏方法，同时缓解视觉表示偏差和文本解码偏差。在包含多个器官的数据集上，该方法显著改善了尾部器官的生成质量，使病理报告更准确可靠，推动了自动化报告生成在临床多器官场景中的应用。",
+      "llm_tags": [
+        "query:path-agent"
+      ],
+      "matched_query_tag": "query:path-agent",
+      "matched_query_text": "pathological diagnosis agent",
+      "matched_requirement_id": "req-2",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": [
+    {
+      "id": "2606.29949v1",
+      "source": "arxiv",
+      "title": "Data-Efficient Multimodal Alignment for Histopathology-based Molecular Prediction",
+      "abstract": "H&E-stained whole-slide images offer cohort-scale availability and rich spatial context but lack molecular specificity, whereas bulk RNA-seq provides transcriptome-wide resolution at high cost with limited archival availability. We show that training a lightweight alignment module atop frozen histopathology and RNA-Seq foundation models enables open-vocabulary molecular prompting -- querying H&E slides with gene-set signatures to predict pathway activity without sequencing or end-to-end retraining. Using contrastive learning on a multi-cancer cohort (N=1,720), we achieve a 25-fold improvement in retrieval over baseline methods. Systematic analysis reveals a graduated predictability spectrum: morphologically grounded programs (cell-cycle programs, immune-related) are most reliably predicted (R^2>0.5), while predicting pathways with no morphological footprint remains challenging as expected. We validate clinical utility on the POSEIDON clinical trial: H&E-predicted squamous cell carcinoma scores recapitulate NSCLC subtype identity and predicted IFN-gamma mirror PD-L1 tumor-cell expression groups. Furthermore, genesets describing immune activation and fibrosis predict known tumor microenvironment archetypes from histology alone. We further validate generalization of our approach across unseen cohorts and demonstrate data-efficient domain adaptation, establishing a slide-native framework for molecular analysis on H&E images.",
+      "authors": [
+        "Dominik Winter",
+        "Dominik Vonficht",
+        "Loïc Le Bescond",
+        "Christian Gebbe",
+        "Marco Rosati",
+        "Richard J. Chen",
+        "Markus Schick",
+        "Ross Stewart",
+        "Nicolas Brieu"
+      ],
+      "primary_category": "eess.IV",
+      "categories": [
+        "eess.IV",
+        "cs.AI",
+        "q-bio.GN"
+      ],
+      "published": "2026-06-29T08:24:53+00:00",
+      "link": "https://arxiv.org/pdf/2606.29949v1",
+      "tags": [
+        "keyword:path-agent",
+        "query:path-agent"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "Multimodal alignment for histopathology molecular prediction",
+      "llm_evidence_cn": "组织病理学分子预测的多模态对齐",
+      "llm_evidence": "组织病理学分子预测的多模态对齐",
+      "canonical_evidence": "组织病理学分子预测的多模态对齐",
+      "llm_tldr_en": "Aligns frozen histopathology and RNA-seq foundation models for open-vocabulary molecular prompting on H&E slides, enabling gene-set activity prediction without sequencing.",
+      "llm_tldr_cn": "该论文针对H&E切片缺乏分子特异性的问题，提出一种数据高效的多模态对齐方法。通过对比学习在冷冻的组织病理学和RNA-seq基础模型上训练轻量对齐模块，实现开放词汇的分子提示——直接查询H&E切片预测基因集通路活性。在1720例多癌种队列中，检索性能相比基线提升25倍。该系统分析揭示了形态学相关程序的可预测性梯度。该方法为病理智能体提供了从组织病理图像直接获取分子信息的工具，增强了智能体的诊断能力。",
+      "llm_tldr": "该论文针对H&E切片缺乏分子特异性的问题，提出一种数据高效的多模态对齐方法。通过对比学习在冷冻的组织病理学和RNA-seq基础模型上训练轻量对齐模块，实现开放词汇的分子提示——直接查询H&E切片预测基因集通路活性。在1720例多癌种队列中，检索性能相比基线提升25倍。该系统分析揭示了形态学相关程序的可预测性梯度。该方法为病理智能体提供了从组织病理图像直接获取分子信息的工具，增强了智能体的诊断能力。",
+      "llm_tags": [
+        "query:path-agent"
+      ],
+      "matched_query_tag": "query:path-agent",
+      "matched_query_text": "histopathology agent",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2606.29883v1",
+      "source": "arxiv",
+      "title": "Building artificial intelligence virtual tissue (AIVT) for tissue state representation, feature prediction, and dynamic simulation",
+      "abstract": "Modeling tissue states and their transitions is essential for understanding tissue homeostasis in health and pathological remodeling in disease. However, conventional computational modeling approaches are inadequate to capture the complexity of tissues as spatially organized, multiscale biological systems. Artificial intelligence (AI) has shown a remarkable ability for representing intricate systems, creating new opportunities to characterize tissue states and their transitions. Here, we propose the concept of AI virtual tissue (AIVT), an AI framework grounded in spatial multimodal data for modeling tissues in health and disease. AIVT is designed to learn unified, spatially resolved, and dynamically manipulatable representations of tissue state, enabling tissue state representation and analysis, molecular and morphological feature prediction, and simulation of spatiotemporal tissue dynamics. We outline the fundamental assumptions, core capabilities, architectural components, as well as data and algorithm foundations of AIVT as a framework for AI-driven tissue modeling.",
+      "authors": [
+        "Qiqi Lu",
+        "Qianjin Feng",
+        "Shaoqun Zeng",
+        "Shenghua Cheng"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-06-29T07:24:37+00:00",
+      "link": "https://arxiv.org/pdf/2606.29883v1",
+      "tags": [
+        "keyword:path-agent",
+        "query:path-agent"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "AI virtual tissue for modeling pathological remodeling",
+      "llm_evidence_cn": "AI虚拟组织建模病理重塑",
+      "llm_evidence": "AI虚拟组织建模病理重塑",
+      "canonical_evidence": "AI虚拟组织建模病理重塑",
+      "llm_tldr_en": "Proposes AIVT, an AI framework for modeling tissue states and transitions in health and disease, providing a foundation for pathology analysis agents.",
+      "llm_tldr_cn": "该论文提出人工智能虚拟组织（AIVT）的概念与框架，旨在解决传统计算建模难以捕捉组织复杂性的问题。AIVT基于空间多模态数据学习统一的、空间解析的动态组织表征。该框架能表征组织健康与病理状态，预测特征并模拟动态过程。虽然AIVT并非直接是一个病理学智能体，但它为病理诊断和分析提供了核心的组织模型基础，可被病理Agent集成用于下游任务。因此，它与病理AI智能体方向具有较高的方法学关联和支持作用。",
+      "llm_tldr": "该论文提出人工智能虚拟组织（AIVT）的概念与框架，旨在解决传统计算建模难以捕捉组织复杂性的问题。AIVT基于空间多模态数据学习统一的、空间解析的动态组织表征。该框架能表征组织健康与病理状态，预测特征并模拟动态过程。虽然AIVT并非直接是一个病理学智能体，但它为病理诊断和分析提供了核心的组织模型基础，可被病理Agent集成用于下游任务。因此，它与病理AI智能体方向具有较高的方法学关联和支持作用。",
+      "llm_tags": [
+        "query:path-agent"
+      ],
+      "matched_query_tag": "query:path-agent",
+      "matched_query_text": "pathology AI agent",
+      "matched_requirement_id": "req-5",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2606.30209v1",
+      "source": "arxiv",
+      "title": "A Multi Center Breast FNAC Whole-Slide Cytology Dataset for AI-Assisted Patch-Wise Classification Using C1 to C5 Reporting Categories",
+      "abstract": "We present a multi center breast fine needle aspiration cytology (FNAC) dataset designed for patch wise classification using C1 to C5 reporting labels. The prospective dataset includes 321 patients and 470 whole-slide images (WSIs) collected from participating tertiary medical centers in India between May 2023 and March 2026. Slides were stained using Papanicolaou (190 WSIs) or MayGrunwald Giemsa (280 WSIs), scanned on a Hamamatsu NanoZoomer S360 at 40X magnification and 0.25 microns per pixel, and stored directly in NDPI format. Across the 470 WSIs, 446 WSIs contain annotated patch regions, yielding 7,398 PNG image patches with expert-verified C1 to C5 labels. The release includes NDPI WSIs, WSI-level GeoJSON annotation files, extracted patch images, deidentified metadata, a data dictionary, a validation summary, a manifest linking WSIs to Zenodo records, and code for dataset inspection and reuse. The complete dataset is approximately 950 GB and is available through Zenodo.",
+      "authors": [
+        "Garima Jain",
+        "Abhijeet Patil",
+        "Surabhi Jain",
+        "Sanghamitra Pati",
+        "Amit Sethi",
+        "Sandeep Mathur",
+        "Pulkit Verma",
+        "Nishi Halduniya",
+        "Jatin Kashyap",
+        "Sharat Kumar",
+        "Simmi Kharb",
+        "Sunita Singh",
+        "Sucheta Devi Khuraijam",
+        "Sushma Khuraijam",
+        "Ratan Konjengbam",
+        "Arvind Kumar",
+        "Deepali Tirkey",
+        "Saurav Banerjee",
+        "Shivani Kalhan",
+        "Rakesh Kumar Gupta",
+        "Ranjana Solanki",
+        "Deepika Hemranjani",
+        "Shashank Nath Singh",
+        "Uma Handa",
+        "Manveen Kaur",
+        "B. G. Malathi",
+        "Yogender P.",
+        "Niraj Kumari",
+        "Shruti Gupta",
+        "Indu R. Nair",
+        "Vidya C.",
+        "Basumitra Das",
+        "Sunil Kumar Komanapalli",
+        "Ravindra Karle",
+        "Tanaya Kulkarni",
+        "Vandana Raphael",
+        "Biswajit Dey",
+        "Vaishali Gaikwad",
+        "Nilam Adhav"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV",
+        "cs.AI"
+      ],
+      "published": "2026-06-29T12:24:50+00:00",
+      "link": "https://arxiv.org/pdf/2606.30209v1",
+      "tags": [
+        "keyword:path-agent",
+        "query:path-agent"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "Dataset for AI-assisted patch-wise classification in breast FNAC, enabling pathology agent development",
+      "llm_evidence_cn": "用于乳腺FNAC AI辅助逐块分类的数据集，支持病理智能体开发",
+      "llm_evidence": "用于乳腺FNAC AI辅助逐块分类的数据集，支持病理智能体开发",
+      "canonical_evidence": "用于乳腺FNAC AI辅助逐块分类的数据集，支持病理智能体开发",
+      "llm_tldr_en": "Presents a multicenter breast FNAC whole-slide cytology dataset with expert-verified C1-C5 patches for AI-assisted classification, directly supporting pathology agents for histopathological analysis.",
+      "llm_tldr_cn": "该论文构建了一个多中心乳腺细针穿刺细胞学（FNAC）全切片数据集，包含470张全切片图像和7,398个由专家标注的C1至C5类别图像块。该数据集的发布直接支持了基于AI的病理学辅助诊断系统（病理智能体）的开发与训练，可用于组织病理学图像分析与诊断报告分类。",
+      "llm_tldr": "该论文构建了一个多中心乳腺细针穿刺细胞学（FNAC）全切片数据集，包含470张全切片图像和7,398个由专家标注的C1至C5类别图像块。该数据集的发布直接支持了基于AI的病理学辅助诊断系统（病理智能体）的开发与训练，可用于组织病理学图像分析与诊断报告分类。",
+      "llm_tags": [
+        "query:path-agent"
+      ],
+      "matched_query_tag": "query:path-agent",
+      "matched_query_text": "research on digital pathology agents for histopathological analysis",
+      "matched_requirement_id": "req-7",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2607.01470v1",
+      "source": "arxiv",
+      "title": "World Feedback for Clinical Agents: Diagnosing RL in FHIR Environments",
+      "abstract": "Clinical protocol-execution tasks -- checking a lab value, applying a threshold, placing a correctly structured FHIR order -- are natural candidates for RL from world feedback: once clinical SMEs encode decision logic into a verifier, that verifier grades unlimited rollouts without per-episode annotation. But applying RL requires a sound feedback channel and sufficient base capability. We audit MedAgentBench v1/v2, find a 41.7\\% silent-finish ceiling that makes inaction the RL dominant strategy, and construct \\textbf{MedAgentBench-v3 (MAB-v3)} (508 tasks, 8.9\\% ceiling). Training Qwen3-8B exposes two structural barriers: a \\emph{capability ceiling} (10/20 task types have 0\\% base performance, zero gradient) and a \\emph{format-knowledge barrier} (3/20 types require exact clinical codes undiscoverable by exploration). Pure RL reaches 18.2\\% pass@1 vs.\\ 34.1\\% for rule-based SFT; the 15.9~pp gap is attributable entirely to these barriers. A decision/format-knowledge/lookup taxonomy predicts RL learnability and prescribes the fix: SFT to inject codes, RL to learn conditionals.",
+      "authors": [
+        "Ananya Mantravadi",
+        "Harshit Rajgarhia",
+        "Prasanna Desikan",
+        "Abhishek Mukherji"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI"
+      ],
+      "published": "2026-07-01T21:02:54+00:00",
+      "link": "https://arxiv.org/pdf/2607.01470v1",
+      "tags": [
+        "keyword:path-agent",
+        "query:path-agent"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "Clinical agent RL framework with FHIR environment, applicable to medical pathology agent training",
+      "llm_evidence_cn": "临床智能体强化学习框架，适用于医学病理智能体的训练",
+      "llm_evidence": "临床智能体强化学习框架，适用于医学病理智能体的训练",
+      "canonical_evidence": "临床智能体强化学习框架，适用于医学病理智能体的训练",
+      "llm_tldr_en": "Analyzes RL for clinical agents in FHIR environments, identifies barriers and proposes MedAgentBench-v3, offering lessons for developing medical pathology agents.",
+      "llm_tldr_cn": "该论文研究在FHIR临床环境中对临床智能体进行强化学习训练的方法。通过审计MedAgentBench发现存在较高静默完成率，并构建了改进的MedAgentBench-v3基准（508个任务）。训练Qwen3-8B揭示了能力上限和格式-知识障碍。此工作为开发包括病理诊断在内的医疗智能体提供了强化学习训练的重要经验和评估框架。",
+      "llm_tldr": "该论文研究在FHIR临床环境中对临床智能体进行强化学习训练的方法。通过审计MedAgentBench发现存在较高静默完成率，并构建了改进的MedAgentBench-v3基准（508个任务）。训练Qwen3-8B揭示了能力上限和格式-知识障碍。此工作为开发包括病理诊断在内的医疗智能体提供了强化学习训练的重要经验和评估框架。",
+      "llm_tags": [
+        "query:path-agent"
+      ],
+      "matched_query_tag": "query:path-agent",
+      "matched_query_text": "medical pathology agent",
+      "matched_requirement_id": "req-3",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2607.02091v1",
+      "source": "arxiv",
+      "title": "Multimodal Fusion for Fine-Grained Classification of Breast Fibroadenoma and Phyllodes Tumors",
+      "abstract": "Breast fibroadenoma (FA) and phyllodes tumor (PT) are fibroepithelial breast lesions with highly overlapping appearances on B-mode ultrasound, making benign and borderline PT prone to being misclassified as FA and complicating preoperative decision-making. Existing computer-aided diagnosis methods commonly rely on single-modal imaging features and insufficiently exploit complementary clinical and textual information. To address this limitation, we construct the FAPT-M Dataset, a pathology-confirmed multimodal dataset comprising 910 patients with strictly reviewed ultrasound images, structured clinical attributes, and ultrasound diagnostic descriptions. Based on this dataset, we propose a clinically guided multimodal framework that integrates DenseNet-based visual encoding, CLIP-inspired text encoding, and lightweight clinical encoding, and further introduces clinical-conditioned adaptive modulation, cross-modal Transformer fusion, and dual-path representation learning to improve feature alignment and multimodal interaction. Under patient-level five-fold cross-validation, the proposed method achieves an accuracy of 77.64%, F1-score of 73.38%, and AUC of 89.74%, outperforming representative CNN-, Transformer-, and vision-language-based baselines. Ablation studies and class-balanced evaluations further confirm the contribution of three-modality fusion and the key architectural components. Overall, this work provides an effective multimodal approach for fine-grained FA-PT classification and establishes a high-quality benchmark for multimodal breast ultrasound analysis.",
+      "authors": [
+        "Chuxi Nan",
+        "Di Wu",
+        "Hongming Guo",
+        "Ning Cao",
+        "Xiaohui Zhu",
+        "Zhaoting Shi",
+        "Jiawei Li"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-07-02T12:30:08+00:00",
+      "link": "https://arxiv.org/pdf/2607.02091v1",
+      "tags": [
+        "keyword:path-agent",
+        "query:path-agent"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "multimodal AI for pathology tumor classification",
+      "llm_evidence_cn": "用于病理肿瘤分类的多模态AI方法",
+      "llm_evidence": "用于病理肿瘤分类的多模态AI方法",
+      "canonical_evidence": "用于病理肿瘤分类的多模态AI方法",
+      "llm_tldr_en": "A multimodal fusion framework for fine-grained classification of breast fibroadenoma and phyllodes tumors, combining ultrasound images, clinical attributes, and text descriptions to improve preoperative diagnosis.",
+      "llm_tldr_cn": "乳腺纤维腺瘤和叶状肿瘤在超声上表现相似，术前鉴别困难。本文构建了多模态病理确认数据集，并提出多模态融合框架，结合超声图像、临床属性和文本描述进行细粒度分类。该框架在910例患者数据上取得了优异性能，有效减少了误诊，为计算机辅助诊断提供了新思路。",
+      "llm_tldr": "乳腺纤维腺瘤和叶状肿瘤在超声上表现相似，术前鉴别困难。本文构建了多模态病理确认数据集，并提出多模态融合框架，结合超声图像、临床属性和文本描述进行细粒度分类。该框架在910例患者数据上取得了优异性能，有效减少了误诊，为计算机辅助诊断提供了新思路。",
+      "llm_tags": [
+        "query:path-agent"
+      ],
+      "matched_query_tag": "query:path-agent",
+      "matched_query_text": "pathology AI agent",
+      "matched_requirement_id": "req-5",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2607.01846v1",
+      "source": "arxiv",
+      "title": "CLAP: Closed-Loop Training, Evaluation, and Release Control for Domain Agent Post-training",
+      "abstract": "Domain agents often face noisy business data, uncertain post-training gains, offline/application mismatch, and adapter-release risk. This paper presents CLAP (Closed-Loop Agent Post-training), a closed-loop method that converts business data into structured SFT samples, decision-preference samples, holdout sets, risk diagnostics, and release-gate records. CLAP combines data validation, target/evidence normalization, reward/KL diagnosis, offline gates, and application-chain replay to decide whether an adapter is suitable for the target application chain. On five anonymized manufacturing-scenario batches, QLoRA-style LoRA-SFT yields modest average gains: overall score increases by 0.0098, pass rate by 0.0240, and evidence accuracy by 0.0280, while hallucination and wrong facts decrease. Yet only 3 of 5 batches improve, some batches regress, and GRPO exposes high KL risks. Application-chain replay further shows that RAG is necessary for factual extraction; under the same 3B backbone and 100 replay cases, an application-RAG-oriented LoRA-SFT adapter improves value, core fields, and answer-evidence doc/page matching over base+RAG, but increases latency. These results support managing domain-agent post-training through an integrated data-training-evaluation-release loop rather than relying on training completion or a single offline score.",
+      "authors": [
+        "Fangfei Li",
+        "Chenyang Zhao",
+        "Long Wang",
+        "Feng Tian",
+        "Zhiyue Zheng",
+        "Lv Guo"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI"
+      ],
+      "published": "2026-07-02T08:07:56+00:00",
+      "link": "https://arxiv.org/pdf/2607.01846v1",
+      "tags": [
+        "keyword:path-agent",
+        "query:path-agent"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "closed-loop post-training method for domain agents; applicable to pathology agent fine-tuning",
+      "llm_evidence_cn": "领域代理的闭环后训练方法；可应用于病理代理微调",
+      "llm_evidence": "领域代理的闭环后训练方法；可应用于病理代理微调",
+      "canonical_evidence": "领域代理的闭环后训练方法；可应用于病理代理微调",
+      "llm_tldr_en": "CLAP is a closed-loop method for domain agent post-training that converts business data into structured samples and uses diagnostics gates to decide adapter release. While tested on manufacturing, its data validation and risk diagnostics framework is directly applicable to pathology agent post-training.",
+      "llm_tldr_cn": "领域代理在真实应用中面临数据噪声、后训练收益不确定等挑战。CLAP提出闭环后训练方法：将业务数据转化为结构化SFT样本、决策偏好样本、保留集及风险诊断，通过数据验证、奖励/KL诊断、离线门控等步骤决定适配器是否发布。该方法虽在制造场景验证，但其数据质量控制和风险感知流程可直接用于病理代理的微调与部署管理。",
+      "llm_tldr": "领域代理在真实应用中面临数据噪声、后训练收益不确定等挑战。CLAP提出闭环后训练方法：将业务数据转化为结构化SFT样本、决策偏好样本、保留集及风险诊断，通过数据验证、奖励/KL诊断、离线门控等步骤决定适配器是否发布。该方法虽在制造场景验证，但其数据质量控制和风险感知流程可直接用于病理代理的微调与部署管理。",
+      "llm_tags": [
+        "query:path-agent:composite"
+      ],
+      "matched_query_tag": "query:path-agent:composite",
+      "matched_query_text": "Papers central to 病理Agent相关的论文, especially work that connects or combines: pathology agent; pathological diagnosis agent; medical pathology agent; histopathology agent; pathology AI agent; papers on pathology agents for medical diagnosis; research on digital pathology agents for histopathological analysis.",
+      "matched_requirement_id": "req-composite-path-agent",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    }
+  ]
+}

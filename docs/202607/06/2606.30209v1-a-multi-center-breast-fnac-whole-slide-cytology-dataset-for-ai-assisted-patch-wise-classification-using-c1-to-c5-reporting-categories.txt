@@ -1,0 +1,204 @@
+Title: A Multi Center Breast FNAC Whole-Slide Cytology Dataset for AI-Assisted Patch-Wise Classification Using C1 to C5 Reporting Categories
+
+URL Source: https://arxiv.org/pdf/2606.30209v1
+
+Published Time: Tue, 30 Jun 2026 02:11:39 GMT
+
+Number of Pages: 9
+
+Markdown Content:
+# A Multi-Center Breast FNAC Whole-Slide Cytology Dataset for AI-Assisted Patch-Wise Classification Using C1–C5 Reporting Categories 
+
+Garima Jain 1, Abhijeet Patil 2, Surabhi Jain 3, Sanghamitra Pati 4, Amit Sethi 2,* , Sandeep Mathur 3, Pulkit Verma 1, Nishi Halduniya 1, Jatin Kashyap 1, Sharat Kumar 1, Simmi Kharb 6, Sunita Singh 7, Sucheta Devi Khuraijam 8, Sushma Khuraijam 8,Ratan Konjengbam 8, Arvind Kumar 9, Deepali Tirkey 9, Saurav Banerjee 9, Shivani Kalhan 10 , Rakesh Kumar Gupta 10 , Ranjana Solanki 11 , Deepika Hemranjani 11 , Shashank Nath Singh 12 , Uma Handa 13 , Manveen Kaur 13 , B. G. Malathi 14 , Yogender P. 14 ,Niraj Kumari 15 , Shruti Gupta 15 , Indu R. Nair 16 , Vidya C. 16 , Basumitra Das 17 , Sunil Kumar Komanapalli 17 , Ravindra Karle 18 ,Tanaya Kulkarni 18 , Vandana Raphael 19 , Biswajit Dey 19 , Vaishali Gaikwad 5, and Nilam Adhav 51Indian Council of Medical Research-National Institute for Research in Digital Health & Data Science, New Delhi 
+
+> 2
+
+Department of Electrical Engineering, Indian Institute of Technology Bombay, Mumbai 
+
+> 3
+
+Department of Pathology, All India Institute of Medical Sciences, New Delhi 
+
+> 4
+
+Indian Council of Medical Research, New Delhi 
+
+> 5
+
+Department of Pathology, Lokmanya Tilak Municipal Medical College and General Hospital, Sion, Mumbai 
+
+> 6
+
+Department of Biochemistry, Pt. B.D. Sharma Post Graduate Institute of Medical Sciences, Rohtak 
+
+> 7
+
+Department of Pathology, Pt. B.D. Sharma Post Graduate Institute of Medical Sciences, Rohtak 
+
+> 8
+
+Department of Pathology, Regional Institute of Medical Sciences, Imphal 
+
+> 9
+
+Department of Pathology, Rajendra Institute of Medical Sciences, Ranchi 
+
+> 10
+
+Government Institute of Medical Sciences, Greater Noida 
+
+> 11
+
+Department of Pathology, Sawai Man Singh Medical College, Jaipur 
+
+> 12
+
+Department of Otorhinolaryngology, Sawai Man Singh Medical College, Jaipur 
+
+> 13
+
+Department of Pathology, Government Medical College and Hospital, Chandigarh 
+
+> 14
+
+Department of Pathology, Mandya Institute of Medical Sciences, Mandya 
+
+> 15
+
+Department of Pathology and Lab Medicine, All India Institute of Medical Sciences, Raebareli 
+
+> 16
+
+Department of Pathology, Amrita Institute of Medical Sciences, Kochi 
+
+> 17
+
+Department of Pathology, Government Medical College, Vizianagaram 
+
+> 18
+
+Department of Pathology, Dr. Balasaheb Vikhe Patil Rural Medical College, Loni 
+
+> 19
+
+Department of Pathology, North Eastern Indira Gandhi Regional Institute of Health and Medical Sciences, Shillong 
+
+> *
+
+Correspondence: asethi@iitb.ac.in 
+
+Keywords: breast cytology, fine needle aspiration cytology, whole slide imaging, patch-wise classification, C1–C5 reporting 
+
+Abstract 
+
+We present a multi-center breast fine needle aspiration cytology (FNAC) dataset designed for patch-wise classification using C1–C5 reporting labels. The prospective dataset includes 321 patients and 470 whole-slide images (WSIs) collected from participating tertiary medical centers in India between May 2023 and March 2026. Slides were stained using Papanicolaou (190 WSIs) or May–Grünwald–Giemsa (280 WSIs), scanned on a Hamamatsu NanoZoomer S360 at 40 × magnification and 0.25 microns per pixel, and stored directly in NDPI format. Across the 470 WSIs, 446 WSIs contain annotated patch regions, yielding 7,398 PNG image patches with expert-verified C1–C5 labels. The release includes NDPI WSIs, WSI-level GeoJSON annotation files, extracted patch images, de-identified metadata, a data dictionary, a validation summary, a manifest linking WSIs to Zenodo records, and code for dataset inspection and reuse. The complete dataset is approximately 950 GB and is available through Zenodo. 
+
+# Background and Summary 
+
+Breast cancer is one of the most common malignancies worldwide and remains a major cause of cancer-related morbidity and mortality among women [ 1, 2]. Early and accurate diagnosis of breast lesions is essential for timely clinical management. In many clinical settings, especially in resource-constrained regions, fine needle aspiration cytology (FNAC) remains an important method for the initial evaluation of palpable and radiologically detected breast lesions. FNAC is minimally invasive, rapid, cost-effective, and clinically useful when performed and interpreted by trained personnel [3, 4, 5, 6]. Breast FNAC is commonly used alongside clinical examination and radiological assessment as part of a triple-assessment approach [ 7, 8]. Cytological interpretation requires assessment of cellularity, architectural arrangement, 
+
+> arXiv:2606.30209v1 [cs.CV] 29 Jun 2026
+
+nuclear features, cytoplasmic characteristics, background elements, and features suggestive of benignity, atypia, suspicion, or malignancy. Interpretation can be challenging because benign proliferative lesions, atypical lesions, low-grade malignancies, and poorly preserved or scanty samples may show overlapping cytomorphological features [ 9, 10 , 11 ]. To improve standardization, the International Academy of Cytology (IAC) Yokohama System defines five breast FNAC reporting categories: C1 insufficient or inadequate, C2 benign, C3 atypical, C4 suspicious for malignancy, and C5 malignant [ 12 , 13 ]. These categories are associated with diagnostic criteria, risk of malignancy, and suggested clinical management [13, 14, 15, 16]. Digital cytology and artificial intelligence (AI)-assisted analysis have the potential to support region triaging, patch-level classification, benign-versus-malignant classification, and future slide-level decision-support workflows [ 18 , 19 , 20 , 17 ]. However, development of robust models depends on access to large, diverse, well-annotated, and technically validated datasets. In cytopathology, such datasets are difficult to construct because they require expert review, careful quality control, de-identification, and coordination across medical centers [ 20 , 17 ]. Recent multi-center cytology dataset efforts in oral cytology have highlighted the value of releasing whole-slide images, annotations, metadata, and reusable code for AI development [ 25 ]. For breast cytology, established resources such as the Wisconsin Diagnostic Breast Cancer dataset and BreakHis are based on extracted nuclear features or histopathology images rather than multi-center breast FNAC WSIs with C1–C5 patch-level cytology labels [ 23 , 24 ]. Prior breast FNAC image studies have generally used smaller cytology image datasets and binary benign-versus-malignant classification, limiting reproducible benchmarking of C1–C5 breast cytology models [26, 27]. To address this gap, we release a multi-center breast FNAC cytology dataset for patch-wise classification using C1–C5 reporting labels. The dataset includes 321 patients and 470 digitized WSIs stained using Papanicolaou (PAP) and May–Grünwald–Giemsa (MGG) protocols. It contains 7,398 expert-verified image patches extracted from diagnostically relevant regions. The category-wise patch distribution is 33 C1 patches, 3,706 C2 patches, 478 C3 patches, 402 C4 patches, and 2,779 C5 patches. The release also includes WSI-level GeoJSON annotation files, patch images, de-identified metadata files, a data dictionary, a validation summary, and a manifest linking WSI files to the corresponding Zenodo records. By providing both WSIs and extracted patches, the dataset supports direct patch-level experiments while retaining traceability from each patch to its parent WSI and spatial location. Table 1: Dataset key statistics         
+
+> Attribute Key statistics
+> Number of Patients 321 Number of WSIs 470 Stain types PAP – 190, MGG – 280 Age Range – 12 to 90 years Mean – 36 years Median – 34 years Diagnosis Non-cancerous – 209 (304) Cancerous – 112 (166) Category C1 insufficient – 4 (9) C2 benign – 194 (281) C3 atypical – 11 (14) C4 suspicious for malignancy – 11 (15) C5 malignant – 101 (151) Participating centers Pandit Bhagwat Dayal Sharma Post Graduate Institute of Medical Sciences, Rohtak – 65 (73) Regional Institute of Medical Sciences, Imphal – 60 (88) Rajendra Institute of Medical Sciences, Ranchi – 43 (72) Government Institute of Medical Sciences, Noida – 35 (53) Sawai Man Singh Medical College, Jaipur – 35 (38) Government Medical College and Hospital, Chandigarh – 28 (41) Mandya Institute of Medical Sciences, Mandya – 10 (28) AIIMS, Raebareli – 12 (12) Amrita Hospital, Kochi – 7 (10) Government Medical College, Vizianagaram (GMCV) – 6 (11) Dr. Balasaheb Vikhe Patil RMC, Loni – 6 (18) NEIGRIHMS, Meghalaya – 6 (18) Lokmanya Tilak MMC, Mumbai – 8 (8)
+
+2Methods 
+
+We describe the sample collection, slide digitization, quality control, WSI-level annotation, patch extraction, and patch-wise labeling process used to construct the breast FNAC cytology dataset. A prospective multi-center cohort study was conducted across participating tertiary medical centers in India. Ethical clearance was obtained from all participating centers and the Indian Council of Medical Research (ICMR). The study was carried out from May 2023 to March 2026. The dataset includes breast FNAC slides from 321 patients and 470 whole-slide images (WSIs), stained using Papanicolaou (PAP) and May–Grünwald–Giemsa (MGG) protocols. The summary of the dataset is shown in Table 1. The dataset was designed for supervised patch-wise classification according to the five breast FNAC reporting categories C1 to C5. The overall workflow for dataset preparation is shown in Figure 1. 
+
+## Sample collection and slide quality control 
+
+Breast FNAC samples were collected at participating medical centers as part of routine cytopathological evaluation. FNAC was performed using the standard procedure generally followed in cytology practice. Aspirated cellular material was smeared onto clean glass slides for cytological examination. Relevant patient-level and slide-level clinical details were collected using cytopathology requisition forms. A subset of slides was fixed and stained using the PAP stain, while the remaining slides were air dried and stained using the MGG stain. The final dataset includes 190 PAP-stained WSIs and 280 MGG-stained WSIs. Slides with missing identifiers, improper labeling, incomplete documentation, broken slides, poor staining, low cellularity, poor focus, or scanning artifact were excluded from downstream dataset preparation. WSI-level quality control was performed manually by the pathology and data teams. Slides with focus issues or scanning artifacts were rescanned where applicable. All cytology slides were reviewed by pathology experts. In total, 209 patients corresponding to 304 WSIs were categorized as non-cancerous, while 112 patients corresponding to 166 WSIs were categorized as cancerous. 
+
+## Digitization 
+
+All slides were digitized using the same Hamamatsu NanoZoomer S360 whole-slide scanner at 40 × magnification. WSIs were acquired at a spatial resolution of 0.25 microns per pixel and saved directly in NDPI format. The digitization workflow generated 470 WSIs from 321 patients. Since slides were collected from multiple participating centers, the dataset captures variability in patient population, sample preparation, staining characteristics, cellularity, and cytomorphological appearance, while scanner-related variability is limited by the use of a single scanner model and a standardized scanning workflow. 
+
+## WSI-level annotation and patch extraction 
+
+Diagnostically relevant regions were manually identified on the digitized breast FNAC WSIs. WSI-level rectangular box annotations were created in QuPath and exported as GeoJSON files. Annotation coordinates are stored in the level-0 WSI pixel coordinate system. Each GeoJSON annotation is a rectangular box, and the patch label is stored in the GeoJSON classification.name property as one of the Roman numeral labels I, II , III , IV , or V. These labels map to C1 insufficient, C2 benign, C3 atypical, C4 suspicious for malignancy, and C5 malignant, respectively. A GeoJSON file is provided for each of the 470 WSIs. Of these, 446 WSIs contain one or more annotated patch regions, while 24 WSIs have no extracted patch regions. Extracted patches correspond exactly to the annotated bounding-box regions and were saved as PNG files. Patch filenames encode the parent WSI and level-0 coordinate of the extracted region using the format wsi-name_x-coord_y-coord.png . Patch dimensions are variable because the manually selected rectangular annotations vary in size according to the diagnostic region and cytological content. Across the 446 annotated WSIs, 7,398 image patches were extracted. The category-wise distribution of extracted patches is summarized in Table 2. 
+
+## Patch-wise labeling 
+
+Each extracted patch was assigned one of five breast FNAC reporting labels: C1, C2, C3, C4, or C5. Patch labels were assigned independently at the patch level while reviewing the corresponding WSI; they were not simply inherited from the slide-level category. A pathologist initially selected and labeled diagnostically relevant WSI regions, and a senior pathologist subsequently verified the patch labels. Corrections were made after discussion between the pathologist and senior pathologist wherever required. Only the final verified labels are retained in the released dataset. The final labels should therefore be interpreted as expert-verified reference labels for patch-level cytomorphological classification. Since the dataset is patch-based, the labels correspond to the diagnostic interpretation of individual 3image patches and are not intended to replace final patient-level diagnosis. Final clinical diagnosis may require integration of slide-level findings, clinical history, radiological findings, and histopathological correlation. The final dataset contains 33 patches from C1, 3,706 patches from C2, 478 patches from C3, 402 patches from C4, and 2,779 patches from C5, resulting in a total of 7,398 labeled patches. Table 2: Number of extracted patches across five breast FNAC reporting categories (C1–C5).            
+
+> C1 C2 C3 C4 C5 Total
+> # of patches 33 3706 478 402 2779 7398
+
+Figure 1: Overall workflow for breast FNAC dataset creation, slide digitization, WSI-level patch annotation, patch extraction, patch-wise labeling, and dataset release. 
+
+# Ethics Statement 
+
+The study protocol was reviewed and approved by the Institutional Ethics Committees/Institutional Review Boards of the participating medical centers and the Indian Council of Medical Research. Ethics approval was obtained from the Institutional Ethics Committee of ICMR–National Institute for Research in Digital Health & Data Science, New Delhi, approval no. ICMR-NIP-IEC/29-12-2021/05/02R1; Regional Institute of Medical Sciences, Imphal, approval no. A/2026/REB/Prop(FP)190/118/29/2022; Pt. B.D. Sharma Post Graduate Institute of Medical Sciences, Rohtak, ap-proval no. BREC/22/071; Rajendra Institute of Medical Sciences, Ranchi, approval no. ECR/769/INST/JH/2015/RR-21; Government Institute of Medical Sciences, Noida, approval no. GIMS/IEC/HR/2022/41; Government Medical Col-lege and Hospital, Chandigarh, approval no. GMCH/IEC/715R/2022/103; Sawai Man Singh Medical College, Jaipur, approval no. 568/MC/EC/2022; Mandya Institute of Medical Sciences, Mandya, approval no. MIMS/IEC/2024/969; Dr. Balasaheb Vikhe Patil Rural Medical College, Loni, approval no. PIMS/IEC-DR/2024/342; North Eastern Indira Gandhi Regional Institute of Health and Medical Sciences, Shillong, approval no. NEIGR/IEC/M14/F6/2024; Government Medical College, Vizianagaram, approval no. EC/NEW/INST/2023/3519; Amrita Institute of Medical Sciences, Kochi, approval no. IEC-AIMS-2024-PATHO-216; All India Institute of Medical Sciences, Raebareli, approval no. F-7/BIOETHICS/AIIMS-ABL/APPR/EM/2024-8/3; Lokmanya Tilak Municipal Medical College and 4General Hospital, Mumbai, approval no. IEC/770/24. The respective ethics committees approved the study protocol, participant recruitment, collection of clinical and cytology-related data, digitization of cytology slides/images, and sharing of de-identified study data/images among collaborating study investigators and institutions for research and analysis related to the approved protocol. Written informed consent was obtained from all adult participants prior to enrolment in the study. For participants below 18 years of age, written informed consent was obtained from a parent or legal guardian, and assent was obtained from minor participants wherever applicable. The consent included permission for participation, collection of relevant clinical information and biological/cytology material, digitization of slides/images, and use and sharing of de-identified data/images for research, analysis, publication, and development or validation of digital pathology and artificial intelligence-based methods, in accordance with the approved study protocol and applicable ethical guidelines. 
+
+# Data Records 
+
+The breast FNAC cytology dataset is available at Zenodo [ 28 ]. The main Zenodo record contains breast-cytol ogy-main.zip , which includes extracted patch images, WSI-level GeoJSON annotation files, public metadata files, and a manifest linking the WSI files to the corresponding Zenodo records. The complete dataset, including the 470 whole-slide images, is approximately 950 GB. The WSI files are provided in NDPI format and were generated directly from breast FNAC slides scanned using a Hamamatsu NanoZoomer S360 scanner at 40 × magnification. The WSIs are distributed across 21 linked Zenodo records because of file-size limits; the linked WSI records contain 26, 19, 25, 22, 18, 17, 28, 26, 36, 24, 26, 21, 18, 20, 18, 18, 28, 20, 26, 28, and 6 WSIs, respectively, for a total of 470 WSIs. The main record has the following top-level organization: 
+
+breast-cytology-main.zip geojson/ patches/<WSI_ID>/<I-V>/<patch files> metadata/ manifest/zenodo_files_manifest.csv 
+
+The geojson/ directory contains 470 WSI-level GeoJSON files, one for each WSI. GeoJSON files for the 446 annotated WSIs contain rectangular patch-coordinate annotations in the level-0 WSI coordinate system. The remaining 24 WSIs have GeoJSON files but no extracted patch regions. The annotation property classification.name stores the Roman numeral label I–V, corresponding to C1–C5. These WSI-level annotation files allow extracted patches to be traced back to their source WSI and spatial location. The patches/ directory contains PNG image patches extracted exactly from the annotated rectangular regions. Patches are organized by parent WSI identifier. Within each WSI directory, patches are grouped into category directories labelled I to V. These category directories correspond to the C1–C5 diagnostic labels as follows: I=C1 insufficient, II =C2 benign, III =C3 atypical, IV =C4 suspicious for malignancy, and V=C5 malignant. Patch filenames follow the format wsi-name_x-coord_y-coord.png , where the coordinates denote the level-0 WSI location of the extracted region. This structure provides direct access to diagnostically relevant image regions for patch-wise machine learning experiments without requiring users to process the full WSI files first. The metadata/ directory contains master_metadata.csv , patient_metadata.csv , slide_metadata.csv ,
+
+site_metadata.csv , class_summary.csv , dataset_summary.csv , metadata_validation_summary.csv ,
+
+data_dictionary.csv , and README_metadata_release.md . These files provide de-identified patient identifiers, slide identifiers, stain type, diagnostic group, C1–C5 category information, collection site, WSI-level and patch-level linkage information, class summaries, dataset-level summaries, metadata validation results, and definitions of released variables and allowed values. The data_dictionary.csv and README_metadata_release.md files are included to support interpretation and reuse of the released metadata. The manifest/ directory contains zenodo_files_manifest.csv . This manifest records the released WSI filenames, Zenodo record URLs, file sizes, and checksums for the distributed WSI records. The manifest is intended to help users verify file organization, locate WSIs across the distributed records, and link each WSI to its annotations, patches, and metadata entries. 
+
+# Technical Validation 
+
+Technical validation was performed to verify the completeness, consistency, readability, traceability, and reuse readiness of the released dataset. Validation checks were conducted across the WSI records, GeoJSON annotation files, extracted patch images, public metadata files, and dataset manifest. The 21 linked WSI records were checked against the 5Table 3: Overview of the data records included in the breast FNAC cytology dataset.               
+
+> Data record Description
+> Whole slide images (WSIs) 470 breast FNAC WSIs in NDPI format, scanned at 40 ×magnification using a Hamamatsu NanoZoomer S360 scanner and distributed across 21 linked Zenodo records listed in zenodo_files_manifest.csv .WSI-level GeoJSON annotations 470 GeoJSON files in geojson/ ; 446 contain rectangular patch-coordinate annotations and classification.name labels, while 24 correspond to WSIs without extracted patch regions. Extracted patches 7,398 PNG patch image files in patches/ , organized by parent WSI and by category directories I–V, corresponding to C1–C5. Metadata files Public metadata CSV files in metadata/ , including patient-, slide-, site-, class-summary, dataset-summary, master-metadata, validation-summary, and data-dictionary files, together with a metadata README. Manifest zenodo_files_manifest.csv , listing WSI file organization, Zenodo record URLs, file sizes, and checksums for the linked WSI records.
+
+released manifest to confirm that they collectively account for 470 NDPI WSIs. WSI filenames in the manifest were checked for consistency with the corresponding entries in the slide-level and master metadata files. The 470 WSI-level GeoJSON files were checked for correspondence with the released WSI identifiers. GeoJSON files were parsed to confirm readability, coordinate validity, use of rectangular patch-coordinate annotations, and use of the expected classification.name property. Validation confirmed 446 WSIs with one or more annotated patch regions and 24 WSIs without extracted patch regions. The Roman numeral labels I–V were checked for consistency with the C1–C5 reporting categories recorded in the metadata and patch-directory organization. Patch-level validation included checking the presence and readability of 7,398 PNG patch image files, confirming parent WSI linkage, checking patch filename coordinate fields, and verifying category-directory organization. Patch-level class assignments were checked for consistency with the WSI-level GeoJSON annotations and released metadata. Because patch regions were manually selected to preserve diagnostically meaningful cytological content, patches vary in image size. This size variability was retained in the released data and should be handled during model development according to the requirements of the downstream pipeline. Metadata validation included checking consistency across master_metadata.csv , patient_metadata.csv ,
+
+slide_metadata.csv , site_metadata.csv , class_summary.csv , and dataset_summary.csv . Validation checks confirmed the expected totals of 321 patients, 470 WSIs, 7,398 patches, 190 PAP-stained WSIs, 280 MGG-stained WSIs, and the reported C1–C5 patient-, WSI-, and patch-level counts. Patient identifiers, slide identifiers, stain type, diagnostic group, C1–C5 category, site information, patch availability fields, and WSI-to-file linkage fields were checked for internal consistency. The file metadata_validation_summary.csv summarizes the validation checks performed before release. De-identification checks were performed before public release to ensure that direct patient identifiers were removed from shared image files and metadata. Table 4: Dataset-level validation checks performed before release.             
+
+> Dataset component Validation check
+> WSI records Confirmed that the 21 linked Zenodo WSI records collectively account for 470 NDPI WSIs and are represented in zenodo_files_manifest.csv .GeoJSON annotations Checked that 470 WSI-level GeoJSON files are present, parseable, and linked to the expected WSI identifiers; 446 WSIs contain patch annotations and 24 do not contain extracted patch regions. Patch coordinates Checked that rectangular patch-coordinate annotations use level-0 WSI coordinates and can be traced from GeoJSON files to extracted patch images and parent WSIs. Patch images Checked presence, readability, parent WSI linkage, coordinate-encoded filenames, and category-directory organization of 7,398 PNG patch files. Class labels Checked use of the expected I–VGeoJSON and folder labels and their mapping to C1–C5 reporting categories. Metadata files Checked consistency across master, patient-level, slide-level, site-level, class-summary, dataset-summary, and validation-summary metadata tables. Data dictionary and README Provided definitions for released variables, allowed values, file organization, and metadata interpretation. De-identification Confirmed removal of direct patient identifiers from public metadata and released image records.
+
+6Usage Notes 
+
+The released labels should be interpreted as expert-verified reference labels for patch-wise cytomorphological classifica-tion rather than final patient-level diagnoses. Final clinical interpretation of breast FNAC may require integration of slide-level cytology, clinical history, radiological findings, and histopathological correlation. Users developing slide-level or patient-level models should therefore aggregate patch-level information cautiously and should avoid interpreting a single patch label as a complete diagnostic conclusion. The dataset is diagnostically enriched because patches were manually selected from interpretable and diagnostically relevant regions rather than sampled exhaustively from each WSI. The released patch annotations are not complete annotations of every cytological element on each slide. Of the 470 WSIs, 446 contain one or more extracted patch regions and 24 have no released extracted patches. The C1 category is under-represented relative to C2 and C5, with 33 extracted patches, and class imbalance should be considered when designing experiments, training models, or interpreting benchmark results. Since patches are variable in size, users may need to resize, crop, or pad patch images before using them in fixed-input-size deep learning pipelines. Patient-level splits should be used for model evaluation to reduce leakage between patches originating from the same patient. 
+
+# Data Availability 
+
+The breast FNAC cytology dataset described in this Data Descriptor is available at Zenodo [ 28 ]: https://doi. org/10.5281/zenodo.20763900 . The main Zenodo record contains breast-cytology-main.zip , which includes extracted patch images, WSI-level GeoJSON annotation files, public metadata CSV files, a data dictionary, a metadata README, and zenodo_files_manifest.csv . The 470 whole-slide images are provided in NDPI format and distributed across 21 linked Zenodo records listed in the main record and in the released manifest. All direct patient identifiers were removed prior to public release. 
+
+# Code Availability 
+
+Custom scripts for extracting patches from GeoJSON annotations, parsing GeoJSON annotations, linking extracted patches to parent WSIs, checking metadata consistency, generating patient-level dataset splits, visualizing annotations, and training baseline patch-wise classification models are available at https://github.com/abhijeetptl5/breast -cytology-dataset . No access restrictions apply. 
+
+# Author contributions 
+
+G.J. and A.P. drafted the manuscript under the supervision of S.P. and A.S. G.J., S.P., and A.S. supervised the multi-center dataset development. Clinical and pathology collaborators coordinated sample collection, slide preparation, cytological review, and diagnostic categorization at the participating centers. A.P. organized the digital dataset, metadata files, annotation linkage, Zenodo release, and code repository. All authors reviewed and approved the final manuscript. 
+
+# References 
+
+[1] Bray, Freddie, Laversanne, Mathieu, Sung, Hyuna, Ferlay, Jacques, Siegel, Rebecca L., Soerjomataram, Isabelle, et al. Global cancer statistics 2022: GLOBOCAN estimates of incidence and mortality worldwide for 36 cancers in 185 countries. CA: A Cancer Journal for Clinicians 74(3), 229-263 (2024). DOI: https://doi.org/10.3322/ caac.21834 .[2] Sathishkumar, K., Chaturvedi, Meena, Das, Prashant, Stephen, Santhappan, Mathur, Prashant. Cancer incidence estimates for 2022 & projection for 2025: Result from National Cancer Registry Programme, India. Indian Journal of Medical Research 156(4&5), 598-607 (2022). DOI: https://doi.org/10.4103/ijmr.ijmr_1821_22 .[3] Mendoza, Pamela, Lacambra, Ma., Tan, Puay-Hoon, Tse, Gary M. Fine Needle Aspiration Cytology of the Breast: The Nonmalignant Categories. Pathology Research International 2011, 547580 (2011). DOI: 
+
+https://doi.org/10.4061/2011/547580 .7[4] Yu, Yu-Hua, Wei, Wei, Liu, Jin-Liang. Diagnostic value of fine-needle aspiration biopsy for breast mass: a systematic review and meta-analysis. BMC Cancer 12, 41 (2012). DOI: https://doi.org/10.1186/1471-240 7-12-41 .[5] Willems, Stefan M., van Deurzen, Carolien H. M., van Diest, Paul J. Diagnosis of breast lesions: fine-needle aspiration cytology or core needle biopsy? A review. Journal of Clinical Pathology 65(4), 287-292 (2012). DOI: 
+
+https://doi.org/10.1136/jclinpath-2011-200410 .[6] Wang, Ming, He, Xian, Chang, Yong, Sun, Gang, Thabane, Lehana. A sensitivity and specificity comparison of fine needle aspiration cytology and core needle biopsy in evaluation of suspicious breast lesions: A systematic review and meta-analysis. The Breast 31, 157-166 (2017). DOI: https://doi.org/10.1016/j.breast.2016.11.009 .[7] Morris, Arden, Pommier, Rodney F., Schmidt, Waldemar A., Shih, Robert L., Alexander, Priscilla W., Vetto, John T. Accurate evaluation of palpable breast masses by the triple test score. Archives of Surgery 133(9), 930-934 (1998). DOI: https://doi.org/10.1001/archsurg.133.9.930 .[8] Morris, Katherine T., Pommier, Rodney F., Morris, Arden, Schmidt, Waldemar A., Beagle, Gregory, Alexander, Priscilla W., et al. Usefulness of the triple test score for palpable breast masses. Archives of Surgery 136(9), 1008-1013 (2001). DOI: https://doi.org/10.1001/archsurg.136.9.1008 .[9] Sidawy, Mary K., Stoler, Mark H., Frable, William J., Frost, Andra R., Masood, Shahla, Miller, Theodore R., et al. Interobserver variability in the classification of proliferative breast lesions by fine-needle aspiration: results of the Papanicolaou Society of Cytopathology Study. Diagnostic Cytopathology 18(2), 150-165 (1998). DOI: 
+
+https://doi.org/10.1002/(SICI)1097-0339(199802)18:2<150::AID-DC12>3.0.CO;2-K .[10] Mitra, Suvradeep, Dey, Pranab. Grey zone lesions of breast: Potential areas of error in cytology. Journal of Cytology 32(3), 145-152 (2015). DOI: https://doi.org/10.4103/0970-9371.168812 .[11] Kanhoush, Rima, Jorda, Merce, Gomez-Fernandez, Carmen, Wang, Hong, Mirzabeigi, Marjan, Ghorab, Zeina, et al. ’Atypical’ and ’suspicious’ diagnoses in breast aspiration cytology. Cancer 102(3), 164-167 (2004). DOI: 
+
+https://doi.org/10.1002/cncr.20283 .[12] Field, Andrew S., Schmitt, Fernando, Vielh, Philippe. IAC Standardized Reporting of Breast Fine-Needle Aspiration Biopsy Cytology. Acta Cytologica 61(1), 3-6 (2017). DOI: https://doi.org/10.1159/000450880 .[13] Field, Andrew S., Raymond, Wendy A., Rickard, Mary, Schmitt, Fernando, Vielh, Philippe. The International Academy of Cytology Yokohama System for Reporting Breast Fine-Needle Aspiration Biopsy Cytopathology. 
+
+Acta Cytologica 63(4), 257-273 (2019). DOI: https://doi.org/10.1159/000499509 .[14] Hoda, Rana S., Brachtel, Elena F. International Academy of Cytology Yokohama System for Reporting Breast Fine-Needle Aspiration Biopsy Cytopathology: A Review of Predictive Values and Risks of Malignancy. Acta Cytologica 63(4), 292-301 (2019). DOI: https://doi.org/10.1159/000500704 .[15] Paul, Pranoy, Azad, Shweta, Agrawal, Shruti, Rao, Shalinee, Chowdhury, Nilotpal. Systematic Review and Meta-Analysis of the Diagnostic Accuracy of the International Academy of Cytology Yokohama System for Reporting Breast Fine-Needle Aspiration Biopsy in Diagnosing Breast Cancer. Acta Cytologica 67(1), 1-16 (2023). DOI: https://doi.org/10.1159/000527346 .[16] Nikas, Ilias P., Vey, Johannes A., Proctor, Thomas, AlRawashdeh, Mohammad M., Ishak, Ashraf, Ko, Hyun M., et al. The Use of the International Academy of Cytology Yokohama System for Reporting Breast Fine-Needle Aspiration Biopsy. American Journal of Clinical Pathology 159(2), 138-145 (2023). DOI: https: //doi.org/10.1093/ajcp/aqac132 .[17] Thakur, Nishant, Alam, Mohammad Rizwan, Abdul-Ghafar, Jamshid, Chong, Yosep. Recent Application of Artificial Intelligence in Non-Gynecological Cancer Cytopathology: A Systematic Review. Cancers 14(14), 3529 (2022). DOI: https://doi.org/10.3390/cancers14143529 .[18] Niazi, Muhammad Khalid Khan, Parwani, Anil V., Gurcan, Metin N. Digital pathology and artificial intelligence. 
+
+The Lancet Oncology 20(5), e253-e261 (2019). DOI: https://doi.org/10.1016/S1470-2045(19)30154-8 .[19] Dimitriou, Neofytos, Arandjelović, Ognjen, Caie, Peter D. Deep Learning for Whole Slide Image Analysis: An Overview. Frontiers in Medicine 6, 264 (2019). DOI: https://doi.org/10.3389/fmed.2019.00264 .8[20] Jiang, Hao, Zhou, Yanning, Lin, Yi, Chan, Ronald C. K., Liu, Jiang, Chen, Hao. Deep learning for computational cytology: A survey. Medical Image Analysis 84, 102691 (2023). DOI: https://doi.org/10.1016/j.media.20 22.102691 .[21] Litjens, Geert, Kooi, Thijs, Bejnordi, Babak Ehteshami, Setio, Arnaud Arindra Adiyoso, Ciompi, Francesco, Ghafoorian, Mohsen, et al. A survey on deep learning in medical image analysis. Medical Image Analysis 42, 60-88 (2017). DOI: https://doi.org/10.1016/j.media.2017.07.005 .[22] Bera, Kaustav, Schalper, Kurt A., Rimm, David L., Velcheti, Vamsidhar, Madabhushi, Anant. Artificial intelligence in digital pathology: new tools for diagnosis and precision oncology. Nature Reviews Clinical Oncology 
+
+16, 703-715 (2019). DOI: https://doi.org/10.1038/s41571-019-0252-y .[23] Street, W. Nick, Wolberg, William H., Mangasarian, Olvi L. Nuclear feature extraction for breast tumor diagnosis. In Biomedical Image Processing and Biomedical Visualization , vol. 1905, 861-870 (1993). [24] Spanhol, Fabio A., Oliveira, Luiz S., Petitjean, Caroline, Heutte, Laurent. A Dataset for Breast Cancer Histopathological Image Classification. IEEE Transactions on Biomedical Engineering 63(7), 1455-1462 (2016). DOI: https://doi.org/10.1109/TBME.2015.2496264 .[25] Jain, G., Pati, S., Duggal, M., Sethi, A., Patil, A., Malekar, G., Kowe, N., Kumar, J., Kashyap, J., Rout, D., et al. A Cytology Dataset for Early Detection of Oral Squamous Cell Carcinoma. arXiv arXiv:2506.09661 (2025). DOI: https://doi.org/10.48550/arXiv.2506.09661 .[26] Saikia, Amartya Ranjan, Bora, Kangkana, Mahanta, Lipi B., Das, Anup Kumar. Comparative assessment of CNN architectures for classification of breast FNAC images. Tissue and Cell 57, 8-14 (2019). DOI: https: //doi.org/10.1016/j.tice.2019.02.001 .[27] Zerouaoui, Hasnae, Idri, Ali. Classifying Breast Cytological Images using Deep Learning Architectures. In 
+
+Proceedings of the 15th International Joint Conference on Biomedical Engineering Systems and Technologies -HEALTHINF , 557-564 (2022). DOI: https://doi.org/10.5220/0010850000003123 .[28] Patil, Abhijeet, Jain, Garima, Sethi, Amit. A Multi-Center Breast FNAC Cytology Dataset for AI-Assisted Patch-wise Classification Using C1–C5 Reporting Categories. Zenodo. DOI: https://doi.org/10.5281/zenodo .20763900 (2026). 
+
+# Competing interests 
+
+The authors declare no competing interests. 
+
+# Funding 
+
+Not Applicable 9
