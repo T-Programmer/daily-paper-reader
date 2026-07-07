@@ -6,47 +6,64 @@
 </div>
 
 ## 每次日报
-- 最新运行日期：2026-07-06
-- 运行时间：2026-07-06 20:37:09 UTC
+- 最新运行日期：2026-07-07
+- 运行时间：2026-07-07 20:58:44 UTC
 - 运行状态：成功
-- 本次总论文数：9
-- 精读区：3
-- 速读区：6
+- 本次总论文数：14
+- 精读区：6
+- 速读区：8
 
 ### 今日简报（AI）
-今日精选9篇病理AI前沿，精读聚焦细胞检测框架CellDETR（8.0）与长尾病理报告生成新方法（8.0），速读涵盖多模态分子预测及乳腺癌细胞学分类。最值得关注的是CellDETR如何用检测引导实现可扩展细胞表示，以及先验锚定去偏策略提升罕见病报告质量。建议普通读者优先追踪多模态融合在乳腺肿瘤细粒度鉴别中的实测效果。
-- 详情：[/202607/06/README](/202607/06/README)
+今日共研读14篇论文，精读6篇、速读8篇，重点聚焦病理智能诊断与组织图像分析。  
+最值得关注的是自主计算病理学系统（9.0分）和基于语义分割的肝癌诊断方法（9.0分），两者均在高分精读中表现突出。  
+建议普通读者优先阅读这两篇精读论文，深入理解AI在病理诊断中的自动化与可解释性突破。
+- 详情：[/202607/07/README](/202607/07/README)
 
 ### 精读区论文标签
-1. [CellDETR: A Detection-Guided Framework for Scalable Cell Representation Learning from Histopathology Images](/202607/06/2606.29463v1-celldetr-a-detection-guided-framework-for-scalable-cell-representation-learning-from-histopathology-images)  
+1. [Evaluating Agentic Harness Systems for Autonomous Computational Pathology](/202607/07/2607.02598v1-evaluating-agentic-harness-systems-for-autonomous-computational-pathology)  
+   标签：评分：9.0/10、query:path-agent
+   evidence：评估用于自主计算病理学的智能体框架系统，直接面向病理智能体任务
+2. [Semantic Segmentation-Driven Image-Level Diagnosis of Liver Cancers in Hematoxylin and Eosin Histopathology Images](/202607/07/2607.03253v1-semantic-segmentation-driven-image-level-diagnosis-of-liver-cancers-in-hematoxylin-and-eosin-histopathology-images)  
+   标签：评分：9.0/10、query:path-agent
+   evidence：基于语义分割的H&E肝脏病理图像诊断
+3. [GRAPE: Graph-Augmented Prototype Explanations for Interactive Medical Image Diagnosis](/202607/07/2606.30901v2-grape-graph-augmented-prototype-explanations-for-interactive-medical-image-diagnosis)  
    标签：评分：8.0/10、query:path-agent
-   evidence：从组织病理学图像学习细胞表示，直接赋能病理智能体的细胞级分析
-2. [Prior-Anchored Debiasing for Long-Tailed Multi-Organ Pathology Report Generation](/202607/06/2607.00499v1-prior-anchored-debiasing-for-long-tailed-multi-organ-pathology-report-generation)  
+   evidence：交互式医学图像诊断，结合图增强原型解释
+4. [HistoSeg++: Delving deeper with attention and multiscale feature fusion for biomarker segmentation](/202607/07/2607.01675v1-histoseg-delving-deeper-with-attention-and-multiscale-feature-fusion-for-biomarker-segmentation)  
    标签：评分：8.0/10、query:path-agent
-   evidence：从全切片图像生成多器官病理报告；直接针对数字病理代理的组织病理学分析
-3. [Prior-Anchored Debiasing for Long-Tailed Multi-Organ Pathology Report Generation](/202607/06/2607.00499v2-prior-anchored-debiasing-for-long-tailed-multi-organ-pathology-report-generation)  
+   evidence：组织病理学生物标志物分割，结合注意力与多尺度融合
+5. [Reinforcement Learning for Evidence-Seeking Diagnostic Reasoning with Large Language Models](/202607/07/2607.02983v1-reinforcement-learning-for-evidence-seeking-diagnostic-reasoning-with-large-language-models)  
    标签：评分：8.0/10、query:path-agent
-   evidence：基于全切片图像的病理报告生成与去偏
+   evidence：将诊断推理形式化为证据寻求任务
+6. [Paired Uterine Whole-Slide Images and Pathology Reports for Multimodal Computational Pathology](/202607/07/2607.04020v1-paired-uterine-whole-slide-images-and-pathology-reports-for-multimodal-computational-pathology)  
+   标签：评分：8.0/10、query:path-agent
+   evidence：配对的子宫全切片图像与病理报告用于多模态计算病理
 
 ### 速读区论文标签
-1. [Data-Efficient Multimodal Alignment for Histopathology-based Molecular Prediction](/202607/06/2606.29949v1-data-efficient-multimodal-alignment-for-histopathology-based-molecular-prediction)  
+1. [TopoAgent: An Agentic Framework for Automated Topology Learning in Medical Imaging](/202607/07/2606.29763v1-topoagent-an-agentic-framework-for-automated-topology-learning-in-medical-imaging)  
    标签：评分：7.0/10、query:path-agent
-   evidence：组织病理学分子预测的多模态对齐
-2. [A Multi Center Breast FNAC Whole-Slide Cytology Dataset for AI-Assisted Patch-Wise Classification Using C1 to C5 Reporting Categories](/202607/06/2606.30209v1-a-multi-center-breast-fnac-whole-slide-cytology-dataset-for-ai-assisted-patch-wise-classification-using-c1-to-c5-reporting-categories)  
+   evidence：基于LLM的医学影像拓扑学习智能体框架，可迁移至病理学
+2. [Learning Where to Look: A Reinforcement Learning Framework for Robust Micro-Ultrasound Prostate Cancer Detection](/202607/07/2606.30951v1-learning-where-to-look-a-reinforcement-learning-framework-for-robust-micro-ultrasound-prostate-cancer-detection)  
    标签：评分：7.0/10、query:path-agent
-   evidence：用于乳腺FNAC AI辅助逐块分类的数据集，支持病理智能体开发
-3. [Multimodal Fusion for Fine-Grained Classification of Breast Fibroadenoma and Phyllodes Tumors](/202607/06/2607.02091v1-multimodal-fusion-for-fine-grained-classification-of-breast-fibroadenoma-and-phyllodes-tumors)  
+   evidence：利用组织病理学结果的强化学习前列腺癌检测框架
+3. [MalariAI: A Label-Resilient Decoupled Framework for Universal Cell Segmentation and Explainable Stage Classification in Dense Malaria Blood Smears](/202607/07/2607.00385v1-malariai-a-label-resilient-decoupled-framework-for-universal-cell-segmentation-and-explainable-stage-classification-in-dense-malaria-blood-smears)  
    标签：评分：7.0/10、query:path-agent
-   evidence：用于病理肿瘤分类的多模态AI方法
-4. [Building artificial intelligence virtual tissue (AIVT) for tissue state representation, feature prediction, and dynamic simulation](/202607/06/2606.29883v1-building-artificial-intelligence-virtual-tissue-aivt-for-tissue-state-representation-feature-prediction-and-dynamic-simulation)  
+   evidence：疟疾血涂片诊断AI系统
+4. [Medi-Gemma: A Hybrid Clinical Decision Support System Integrating Deterministic EMR Analytics and Retrieval-Augmented Generation](/202607/07/2607.04907v1-medi-gemma-a-hybrid-clinical-decision-support-system-integrating-deterministic-emr-analytics-and-retrieval-augmented-generation)  
+   标签：评分：7.0/10、query:path-agent
+   evidence：用于伤口病理分诊的混合临床决策支持系统，具有类代理架构
+5. [Graph Representation Learning of Longitudinal Medical Imaging Trajectories for Treatment Response Prediction](/202607/07/2607.04912v1-graph-representation-learning-of-longitudinal-medical-imaging-trajectories-for-treatment-response-prediction)  
+   标签：评分：7.0/10、query:path-agent
+   evidence：利用病理标志物进行治疗反应预测的图表示学习
+6. [HealthAgentBench: A Unified Benchmark Suite of Realistic Agentic Healthcare Environments for Challenging Frontier AI Agents](/202607/07/2606.31179v1-healthagentbench-a-unified-benchmark-suite-of-realistic-agentic-healthcare-environments-for-challenging-frontier-ai-agents)  
    标签：评分：6.0/10、query:path-agent
-   evidence：AI虚拟组织建模病理重塑
-5. [World Feedback for Clinical Agents: Diagnosing RL in FHIR Environments](/202607/06/2607.01470v1-world-feedback-for-clinical-agents-diagnosing-rl-in-fhir-environments)  
+   evidence：面向医疗智能体的基准测试套件，可能包含病理相关任务
+7. [Dual-Adaptive SAM3: Hierarchical Routing over Low-Rank Expert Layers for Parameter-Efficient Medical Image Segmentation](/202607/07/2607.02571v1-dual-adaptive-sam3-hierarchical-routing-over-low-rank-expert-layers-for-parameter-efficient-medical-image-segmentation)  
    标签：评分：6.0/10、query:path-agent
-   evidence：临床智能体强化学习框架，适用于医学病理智能体的训练
-6. [CLAP: Closed-Loop Training, Evaluation, and Release Control for Domain Agent Post-training](/202607/06/2607.01846v1-clap-closed-loop-training-evaluation-and-release-control-for-domain-agent-post-training)  
+   evidence：参数高效的医学图像分割，支持语言交互
+8. [The Good, the Bad, and the Brittle: Benchmarking Robustness and Generalisation of Histopathology Foundation Models](/202607/07/2607.04401v1-the-good-the-bad-and-the-brittle-benchmarking-robustness-and-generalisation-of-histopathology-foundation-models)  
    标签：评分：6.0/10、query:path-agent
-   evidence：领域代理的闭环后训练方法；可应用于病理代理微调
+   evidence：对组织病理学基础模型进行鲁棒性和泛化性基准测试
 
 
 <div class="dpr-home-promo-card">

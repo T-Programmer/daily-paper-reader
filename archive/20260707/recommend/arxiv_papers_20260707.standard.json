@@ -1,0 +1,601 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-07-07T20:47:53.150687+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 6,
+    "deep_cap": 6,
+    "deep_selected": 6,
+    "quick_candidates": 8,
+    "quick_skim_target": 11,
+    "quick_selected": 8
+  },
+  "deep_dive": [
+    {
+      "id": "2607.02598v1",
+      "source": "arxiv",
+      "title": "Evaluating Agentic Harness Systems for Autonomous Computational Pathology",
+      "abstract": "Autonomous computational pathology (ACP) converts high-level pathology analysis goals into executable, traceable and clinically bounded workflows. Realizing this capability requires adapting general agentic harness systems to pathology-specific tasks, tools, evidence standards and clinical claim boundaries. We contribute ACP-Bench, a framework that adapts existing harness systems from computational pathology support toward ACP workflow capability. ACP-Bench evaluates 41 pathology workflow tasks, including 24 biomarker, 7 morphology and 10 prognosis tasks spanning 6 body-system groups and 9 endpoint families. The benchmark evaluates 9 models and 3 harness groups (Claude Code, Codex and Open Code), yielding 369 complete trajectories. ACP-Bench evaluates each trajectory across workflow execution, diagnostic performance and clinical-boundary alignment, combining expert-adjudicated process audits, diagnostic assessment and pathologist-validated safety review. Across evaluated systems, workflow initiation, task interpretation and diagnostic reporting were more mature than tool-bound execution, result binding and reflective workflow revision, and formal end-to-end completion remained rare. ACP-Bench provides a reusable standard for auditing whether agentic systems can operationalize pathology workflows before claims of reliable clinical autonomy.",
+      "authors": [
+        "Jie Lin",
+        "Zongyi Chen",
+        "Qiaoling Zheng",
+        "Liuyi Wang",
+        "Hengyi Jiang",
+        "Jiabao Chen",
+        "Xiang Liu",
+        "Yinghong Yang",
+        "Liansheng Wang"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-07-01T10:13:13+00:00",
+      "link": "https://arxiv.org/pdf/2607.02598v1",
+      "tags": [
+        "keyword:path-agent",
+        "query:path-agent"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "evaluates agentic harness systems for autonomous computational pathology, directly on pathology agent tasks",
+      "llm_evidence_cn": "评估用于自主计算病理学的智能体框架系统，直接面向病理智能体任务",
+      "llm_evidence": "评估用于自主计算病理学的智能体框架系统，直接面向病理智能体任务",
+      "canonical_evidence": "评估用于自主计算病理学的智能体框架系统，直接面向病理智能体任务",
+      "llm_tldr_en": "Introduces ACP-Bench, a framework to evaluate agentic harness systems for autonomous computational pathology on 41 pathology workflow tasks.",
+      "llm_tldr_cn": "自主计算病理学需要能够将高层目标转化为可执行工作流的智能体系统，ACP-Bench构建了包含41项病理任务（生物标志物、形态学、预后）的基准，评估9个模型和3个智能体框架，为病理智能体的标准化评估奠定基础。",
+      "llm_tldr": "自主计算病理学需要能够将高层目标转化为可执行工作流的智能体系统，ACP-Bench构建了包含41项病理任务（生物标志物、形态学、预后）的基准，评估9个模型和3个智能体框架，为病理智能体的标准化评估奠定基础。",
+      "llm_tags": [
+        "query:path-agent"
+      ],
+      "matched_query_tag": "query:path-agent",
+      "matched_query_text": "pathology agent",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2607.03253v1",
+      "source": "arxiv",
+      "title": "Semantic Segmentation-Driven Image-Level Diagnosis of Liver Cancers in Hematoxylin and Eosin Histopathology Images",
+      "abstract": "As hematoxylin & eosin (H&E) staining constitutes the primary entry point in routine diagnostic workflows, computer-aided diagnosis from whole-slide H&E images is of particular clinical relevance. However, substantial variability in specimen preparation, staining protocols, and scanning conditions, together with inherent uncertainty in expert pixel-level annotations, makes automated analysis of H&E-stained images challenging. In this study, we propose a semantic segmentation-based framework for image-level diagnosis, grounded in the clinically motivated assumption that each histopathological image corresponds to a single cancer type. Image-level predictions are obtained by assigning the class of the dominant pixel-level label in the segmentation output. To ensure clinical relevance, we adopt the nnU-Net architecture and train it on a publicly available dataset collected in our study with pixel-level annotations for three liver cancer types: hepatocellular cacrcinoma (HCC; 55 images from 30 patients), cholangiocellular carcinoma (CCA; 55 images from 29 patients), and colorectal metastatic adenocarcinoma (CMA; 60 images from 30 patients). Annotations were independently provided by four pathologist. We hypothesize that the combination of stain normalization and semantic segmentation mitigates domain shift and reduces sensitivity to annotation noise. Five-fold cross-validation yielded balanced accuracy of 0.975 (HCC), 0.950 (CCA), and 1.000 (CMA), comparable to results obtained with immunohosthochemical staining and superior to several deep learning models trained on patch-level annotations. The proposed framework has the potential to support pathologists in prioritizing immunohistochemical marker selection, thereby reducing diagnostic costs and turnaround time. Integration with immunohistochemical findings improve overall diagnostic reliability.",
+      "authors": [
+        "Ivica Kopriva",
+        "Dario Sitnik",
+        "Arijana Pacic",
+        "Karolina Krstanac",
+        "Irena Veliki Dalic",
+        "Marijana Popovic Hadzija"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV",
+        "cs.AI"
+      ],
+      "published": "2026-07-03T12:12:56+00:00",
+      "link": "https://arxiv.org/pdf/2607.03253v1",
+      "tags": [
+        "keyword:path-agent",
+        "query:path-agent"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "semantic segmentation for liver cancer diagnosis from H&E images",
+      "llm_evidence_cn": "基于语义分割的H&E肝脏病理图像诊断",
+      "llm_evidence": "基于语义分割的H&E肝脏病理图像诊断",
+      "canonical_evidence": "基于语义分割的H&E肝脏病理图像诊断",
+      "llm_tldr_en": "A semantic segmentation framework for image-level diagnosis of liver cancer in H&E histopathology images, using dominant class assignment.",
+      "llm_tldr_cn": "针对H&E染色图像分析中染色差异和标注不确定性挑战，提出基于语义分割的框架实现全切片图像级诊断。假设每张图对应单一癌症类型，通过主导区域类别预测。在肝脏病理数据集上验证了有效性，可直接支持病理诊断代理。",
+      "llm_tldr": "针对H&E染色图像分析中染色差异和标注不确定性挑战，提出基于语义分割的框架实现全切片图像级诊断。假设每张图对应单一癌症类型，通过主导区域类别预测。在肝脏病理数据集上验证了有效性，可直接支持病理诊断代理。",
+      "llm_tags": [
+        "query:path-agent"
+      ],
+      "matched_query_tag": "query:path-agent",
+      "matched_query_text": "histopathology agent",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2606.30901v2",
+      "source": "arxiv",
+      "title": "GRAPE: Graph-Augmented Prototype Explanations for Interactive Medical Image Diagnosis",
+      "abstract": "Prototype-based medical image classifiers present three clinical limitations: they treat findings as independent, silently amplify unsafe physician feedback, and require full retraining whenever a new finding is needed. We present GRAPE (Graph-Augmented Prototype Explanations), a unified architecture that addresses all three challenges. First, a Graph Attention Task Head models anatomical concept co-occurrence, boosting macro-F1 by +13.8,pp over the prototype baseline on TBX11K. Second, a Concept-Mismatch Safety Check - the first such mechanism in prototype-based medical classifiers - warns when the model's dominant finding inside a doctor-drawn region conflicts with the claimed label, catching 85% of erroneous annotations versus 51% for MC-Dropout with no extra inference cost. Third, Open-Vocabulary Prototype Anchoring aligns visual prototypes to clinical text, allowing a new finding to be added from a single labeled image without modifying any other component. On NIH ChestX-ray14, one Effusion example recovers full-supervision localization accuracy; on TBX11K, prototype maps achieve 2.6x better lesion localization than end-to-end baselines. All three capabilities add only +1~ms latency at interactive batch size. The project page is https://github.com/KurbanIntelligenceLab/GRAPE.",
+      "authors": [
+        "Rasul Khanbayov",
+        "Erchin Serpedin",
+        "Hasan Kurban"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-06-29T20:45:26+00:00",
+      "link": "https://arxiv.org/pdf/2606.30901v2",
+      "tags": [
+        "keyword:path-agent",
+        "query:path-agent"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "Interactive medical image diagnosis with graph-augmented prototype explanations",
+      "llm_evidence_cn": "交互式医学图像诊断，结合图增强原型解释",
+      "llm_evidence": "交互式医学图像诊断，结合图增强原型解释",
+      "canonical_evidence": "交互式医学图像诊断，结合图增强原型解释",
+      "llm_tldr_en": "Proposes GRAPE, a graph-augmented prototype explanation architecture for interactive medical image diagnosis, addressing concept independence and safety issues.",
+      "llm_tldr_cn": "现有原型分类器在医学图像诊断中将发现视为独立、忽略医生反馈中的不安全信息且需要完全重新训练。该论文提出GRAPE架构，引入图注意力任务头建模概念共现，并首创概念不匹配安全检查，在TBX11K数据集上提升F1指标13.8%，并捕捉85%的错误标注，为交互式病理诊断Agent提供了可解释且安全的框架。",
+      "llm_tldr": "现有原型分类器在医学图像诊断中将发现视为独立、忽略医生反馈中的不安全信息且需要完全重新训练。该论文提出GRAPE架构，引入图注意力任务头建模概念共现，并首创概念不匹配安全检查，在TBX11K数据集上提升F1指标13.8%，并捕捉85%的错误标注，为交互式病理诊断Agent提供了可解释且安全的框架。",
+      "llm_tags": [
+        "query:path-agent"
+      ],
+      "matched_query_tag": "query:path-agent",
+      "matched_query_text": "papers on pathology agents for medical diagnosis",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2607.01675v1",
+      "source": "arxiv",
+      "title": "HistoSeg++: Delving deeper with attention and multiscale feature fusion for biomarker segmentation",
+      "abstract": "Segmentation of biomarkers in medical images is frequently viewed as a first step towards medical image analysis in any bioinformatics or biomedical application. Despite progress, existing methods still struggle to capture information at multiple scales and to perform upsampling effectively across different datasets. These shortcomings often result in suboptimal generalization capabilities. Recently, architectures belonging to the Nested-UNet family excel in capturing multiscale contextual information and upsample them effectively. In this work, We propose a novel Nested-UNet architecture that effectively captures multi-scale contextual information. It includes inner and outer attention units to enhance focus during upsampling, along with channel-wise feature recalibration using squeeze-and-excitation modules, leading to improved segmentation performance. Additionally, the architecture integrates an edge-aware loss to emphasize boundary accuracy by assigning greater importance to edge regions. Tested extensively on three publicly available benchmark datasets. Our method demonstrates a generalization performance superior to existing Nested-UNet methods. Code: https://github.com/saadwazir/histosegplusplus",
+      "authors": [
+        "Saad Wazir",
+        "Rao Faizan",
+        "Daeyoung Kim"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-07-02T04:03:10+00:00",
+      "link": "https://arxiv.org/pdf/2607.01675v1",
+      "tags": [
+        "keyword:path-agent",
+        "query:path-agent"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "Histopathology biomarker segmentation with attention and multiscale fusion",
+      "llm_evidence_cn": "组织病理学生物标志物分割，结合注意力与多尺度融合",
+      "llm_evidence": "组织病理学生物标志物分割，结合注意力与多尺度融合",
+      "canonical_evidence": "组织病理学生物标志物分割，结合注意力与多尺度融合",
+      "llm_tldr_en": "Proposes HistoSeg++, a Nested-UNet with inner/outer attention and multiscale feature fusion for improved biomarker segmentation in histopathology images.",
+      "llm_tldr_cn": "现有生物标志物分割方法在多尺度信息捕获和跨数据集泛化方面存在不足。该论文提出HistoSeg++，一种基于Nested-UNet的架构，通过内外注意力单元和多尺度特征融合增强上采样效果，在多个组织病理学数据集上实现了更优的分割精度和泛化能力，为后续病理分析提供了更准确的基础。",
+      "llm_tldr": "现有生物标志物分割方法在多尺度信息捕获和跨数据集泛化方面存在不足。该论文提出HistoSeg++，一种基于Nested-UNet的架构，通过内外注意力单元和多尺度特征融合增强上采样效果，在多个组织病理学数据集上实现了更优的分割精度和泛化能力，为后续病理分析提供了更准确的基础。",
+      "llm_tags": [
+        "query:path-agent"
+      ],
+      "matched_query_tag": "query:path-agent",
+      "matched_query_text": "histopathology agent",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2607.02983v1",
+      "source": "arxiv",
+      "title": "Reinforcement Learning for Evidence-Seeking Diagnostic Reasoning with Large Language Models",
+      "abstract": "Recent reasoning-centric Large Language Models (LLMs) have made significant strides, yet they predominantly operate on a passive-inference pattern that assumes complete information. In contrast, real-world clinical intelligence is inherently an iterative investigative process requiring strategic evidence acquisition. To bridge this gap, we formalize medical diagnosis as an Iterative Evidence-Seeking Task. We leverage Reinforcement Learning with Verifiable Rewards (RLVR) to elicit intrinsic reasoning within a closed-loop environment, guided by a novel suite of rewards that enforce diagnostic precision and examination consistency. To facilitate this, we introduce the Retrieval-Augmented Generation-based Examination Simulator (RAGES), a high-fidelity clinical oracle that provides realistic, knowledge-grounded follow-up evidence. Empirical results across diverse datasets demonstrate that our framework enables LLMs to transition from passive responders to autonomous assistants. Notably, our model demonstrates comparable performance to larger and reasoning-enhanced baselines, while RAGES proves superior to vanilla LLMs in generating biologically plausible clinical feedback.",
+      "authors": [
+        "Shengyi Hua",
+        "Kangzhe Hu",
+        "Conghui He",
+        "Xiaofan Zhang",
+        "Shaoting Zhang"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI"
+      ],
+      "published": "2026-07-03T05:43:00+00:00",
+      "link": "https://arxiv.org/pdf/2607.02983v1",
+      "tags": [
+        "keyword:path-agent",
+        "query:path-agent"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "diagnostic reasoning as evidence-seeking task",
+      "llm_evidence_cn": "将诊断推理形式化为证据寻求任务",
+      "llm_evidence": "将诊断推理形式化为证据寻求任务",
+      "canonical_evidence": "将诊断推理形式化为证据寻求任务",
+      "llm_tldr_en": "Proposes RLVR to train LLMs for evidence-seeking diagnostic reasoning, simulating examinations via RAGES, improving diagnostic precision and consistency.",
+      "llm_tldr_cn": "该论文针对现有LLM在临床诊断中缺乏主动证据获取的问题，将医学诊断形式化为迭代证据寻求任务，并采用强化学习与可验证奖励来激发内在推理。通过引入基于检索增强生成的检查模拟器RAGES，模型在闭环环境中学习策略性地获取信息，实验表明该方法有效提升了诊断的精确性和一致性，为构建AI诊断代理提供了新范式。",
+      "llm_tldr": "该论文针对现有LLM在临床诊断中缺乏主动证据获取的问题，将医学诊断形式化为迭代证据寻求任务，并采用强化学习与可验证奖励来激发内在推理。通过引入基于检索增强生成的检查模拟器RAGES，模型在闭环环境中学习策略性地获取信息，实验表明该方法有效提升了诊断的精确性和一致性，为构建AI诊断代理提供了新范式。",
+      "llm_tags": [
+        "query:path-agent"
+      ],
+      "matched_query_tag": "query:path-agent",
+      "matched_query_text": "pathological diagnosis agent",
+      "matched_requirement_id": "req-2",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2607.04020v1",
+      "source": "arxiv",
+      "title": "Paired Uterine Whole-Slide Images and Pathology Reports for Multimodal Computational Pathology",
+      "abstract": "Uterine diseases represent an important category of gynecologic pathology and require accurate histopathological assessment for diagnosis and treatment planning. Whole-slide images (WSI) have enabled the digital transformation of pathology workflows and provided new opportunities for artificial intelligence (AI) in computational pathology. In particular, multimodal models that jointly analyze histopathology images and pathology reports have shown promising potential for automated pathology report generation and AI-assisted diagnosis. However, the development of such systems remains limited by the scarcity of datasets that pair whole-slide images with clinically meaningful pathology reports. Instead, existing pathology datasets focus on patch- or slide-level annotations of a single endpoint (e.g., disease class), which do not fully capture the rich information in full clinical diagnostic workflow reports. Here, we introduce TUM-Uteria, a uterine pathology dataset comprising WSIs paired with diagnostic pathology reports at both the case and slide levels, collected from a tertiary medical center. The dataset contains 216 clinical cases, comprising 455 slide-level WSI-report pairs. The dataset underwent a structured multi-stage validation procedure involving board-certified pathologists to ensure reliable annotations. TUM-Uteria supports research in computational pathology, including whole-slide image analysis, multimodal learning, and automated pathology report generation.",
+      "authors": [
+        "Han Li",
+        "Jingsong Liu",
+        "Ayako Ura",
+        "Junlin Hou",
+        "Zhengyang Xu",
+        "Azar Kazemi",
+        "Oskar Thaeter",
+        "Christian Grashei",
+        "Fabian Gülhan",
+        "Reza Nasirigerdeh",
+        "Xun Ma",
+        "Rui Yan",
+        "Hao Chen",
+        "S. Kevin Zhou",
+        "Nassir Navab",
+        "Carolin Mogler",
+        "Peter Schüffler"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-07-04T20:34:59+00:00",
+      "link": "https://arxiv.org/pdf/2607.04020v1",
+      "tags": [
+        "keyword:path-agent",
+        "query:path-agent"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "paired uterine WSI and pathology reports for multimodal computational pathology",
+      "llm_evidence_cn": "配对的子宫全切片图像与病理报告用于多模态计算病理",
+      "llm_evidence": "配对的子宫全切片图像与病理报告用于多模态计算病理",
+      "canonical_evidence": "配对的子宫全切片图像与病理报告用于多模态计算病理",
+      "llm_tldr_en": "Introduces a paired dataset of uterine whole-slide images and pathology reports to enable multimodal models for automated report generation and AI-assisted diagnosis in gynecologic pathology.",
+      "llm_tldr_cn": "该论文针对多模态计算病理中缺乏配对全切片图像与临床报告的数据集问题，构建了子宫疾病领域的高质量配对数据集。该数据集覆盖多种子宫疾病，包含完整病理报告。基于该数据集，论文展示了多模态模型在自动报告生成和辅助诊断中的应用潜力，为训练组织病理学诊断代理提供了关键数据资源。",
+      "llm_tldr": "该论文针对多模态计算病理中缺乏配对全切片图像与临床报告的数据集问题，构建了子宫疾病领域的高质量配对数据集。该数据集覆盖多种子宫疾病，包含完整病理报告。基于该数据集，论文展示了多模态模型在自动报告生成和辅助诊断中的应用潜力，为训练组织病理学诊断代理提供了关键数据资源。",
+      "llm_tags": [
+        "query:path-agent"
+      ],
+      "matched_query_tag": "query:path-agent",
+      "matched_query_text": "histopathology agent",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": [
+    {
+      "id": "2606.29763v1",
+      "source": "arxiv",
+      "title": "TopoAgent: An Agentic Framework for Automated Topology Learning in Medical Imaging",
+      "abstract": "Topological data analysis (TDA), particularly persistent homology (PH), captures geometric structural properties in medical images (e.g., connected components, loops, shape characteristics), which conventional pixel-level deep learning approaches often neglect. While many topological descriptors are known for converting persistence diagrams (PDs) or raw images into topological feature vectors, existing methods mostly default to a single fixed descriptor (e.g., persistence images), leaving the diversity of topological representations largely unexplored. To the best of our knowledge, there is no known large language model (LLM)-based agentic framework that can automatically determine the most suitable topological descriptors for a given image dataset and produce the corresponding topological feature vectors for downstream tasks. To fill this gap, we propose \\textbf{TopoAgent}, an LLM-based agentic framework that automates topology learning for medical image analysis.TopoAgent operates through a Perception--Reasoning--Action--Reflection loop supported by 21 domain-specific tools and dual memory that accumulates experience across runs. Its skill set is distilled from systematic evaluation of 15 topological descriptors across 26 datasets with six classifiers. TopoAgent analyzes input images and their topological characteristics, reasons about which topological descriptors best suit the input, and determines the optimal descriptor and its configuration, all without task-specific training.",
+      "authors": [
+        "Guangyu Meng",
+        "Pengfei Gu",
+        "Xueyang Li",
+        "Yiyu Shi",
+        "Erin Wolf Chambers",
+        "Danny Z. Chen"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV",
+        "cs.AI"
+      ],
+      "published": "2026-06-29T04:17:45+00:00",
+      "link": "https://arxiv.org/pdf/2606.29763v1",
+      "tags": [
+        "keyword:path-agent",
+        "query:path-agent"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "LLM-based agentic framework for medical image topology learning, transferable to pathology",
+      "llm_evidence_cn": "基于LLM的医学影像拓扑学习智能体框架，可迁移至病理学",
+      "llm_evidence": "基于LLM的医学影像拓扑学习智能体框架，可迁移至病理学",
+      "canonical_evidence": "基于LLM的医学影像拓扑学习智能体框架，可迁移至病理学",
+      "llm_tldr_en": "TopoAgent introduces an LLM-based agent that automatically selects and applies topological descriptors for medical image analysis, offering a flexible, transferable approach suitable for pathology tasks.",
+      "llm_tldr_cn": "针对医学影像中拓扑特征选择依赖人工预设的问题，TopoAgent提出首个基于大语言模型的智能体框架，能够自动为给定图像选取最合适的拓扑描述子。该方法将拓扑数据分析与智能体决策相结合，在多个医学影像数据集上验证了其有效性。该框架可轻松迁移至病理学领域，为病理图像分析提供自动化拓扑学习方法。",
+      "llm_tldr": "针对医学影像中拓扑特征选择依赖人工预设的问题，TopoAgent提出首个基于大语言模型的智能体框架，能够自动为给定图像选取最合适的拓扑描述子。该方法将拓扑数据分析与智能体决策相结合，在多个医学影像数据集上验证了其有效性。该框架可轻松迁移至病理学领域，为病理图像分析提供自动化拓扑学习方法。",
+      "llm_tags": [
+        "query:path-agent:composite"
+      ],
+      "matched_query_tag": "query:path-agent:composite",
+      "matched_query_text": "Papers central to 病理Agent相关的论文, especially work that connects or combines: pathology agent; pathological diagnosis agent; medical pathology agent; histopathology agent; pathology AI agent; papers on pathology agents for medical diagnosis; research on digital pathology agents for histopathological analysis.",
+      "matched_requirement_id": "req-composite-path-agent",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2606.31179v1",
+      "source": "arxiv",
+      "title": "HealthAgentBench: A Unified Benchmark Suite of Realistic Agentic Healthcare Environments for Challenging Frontier AI Agents",
+      "abstract": "As AI agents become increasingly capable of complex, long-horizon reasoning, rigorous and holistic evaluation is essential for measuring progress toward real-world healthcare applications. We introduce HealthAgentBench, a suite of 54 agentic healthcare tasks across 7 categories each with its unique environment. The benchmark suite spans diverse workflows throughout the patient journey and a broad range of modalities. Each task is designed to replicate an end-to-end clinical workflow: given minimal instructions, an agent must explore raw healthcare data, operate within a complex environment, and execute multi-step solutions that go beyond naive prompting. A final task success rate is reported to provide a single, interpretable metric for HealthAgentBench overall performance for each agent. Evaluating frontier agents on HealthAgentBench, we find that overall task success rate remains low, underscoring the difficulty of the suite. The strongest and the most cost effective agent, Codex GPT-5.5, achieves only approximately 42% success rate. Beyond aggregate performance, HealthAgentBench reveals nuanced strengths and weaknesses across task categories. Frontier agents show promise in automatically developing research modeling pipelines over EHR data, but medical imaging remains especially challenging, particularly for Claude Code models, while Codex GPT-5.5 shows emerging capability. Tasks that combine large search spaces with compositional reasoning requirements remain difficult for all current agents. Together, these results suggest that HealthAgentBench provides a challenging and realistic benchmark with substantial room for future progress. We release our benchmark at https://github.com/microsoft/HealthAgentBench.",
+      "authors": [
+        "Qianchu Liu",
+        "Sheng Zhang",
+        "Guanghui Qin",
+        "Jeya Maria Jose Valanarasu",
+        "Maximilian Rokuss",
+        "Mingyu Lu",
+        "Timothy Ossowski",
+        "Juan Manuel Zambrano Chaves",
+        "Cliff Wong",
+        "Peniel Argaw",
+        "Yashna Hasija",
+        "Mu Wei",
+        "Wen-wai Yim",
+        "Qin Liu",
+        "Zilin Jing",
+        "Jason Entenmann",
+        "Naoto Usuyama",
+        "Tristan Naumann",
+        "Hoifung Poon"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI",
+        "cs.CL",
+        "cs.CV"
+      ],
+      "published": "2026-06-30T06:09:01+00:00",
+      "link": "https://arxiv.org/pdf/2606.31179v1",
+      "tags": [
+        "keyword:path-agent",
+        "query:path-agent"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "benchmark for agentic healthcare environments, includes pathology-related tasks potentially",
+      "llm_evidence_cn": "面向医疗智能体的基准测试套件，可能包含病理相关任务",
+      "llm_evidence": "面向医疗智能体的基准测试套件，可能包含病理相关任务",
+      "canonical_evidence": "面向医疗智能体的基准测试套件，可能包含病理相关任务",
+      "llm_tldr_en": "HealthAgentBench provides 54 agentic healthcare tasks across 7 categories, evaluating AI agents in realistic healthcare environments.",
+      "llm_tldr_cn": "现有医疗AI评估缺乏对智能体长程推理能力的测试，HealthAgentBench设计了54项涵盖患者全流程的智能体任务，要求智能体自主探索数据并执行多步解决方案，为医疗智能体提供统一评估平台。",
+      "llm_tldr": "现有医疗AI评估缺乏对智能体长程推理能力的测试，HealthAgentBench设计了54项涵盖患者全流程的智能体任务，要求智能体自主探索数据并执行多步解决方案，为医疗智能体提供统一评估平台。",
+      "llm_tags": [
+        "query:path-agent:composite"
+      ],
+      "matched_query_tag": "query:path-agent:composite",
+      "matched_query_text": "Papers central to 病理Agent相关的论文, especially work that connects or combines: pathology agent; pathological diagnosis agent; medical pathology agent; histopathology agent; pathology AI agent; papers on pathology agents for medical diagnosis; research on digital pathology agents for histopathological analysis.",
+      "matched_requirement_id": "req-composite-path-agent",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2606.30951v1",
+      "source": "arxiv",
+      "title": "Learning Where to Look: A Reinforcement Learning Framework for Robust Micro-Ultrasound Prostate Cancer Detection",
+      "abstract": "Micro-ultrasound ($μ$US) is a new, emerging, and promising imaging modality for prostate cancer (PCa) detection, but accurate identification of suspicious tissue remains highly dependent on clinical experience, leading to substantial inter-observer variability. Machine-learning assistance can reduce this variability; however, training reliable deep models is challenging because supervision is sparse and noisy -- typically limited to core-level histopathology outcomes (e.g., cancer grade and its percentage in a biopsy core) without pixel-level lesion annotations and under severe class imbalance. We introduce Prost-RL, which reframes $μ$US PCa detection as a spatially aware, policy-driven inference problem by learning where to look before decoding. Prost-RL integrates a lightweight reinforcement-learning policy into a foundation-model encoder-decoder to generate interpretable spatial attention maps that act as soft prompts for both cancer-likelihood heatmap prediction and image-level classification. We further propose Adaptive Policy Optimization (APO) to stabilize hybrid supervised-RL training and a noise-robust objective combining symmetric cross-entropy with negative-entropy regularization to mitigate weak-label noise and encourage sharp localization. On a cohort of 6,607 biopsy cores from 693 patients across five clinical sites, Prost-RL achieves $79.0\\pm3.5$ AUROC with $64.6\\pm6.3$% sensitivity at 80% specificity for core-level detection (+2.1 AUROC and +4.5 sensitivity points over the strongest baseline), and $79.3\\pm5.8$ AUROC for clinically significant cancer classification. The learned policy highlights biopsy-aligned regions, providing transparent, spatially grounded evidence alongside quantitative risk predictions. Code is available at: https://github.com/DeepRCL/Prost-RL.",
+      "authors": [
+        "Mohammad Mahdi Abootorabi",
+        "Sina Namazi",
+        "Armin Saadat",
+        "Lyuyang Wang",
+        "Obed Dzikunu",
+        "Paul F. R. Wilson",
+        "Zhuoxin Guo",
+        "Brian Wodlinger",
+        "Parvin Mousavi",
+        "Purang Abolmaesumi"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV",
+        "cs.AI",
+        "cs.LG"
+      ],
+      "published": "2026-06-29T22:07:39+00:00",
+      "link": "https://arxiv.org/pdf/2606.30951v1",
+      "tags": [
+        "keyword:path-agent",
+        "query:path-agent"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "RL framework for prostate cancer detection using histopathology outcomes",
+      "llm_evidence_cn": "利用组织病理学结果的强化学习前列腺癌检测框架",
+      "llm_evidence": "利用组织病理学结果的强化学习前列腺癌检测框架",
+      "canonical_evidence": "利用组织病理学结果的强化学习前列腺癌检测框架",
+      "llm_tldr_en": "Introduces Prost-RL, a reinforcement learning framework for micro-ultrasound prostate cancer detection that learns a spatially aware policy using sparse core-level histopathology labels.",
+      "llm_tldr_cn": "该论文针对微超声前列腺癌检测中标注稀疏且噪声大的问题，提出Prost-RL强化学习框架。将检测形式化为空间感知的策略推理问题，利用活检核心级别的组织病理学结果作为奖励信号，无需像素级标注。实验表明，该方法在降低观察者间变异性的同时提升了检测精度，为病理诊断代理提供了弱监督场景下的有效方法。",
+      "llm_tldr": "该论文针对微超声前列腺癌检测中标注稀疏且噪声大的问题，提出Prost-RL强化学习框架。将检测形式化为空间感知的策略推理问题，利用活检核心级别的组织病理学结果作为奖励信号，无需像素级标注。实验表明，该方法在降低观察者间变异性的同时提升了检测精度，为病理诊断代理提供了弱监督场景下的有效方法。",
+      "llm_tags": [
+        "query:path-agent"
+      ],
+      "matched_query_tag": "query:path-agent",
+      "matched_query_text": "pathological diagnosis agent",
+      "matched_requirement_id": "req-2",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2607.02571v1",
+      "source": "arxiv",
+      "title": "Dual-Adaptive SAM3: Hierarchical Routing over Low-Rank Expert Layers for Parameter-Efficient Medical Image Segmentation",
+      "abstract": "The Segment Anything Model with Concepts (SAM3) heralds a new paradigm for open-vocabulary segmentation through natural language interaction, offering significant potential for medical image analysis. However, effectively adapting such a powerful vision-language model to the diverse and nuanced domain of medical imaging remains a key challenge. Naive fine-tuning is parameter-inefficient, while standard Mixture-of-Experts (MoE) methods introduce prohibitive computational overhead, limiting their clinical applicability. To address this, we propose Dual-Adaptive SAM3 (DA-SAM3), a novel framework that achieves both high segmentation accuracy and extreme parameter efficiency via a dual-adaptive specialization mechanism. Our first adaptation is task-aware: a Dynamic Expert Router (DER) that sparsely activates the most relevant experts by jointly reasoning about the visual input and the textual concept prompt, mimicking a clinical consultation process. Our second adaptation is parameter-aware: a Decomposed Parameterized Experts (DPE) design that represents each expert as a shared frozen base (inherited from the pretrained SAM3) and a lightweight trainable low-rank delta, reducing MoE parameter overhead by over 80\\%. Extensive experiments on multiple public medical segmentation benchmarks demonstrate that Dual-Adaptive SAM3 not only matches or exceeds the accuracy of fully fine-tuned SAM3 and standard MoE baselines, but also achieves a notable 5\\% gain over current state-of-the-art methods, with interpretable results validating its effectiveness. The code is available at: https://github.com/Reconsider80/DA-SAM3.",
+      "authors": [
+        "Ying Chen",
+        "Jinyue Li",
+        "Kun Wang",
+        "Qiankun Li",
+        "Yang Liu"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-06-30T08:14:18+00:00",
+      "link": "https://arxiv.org/pdf/2607.02571v1",
+      "tags": [
+        "keyword:path-agent",
+        "query:path-agent"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "parameter-efficient medical image segmentation with language interaction",
+      "llm_evidence_cn": "参数高效的医学图像分割，支持语言交互",
+      "llm_evidence": "参数高效的医学图像分割，支持语言交互",
+      "canonical_evidence": "参数高效的医学图像分割，支持语言交互",
+      "llm_tldr_en": "Dual-Adaptive SAM3 adapts SAM for medical image segmentation with dual-adaptive specialization, achieving high accuracy with extreme parameter efficiency.",
+      "llm_tldr_cn": "为了将SAM高效适应医学图像分割，提出双自适应SAM3框架，通过层次化低秩专家层路由实现极参数效率。在无需大量全微调的情况下保持高精度，为病理学图像分析提供可迁移的分割工具。",
+      "llm_tldr": "为了将SAM高效适应医学图像分割，提出双自适应SAM3框架，通过层次化低秩专家层路由实现极参数效率。在无需大量全微调的情况下保持高精度，为病理学图像分析提供可迁移的分割工具。",
+      "llm_tags": [
+        "query:path-agent:composite"
+      ],
+      "matched_query_tag": "query:path-agent:composite",
+      "matched_query_text": "Papers central to 病理Agent相关的论文, especially work that connects or combines: pathology agent; pathological diagnosis agent; medical pathology agent; histopathology agent; pathology AI agent; papers on pathology agents for medical diagnosis; research on digital pathology agents for histopathological analysis.",
+      "matched_requirement_id": "req-composite-path-agent",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2607.00385v1",
+      "source": "arxiv",
+      "title": "MalariAI: A Label-Resilient Decoupled Framework for Universal Cell Segmentation and Explainable Stage Classification in Dense Malaria Blood Smears",
+      "abstract": "Automated malaria diagnosis from blood smear microscopy is a critical challenge in global health AI; in resource-limited settings, the scarcity of expert microscopists remains the primary bottleneck to timely and accurate diagnosis. Three compounding failure modes prevent reliable clinical deployment of existing deep learning systems. First, end-to-end detectors treat unannotated cells as background during training, producing recall figures that are strongly influenced by annotation completeness rather than reflecting true cell recovery. Second, Non-Maximum Suppression tends to suppress valid detections in dense smear regions where infection counts matter most. Third, existing whole-slide detection pipelines lack per-cell spatial evidence for clinical audit, despite image-level explainability methods such as Grad-CAM having been applied to malaria image classification tasks. We present MalariAI, a two-stage decoupled framework that addresses all three failure modes in a unified pipeline. Stage 1 applies an annotation-agnostic distance-transform guided watershed algorithm to isolate every cell in a full 1600x1200 blood smear image, recovering 75.95% of ground-truth cells by centroid localisation across the 120-image NIH BBBC041 test set without any ground-truth input. Stage 2 fine-tunes EfficientNet-B0 with Focal Loss (gamma = 2.0, per-class inverse-frequency weights) on 64x64 crops, achieving 98.36% overall classification accuracy with 87.5% and 75.0% per-class accuracy on the rare schizont and gametocyte stages, compared to only 24.57% and 25.95% AP for a Faster R-CNN baseline on the same classes. Grad-CAM++ heatmaps generated per detected cell provide instance-level spatial evidence for clinical audit, enabling microscopists to verify model predictions at the individual parasite level without sacrificing classification performance.",
+      "authors": [
+        "Kaysarul Anas Apurba",
+        "Md Hasibul Hasan",
+        "Mohammed Ali",
+        "Tanzilur Rahman"
+      ],
+      "primary_category": "eess.IV",
+      "categories": [
+        "eess.IV",
+        "cs.AI",
+        "cs.CV"
+      ],
+      "published": "2026-07-01T03:27:04+00:00",
+      "link": "https://arxiv.org/pdf/2607.00385v1",
+      "tags": [
+        "keyword:path-agent",
+        "query:path-agent"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "AI system for malaria diagnosis from blood smears",
+      "llm_evidence_cn": "疟疾血涂片诊断AI系统",
+      "llm_evidence": "疟疾血涂片诊断AI系统",
+      "canonical_evidence": "疟疾血涂片诊断AI系统",
+      "llm_tldr_en": "Proposes a decoupled framework for cell segmentation and explainable stage classification in dense malaria blood smears, addressing annotation incompleteness and detection suppression issues.",
+      "llm_tldr_cn": "针对疟疾血涂片自动化诊断中的三大失败模式——未标注细胞被当作背景、非极大值抑制在密集区域抑制有效检测、以及可解释性缺失，该论文提出MalariAI：一个标签鲁棒的解耦框架，实现通用细胞分割与可解释的时期分类。通过解耦分割与分类并引入新的训练策略，在密集血涂片数据集上提升了召回率和分类准确率，为资源有限地区的疟疾诊断提供了可靠的AI工具。",
+      "llm_tldr": "针对疟疾血涂片自动化诊断中的三大失败模式——未标注细胞被当作背景、非极大值抑制在密集区域抑制有效检测、以及可解释性缺失，该论文提出MalariAI：一个标签鲁棒的解耦框架，实现通用细胞分割与可解释的时期分类。通过解耦分割与分类并引入新的训练策略，在密集血涂片数据集上提升了召回率和分类准确率，为资源有限地区的疟疾诊断提供了可靠的AI工具。",
+      "llm_tags": [
+        "query:path-agent"
+      ],
+      "matched_query_tag": "query:path-agent",
+      "matched_query_text": "papers on pathology agents for medical diagnosis",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2607.04401v1",
+      "source": "arxiv",
+      "title": "The Good, the Bad, and the Brittle: Benchmarking Robustness and Generalisation of Histopathology Foundation Models",
+      "abstract": "How robust and generalisable are pathology foundation models and have their scaling limites been reached? We benchmarked twelve pathology foundation models (PFMs) and ResNet baselines using our Robustness Evaluation and Enhancement Toolbox (REET) across eleven clinically realistic perturbations and a dissimilarity-driven Non-Redundant K-fold validation (NR-Kfold) protocol. We introduce a Perturbation Performance Index (PPI) to summarise accuracy trends under controlled perturbation sweeps and analyse robustness scaling with parameter count. We show that PFMs consistently outperform CNNs in both robustness and domain generalisation, yet model scaling shows diminishing returns: mid-sized models such (UNI2/Virchow-2 etc.) achieve comparable or greater resilience than larger systems. NR-Kfold analysis further reveals systematic accuracy loss and increased variability when training-test similarity is broken, underscoring the need for explicit distribution-shift evaluation. These findings suggest that the next generation of pathology foundation models must prioritise data quality, multimodality information and domain alignment over parameter count to achieve genuine clinical reliability.",
+      "authors": [
+        "Dhyey Yajnik",
+        "Amina Asif",
+        "Fayyaz Minhas"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV",
+        "cs.LG"
+      ],
+      "published": "2026-07-05T16:49:09+00:00",
+      "link": "https://arxiv.org/pdf/2607.04401v1",
+      "tags": [
+        "keyword:path-agent",
+        "query:path-agent"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "benchmarking histopathology foundation models for robustness and generalisation",
+      "llm_evidence_cn": "对组织病理学基础模型进行鲁棒性和泛化性基准测试",
+      "llm_evidence": "对组织病理学基础模型进行鲁棒性和泛化性基准测试",
+      "canonical_evidence": "对组织病理学基础模型进行鲁棒性和泛化性基准测试",
+      "llm_tldr_en": "Benchmarks 12 pathology foundation models on clinically realistic perturbations, showing CNNs underperform and mid-sized models like UNI2/Virch are optimal.",
+      "llm_tldr_cn": "该论文对12种病理学基础模型（PFMs）和ResNet基线进行了鲁棒性和泛化性基准测试。通过引入扰动性能指数（PPI）和非冗余K折验证，系统评估了模型在11种临床相关扰动下的表现。结果表明PFMs始终优于CNN，但模型扩展存在收益递减，中等规模模型如UNI2/Virch2在鲁棒性和泛化性之间取得了最佳平衡。该研究为构建可靠的病理学AI代理提供了模型选择依据。",
+      "llm_tldr": "该论文对12种病理学基础模型（PFMs）和ResNet基线进行了鲁棒性和泛化性基准测试。通过引入扰动性能指数（PPI）和非冗余K折验证，系统评估了模型在11种临床相关扰动下的表现。结果表明PFMs始终优于CNN，但模型扩展存在收益递减，中等规模模型如UNI2/Virch2在鲁棒性和泛化性之间取得了最佳平衡。该研究为构建可靠的病理学AI代理提供了模型选择依据。",
+      "llm_tags": [
+        "query:path-agent"
+      ],
+      "matched_query_tag": "query:path-agent",
+      "matched_query_text": "histopathology agent",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2607.04907v1",
+      "source": "arxiv",
+      "title": "Medi-Gemma: A Hybrid Clinical Decision Support System Integrating Deterministic EMR Analytics and Retrieval-Augmented Generation",
+      "abstract": "Deploying Large Language Models (LLMs) in high-stakes clinical settings remains limited by structural hallucinations, weak deterministic reasoning over tabular patient data, and omissions in vector retrieval. This paper presents the architecture and validation of Medi-Gemma, a Clinical Decision Support System (CDSS) for wound pathology triage and workflow automation. The platform introduces a decoupled framework that separates clinical perception from data orchestration while preserving traceable reasoning. Medi-Gemma uses a multi-stage pipeline coordinated by a centralized ClinicalOrchestrator. Data requests are handled without generative inference by a DataManager that cleans unstructured Electronic Medical Record (EMR) files through type coercion. Natural language queries are processed by a hierarchical IntentRouter, which routes requests to deterministic analytics paths executed by a PandasQueryEngine or to patient-specific reasoning managed by a ClinicalRAGEngine using a CPU-optimized vector store. A key contribution is the Ground Truth Injection Module, which intercepts patient-specific queries, extracts numeric identification tokens, queries the structured dataframe via Pandas, retrieves the latest validated clinical state, and embeds this snapshot as an overriding context block in the LLM prompt before generation. Safety compliance is enforced by a deterministic ProtocolManager that maps clinical terminology to fixed evidence-based risk pathways, while a SafetyVerifier phrase filter prevents output rule violations. Validation shows that this architecture eliminates semantic context drift, prevents database compilation crashes, and improves factual adherence to backend clinical repositories. These results support Medi-Gemma as a safer pattern for LLM-based clinical decision support where structured data fidelity, retrieval grounding, and deterministic safeguards are essential.",
+      "authors": [
+        "Mohammed Saim Ahmed Quadri",
+        "Yunzhe Xue",
+        "Justin W. Ady",
+        "Usman Roshan"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI"
+      ],
+      "published": "2026-07-06T10:36:04+00:00",
+      "link": "https://arxiv.org/pdf/2607.04907v1",
+      "tags": [
+        "keyword:path-agent",
+        "query:path-agent"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "hybrid CDSS for wound pathology triage with agent-like architecture",
+      "llm_evidence_cn": "用于伤口病理分诊的混合临床决策支持系统，具有类代理架构",
+      "llm_evidence": "用于伤口病理分诊的混合临床决策支持系统，具有类代理架构",
+      "canonical_evidence": "用于伤口病理分诊的混合临床决策支持系统，具有类代理架构",
+      "llm_tldr_en": "Presents Medi-Gemma, a CDSS with decoupled modules for wound pathology triage, integrating deterministic EMR analytics and RAG, coordinated by a ClinicalOrchestrator.",
+      "llm_tldr_cn": "该论文针对LLM在临床部署中的幻觉和弱推理问题，提出Medi-Gemma临床决策支持系统。系统采用解耦架构，通过集中式编排器协调数据管理、检索增强生成等模块，专门用于伤口病理分诊和工作流自动化。在真实数据上验证了系统在减少幻觉、提升可追溯推理方面的优势，为构建可靠的医学病理代理提供了工程化方案。",
+      "llm_tldr": "该论文针对LLM在临床部署中的幻觉和弱推理问题，提出Medi-Gemma临床决策支持系统。系统采用解耦架构，通过集中式编排器协调数据管理、检索增强生成等模块，专门用于伤口病理分诊和工作流自动化。在真实数据上验证了系统在减少幻觉、提升可追溯推理方面的优势，为构建可靠的医学病理代理提供了工程化方案。",
+      "llm_tags": [
+        "query:path-agent"
+      ],
+      "matched_query_tag": "query:path-agent",
+      "matched_query_text": "medical pathology agent",
+      "matched_requirement_id": "req-3",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2607.04912v1",
+      "source": "arxiv",
+      "title": "Graph Representation Learning of Longitudinal Medical Imaging Trajectories for Treatment Response Prediction",
+      "abstract": "In patients with breast cancer, pathological complete response (pCR) has been established as a clinically meaningful surrogate marker for long-term outcomes. While commonly treated with neoadjuvant chemotherapy (NACT), effective treatment decision-making remains challenging, as therapeutic response can vary substantially across patients, calling for predictive models capable of accurately estimating individualized treatment response. To address this, we propose an imaging-based 3D spatio-temporal framework for treatment response prediction that integrates a state-of-the-art graph neural network with relational modeling of temporal interactions across timepoints alongside three novel complementary self-supervised treatment trajectory representation learning objectives. Experiments across a cohort of 585 patients from the public ISPY-2 dataset demonstrate that our method substantially outperforms both vision and self-supervised learning baselines across several classification metrics. Alongside establishing a breast cancer pCR prediction benchmark, we include a principled ablation of our method and further introduce and empirically assess the impact of the available number of DCE-MRI timepoints per patient trajectory and the inclusion of inter-scan time-differences. Overall, our study substantiates the utility of clinically meaningful longitudinal medical imagaging modeling for predicting NACT-induced pCR. We will publicly share our code repository and a user-friendly PyPI library for dataset curation upon publication, effectively promoting reproducible open-source research.",
+      "authors": [
+        "Johannes Kiechle",
+        "Richard Osuala",
+        "Daniel M. Lang",
+        "Stefan M. Fischer",
+        "Ivana Janíčková",
+        "Karim Lekadir",
+        "Julia A. Schnabel",
+        "Jan C. Peeken"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV",
+        "cs.AI",
+        "cs.LG"
+      ],
+      "published": "2026-07-06T10:39:14+00:00",
+      "link": "https://arxiv.org/pdf/2607.04912v1",
+      "tags": [
+        "keyword:path-agent",
+        "query:path-agent"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "Graph representation learning for treatment response prediction using pathology markers",
+      "llm_evidence_cn": "利用病理标志物进行治疗反应预测的图表示学习",
+      "llm_evidence": "利用病理标志物进行治疗反应预测的图表示学习",
+      "canonical_evidence": "利用病理标志物进行治疗反应预测的图表示学习",
+      "llm_tldr_en": "Proposes a 3D spatio-temporal graph framework for predicting pathological complete response in breast cancer patients undergoing neoadjuvant chemotherapy.",
+      "llm_tldr_cn": "乳腺癌患者对新辅助化疗的反应高度异质，预测个体化治疗反应至关重要。该论文提出基于3D时空图神经网络的框架，结合自监督学习，从纵向影像中建模时空交互，预测病理完全缓解（pCR），为病理Agent提供了治疗反应预测能力，有助于指导临床决策。",
+      "llm_tldr": "乳腺癌患者对新辅助化疗的反应高度异质，预测个体化治疗反应至关重要。该论文提出基于3D时空图神经网络的框架，结合自监督学习，从纵向影像中建模时空交互，预测病理完全缓解（pCR），为病理Agent提供了治疗反应预测能力，有助于指导临床决策。",
+      "llm_tags": [
+        "query:path-agent"
+      ],
+      "matched_query_tag": "query:path-agent",
+      "matched_query_text": "medical pathology agent",
+      "matched_requirement_id": "req-3",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    }
+  ]
+}

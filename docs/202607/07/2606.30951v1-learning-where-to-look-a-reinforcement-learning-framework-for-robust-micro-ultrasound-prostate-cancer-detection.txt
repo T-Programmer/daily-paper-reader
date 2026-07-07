@@ -1,0 +1,189 @@
+Title: Learning Where to Look: A Reinforcement Learning Framework for Robust Micro-Ultrasound Prostate Cancer Detection
+
+URL Source: https://arxiv.org/pdf/2606.30951v1
+
+Published Time: Wed, 01 Jul 2026 00:17:32 GMT
+
+Number of Pages: 10
+
+Markdown Content:
+# Learning Where to Look: A Reinforcement Learning Framework for Robust Micro-Ultrasound Prostate Cancer Detection 
+
+Mohammad Mahdi Abootorabi 1,3, Sina Namazi 1, Armin Saadat 1, Lyuyang Wang 1, Obed Dzikunu 1,3, Paul F. R. Wilson 2,3, Zhuoxin Guo 2,3, Brian Wodlinger 4, Parvin Mousavi 2,3, and Purang Abolmaesumi 1 
+
+> 1
+
+The University of British Columbia, Vancouver, BC, Canada 
+
+{mahdi.abootorabi,purang}@ece.ubc.ca  
+
+> 2
+
+Queen’s University, Kingston, ON, Canada  
+
+> 3
+
+Vector Institute, Toronto, ON, Canada  
+
+> 4
+
+Exact Imaging, Markham, ON, Canada 
+
+Abstract. Micro-ultrasound ( μUS) is a new, emerging, and promising imaging modality for prostate cancer (PCa) detection, but accurate iden-tification of suspicious tissue remains highly dependent on clinical expe-rience, leading to substantial inter-observer variability. Machine-learning assistance can reduce this variability; however, training reliable deep models is challenging because supervision is sparse and noisy—typically limited to core-level histopathology outcomes (e.g., cancer grade and its percentage in a biopsy core) without pixel-level lesion annotations and under severe class imbalance. We introduce Prost-RL, which re-frames μUS PCa detection as a spatially aware, policy-driven inference problem by learning where to look before decoding. Prost-RL integrates a lightweight reinforcement-learning policy into a foundation-model en-coder–decoder to generate interpretable spatial attention maps that act as soft prompts for both cancer-likelihood heatmap prediction and image-level classification. We further propose Adaptive Policy Optimization (APO) to stabilize hybrid supervised–RL training and a noise-robust objective combining symmetric cross-entropy with negative-entropy reg-ularization to mitigate weak-label noise and encourage sharp localization. On a cohort of 6,607 biopsy cores from 693 patients across five clinical sites, Prost-RL achieves 79 .0 ± 3.5 AUROC with 64 .6 ± 6.3% sensitiv-ity at 80% specificity for core-level detection (+2.1 AUROC and +4.5 sensitivity points over the strongest baseline), and 79 .3 ± 5.8 AUROC for clinically significant cancer classification. The learned policy high-lights biopsy-aligned regions, providing transparent, spatially grounded evidence alongside quantitative risk predictions. Code is available at: https://github.com/DeepRCL/Prost-RL. 
+
+Keywords: Prostate Cancer · Ultrasound · Reinforcement Learning. 
+
+## 1 Introduction 
+
+Prostate cancer (PCa) remains a leading cause of cancer mortality in men [3]. While multi-parametric MRI (mpMRI) improves risk stratification [17, 7], its  
+
+> arXiv:2606.30951v1 [cs.CV] 29 Jun 2026 2M. M. Abootorabi et al.
+
+cost and infrastructure requirements limit broad access [12], motivating biopsy-targeting workflows based on ultrasound alone. High-resolution micro-ultrasound (μUS) is an emerging and promising modality for PCa detection, operating at frequencies up to 29 MHz to resolve prostate micro-architecture with MRI-comparable accuracy [5, 14]. However, interpretation of μUS is highly dependent on clinical experience: speckle noise, artifacts, and heterogeneous tumor appear-ance make suspicious regions subtle and variable [11, 8], leading to substantial inter-observer variability. Automating μUS interpretation with machine learning can help standardize targeting and reduce observer variability. A central barrier is supervision. In routine biopsy, pathology is available only at the core level : each acquired core provides a global cancer label, grade, and involvement percentage, but no pixel-level lesion delineation. Supervision is sparse (restricted to the needle region), noisy (small tumors may be missed), and strongly imbalanced (benign tissue dominates), making it difficult to train deep models that localize cancer and predict clinically significant disease reliably. Recent work has progressed from patch-based CNNs to foundation-model (FM) adaptations that mitigate weak labels and domain shift via self-supervision, multiple-instance learning (MIL), temporal/radio-frequency modeling, prompt-ing with clinical priors, and knowledge distillation [6, 10, 11, 22–24]. Yet, most approaches remain passive : they process the full image holistically and rely on implicit attention to discover lesions. This becomes brittle under weak and noisy labels, where fine-tuning large decoders can amplify spurious regions and de-grade localization [9, 20]. These observations motivate an explicit mechanism that learns where to look before decoding. In this paper, we introduce Prost-RL , a policy-driven framework that in-tegrates a lightweight reinforcement-learning (RL) policy into an FM encoder-decoder to produce interpretable spatial attention maps serving as soft prompts for heatmap localization and image-level classification. Prost-RL is trained end-to-end with Adaptive Policy Optimization (APO) , a hybrid supervised-RL objective inspired by alignment methods, and with noise-robust loss (symmet-ric cross-entropy and negative-entropy regularization) to stabilize learning from sparse, weak core-level labels. On a multi-center retrospective μUS cohort of 6,607 biopsy cores from 693 patients across five sites, Prost-RL improves core-level detection to 79 .0 ± 3.5 AUROC with 64 .6 ± 6.3% sensitivity at 80% speci-ficity (+2.1 AUROC and +4.5 sensitivity points over the strongest baseline) and achieves 79 .3 ± 5.8 AUROC for clinically significant cancer classification, while providing biopsy-aligned attention maps for transparent decision support. 
+
+## 2 Materials and Method 
+
+2.1 Data 
+
+We utilized a private multi-center μUS dataset of 6,607 biopsy cores from 693 pa-tients, collected prospectively across five clinical sites (2013–2016) under an ap-proved trial (ClinicalTrials.gov: NCT02079025 [18]) with informed consent. Biop-sies were performed using the ExactVu μUS system (Exact Imaging, Markham, Learning Where to Look 3         
+
+> Fig. 1. Prost-RL overview. Image and clinical prompt encoders produce features F
+> and embedding c. A spatial policy πθgenerates an attention map αthat modulates F
+> into shared embeddings E, decoded by a heatmap head and a csPCa classifier.
+
+Canada), acquiring B-mode sagittal-plane images (depth 28 mm, width 46.06 mm) at 10–12 cores per patient; the frame immediately preceding needle firing was extracted per core. Clinical metadata included patient age, PSA, PSA density (PSAD), and anatomical core location (POS) as 2D base-apex and medial-lateral coordinates. Core-level histopathology provided ground-truth ISUP Grade Group (GG) and proportional cancer involvement, assigned to annotated needle trace regions as weak spatial supervision. Positive cores (GG ≥ 1) comprised clini-cally insignificant (isPCa, GG=1–2; n = 480 ) and clinically significant (csPCa, GG ≥ 3; n = 400 ) cases, yielding 880 positives against 5,727 benign cores (86% benign). Biopsy needle trace and whole-gland binary masks were provided alongside images. Evaluation followed patient-level five-fold cross-validation with center-stratified folds [24]; benign cores from patients with any malignant core were excluded from training to reduce label ambiguity, with no involvement-threshold filtering or benign undersampling applied. Images were resized to 
+
+256 × 256 and normalized to [0 , 1] ; masks to 64 × 64 to match attention map resolution. 
+
+2.2 Method 
+
+Fig. 1 provides an overview of Prost-RL . Our design is encoder–decoder agnos-tic; we instantiate it on top of ProstNFound+ [23], currently the strongest base-line for μUS PCa detection, because it couples a pretrained medical foundation model (MedSAM [15]) with lightweight adapter layers and a clinical prompt encoder. Prost-RL contributes three additions to this backbone: (i) an atten-tion policy network that learns where to look before features reach the decoder, (ii) a noise-robust training objective to handle weak, proportional biopsy labels, and (iii) reinforcement-learning-tuning that optimises a ranking-aware reward. Training proceeds with a supervised warm-up, followed by RL refinement. 4 M. M. Abootorabi et al. 
+
+Given an input image x, the MedSAM encoder produces spatial features 
+
+F = Enc( x) ∈ RC×H×W . Rather than passing these raw features directly for pre-diction, they are first explicitly modulated by the attention policy. The resulting modulated dense embeddings, together with shared sparse prompt embeddings (encoding clinical metadata), are passed simultaneously to two distinct heads: (i) a heatmap decoder for pixel-level cancer likelihood, and (ii) an image-level classifier specifically for clinically significant prostate cancer (csPCa) detection. Joint training on these shared inputs ensures that the explicitly learned spatial focus actively supports both precise tumor localization and global risk grading. 
+
+Spatial Attention Policy and Feature Modulation. Under weak propor-tional supervision, models tend to produce spatially diffuse predictions. We in-troduce an explicit attention policy πθ that learns a spatial distribution over encoder locations. The policy processes F and clinical metadata c. Clinical fea-tures are embedded into a channel-wise gate g ∈ RC , which modulates pro-cessed features via element-wise multiplication. A convolutional head produces spatial logits that are masked outside the prostate region and normalized to ob-tain attention weights α. Attention-weighted features are computed and injected through residual modulation: ˜F = Fproc ⊙α, E = F+ϕ( ˜F), where Fproc denotes the policy-processed features (after convolution and clinical gating), and ϕ(·) is a bias-free 1 × 1 projection with GELU nonlinearity. This additive modulation ensures zero attention yields zero contribution while preserving base features. Modulated embeddings E is shared by both decoder heads, and α provides an interpretable spatial map of the model’s attention. 
+
+Noise-Robust Weakly Supervised Training. Ground-truth is available only as a core-level involvement proportion q ∈ [0 , 1] per needle trace. Pixel-level BCE forces the model to predict cancer everywhere in a positive core, producing diffuse heatmaps. ProstNFound+ [23] relaxes this by applying BCE against q
+
+over the needle-prostate intersection, but standard CE fully trusts noisy labels: the gradient ∂L/∂ ˆp = −q/ ˆp+(1 −q)/(1 − ˆp) diverges when the model confidently disagrees, causing memorization of erroneous proportions. We introduce a Symmetric Cross-Entropy (SCE) [21] objective combined with entropy minimization as our heatmap loss. SCE augments CE with a Re-verse Cross-Entropy (RCE) term, LSCE = α LCE (ˆ p, q ) + β LRCE (ˆ p, q ), where 
+
+LRCE (ˆ p, q ) = −ˆp log qϵ − (1 −ˆp) log(1 −qϵ) and qϵ = clip( q, ϵ, 1−ϵ). Because the RCE gradient with respect to ˆp is − log qϵ +log(1 −qϵ), a constant independent of the prediction, the corrective signal remains bounded under strong model–label disagreement, providing implicit noise tolerance without discarding supervision. However, proportion-based losses only constrain the average prediction: a model outputting q uniformly across all pixels satisfies LSCE identically to one that lo-calizes precisely. To resolve this degeneracy, we add a pixel-level entropy regular-izer, Lent = λH |R| −1 P 
+
+> (i,j )∈R
+
+H(ˆ yi,j ), where R is the valid spatial region defined by the intersection of the prostate and needle masks, ˆyi,j is the predicted pixel probability, and H is the binary entropy. By minimizing Lent , we penalize uncer-tain, mid-range per-pixel predictions and drive the model toward spatially sharp, Learning Where to Look 5
+
+decisive heatmaps. The total supervised objective is Lsup = LSCE + Lent + Lclf ,where Lclf is a balanced CE on the classification head. 
+
+Adaptive Policy Optimization. While our noise-robust supervised objective stabilizes learning from weak proportional labels, it inherently optimizes absolute prediction confidence on a strictly per-sample basis. However, clinical diagnosis heavily relies on relative risk stratification and is effectively a ranking problem. Furthermore, supervision is available only at the core level, providing no direct guidance on which spatial regions truly correspond to malignant tissue. Conse-quently, this supervision can lead to suboptimal spatial focus. To refine the spatial policy and optimize this ranking capability, we intro-duce APO as a post–warm-up training stage. The goal is not merely to increase confidence, but to bias the spatial policy toward attention patterns that pro-duce preferable predictions under weak supervision. Rather than relying solely on proxy classification losses, we design a pairwise ranking reward that serves as an in-batch proxy for ranking. For each sample, the reward reflects the fraction of correctly ordered positive-negative pairs, with a multiplicative bonus ( γ = 2 )applied to clinically significant (csPCa, GG ≥ 3) cases to explicitly prioritize high-risk tumor detection. For a mini-batch with positive set P and negative set 
+
+N , we compute a pairwise reward based on the ordering of classification scores: 
+
+ri =
+
+( 2
+
+> |N |
+
+P 
+
+> j∈N
+
+1[pi > p j ] − 1, yi = 1 ,
+
+> 2
+> |P|
+
+P 
+
+> j∈P
+
+1[pj > p i] − 1, yi = 0 , (1) where pi is the predicted cancer probability. This reward promotes attention configurations that improve separation between malignant and benign cores. Clinically significant cancers receive amplified reward to prioritize high-grade disease. To optimize this reward, we adopt a group-relative policy optimization strat-egy inspired by Group Relative Policy Optimization (GRPO) [19], which com-putes advantages by comparing multiple rollouts of the same image. However, a challenge arises: our continuous spatial attention is mostly deterministic. Passing the same image through the policy network multiple times would yield identical attention maps, resulting in zero within-image reward variance and collapsing the policy gradients. To break this degeneracy and enable exploration, we inject continuous Gaussian noise directly into the attention logits prior to the softmax activation during the rollout phase: ˜a = a + ϵ with ϵ ∼ N (0 , σ 2), where σ regu-lates the exploration scale. This stochastic injection generates K different spatial configurations per forward pass, allowing the model to observe how subtle shifts in focal attention influence downstream classification rankings. Finally, applying standard GRPO is suboptimal in our setting due to dataset class imbalance (86% benign) and severe difficulty heterogeneity (e.g., small 10% 
+
+vs. large 80% tumor involvements). Standard rollout normalization treats all samples equally, allowing trivial benign cases to overwhelm the gradient signal. We address this by adopting Domain-Robust Policy Optimization (DRPO) [4]. DRPO performs decoupled reward normalization and clusters samples hierarchi-cally based on their clinical domain (cancer vs. benign) and empirical difficulty 6 M. M. Abootorabi et al.                                                                                                                                   
+
+> Table 1. Prostate cancer detection performance in micro-ultrasound. Results are Mean
+> ±Standard Deviation across five folds.
+> Auxiliary Image-Level Classification Head Method All Cores csPCa vs. non-csPCa AUROC Sens@80 AUROC Sens@60 Sens@80
+> ProstNFound+ [23] 75.4 ±4.1 56.3 ±7.3 78.5 ±5.3 81.8 ±8.3 58.2 ±10.6
+> Prost-RL (Ours) 76.6 ±3.4 58.0 ±4.6 79.3 ±5.8 83.1 ±8.4 62.8 ±12.6 Heatmap Decoder (Core-Level Detection) Method All Cores High Involvement csPCa AUROC Sens@80 AUROC Sens@80 AUROC
+> MedSAM-UNETR [2] 71.4 ±2.7 50.7 ±5.0 79.4 ±1.6 63.9 ±5.7 71.5 ±4.6 MedSAM-FT [16] 71.6 ±2.0 50.9 ±4.2 78.4 ±0.9 62.7 ±1.9 71.3 ±3.8 MicroSegNet [13] 73.5 ±2.2 52.7 ±3.2 80.0 ±0.6 62.6 ±1.7 74.3 ±5.2 ProstNFound [24] 76.8 ±3.8 61.2 ±6.9 82.0 ±3.2 70.7 ±7.8 78.0 ±6.5 ProstNFound+ [23] 76.9 ±3.5 60.1 ±5.6 83.6 ±2.4 72.5 ±4.9 79.6 ±4.1
+> Prost-RL (Ours) 79.0 ±3.5 64.6 ±6.3 84.9 ±2.5 76.3 ±5.9 79.9 ±5.5
+
+(via K-Means clustering on the rollout reward vectors). By applying hierarchical temperature scaling to the computed advantages, DRPO dynamically upweights the gradients of rare cancer cases and hard-to-classify borderline lesions. During RL fine-tuning, we jointly optimize the DRPO policy loss alongside the super-vised objectives, ensuring the model maintains core detection stability while explicitly nudging the policy toward optimally ranked predictions. 
+
+2.3 Experiments 
+
+We compare against MedSAM-UNETR [1], MedSAM-FT [15], MicroSegNet [13], ProstNFound [24], and ProstNFound+ [23], and conduct ablation studies on each component. Evaluation follows patient-level five-fold cross-validation with center-stratified splits; core-level scores are computed as mean heatmap activa-tion within the needle–prostate intersection, and image-level csPCa scores from the classification head. We report AUROC and sensitivity at fixed specificities. Supervised training runs for 35 epochs (batch size 8, AdamW, lr = 2 ×10 −5, en-coder lr = 1 ×10 −5, cosine annealing, weight decay 10 −3, α=β=1 ). RL fine-tuning runs for 35 additional epochs (batch size 16, K=4 rollouts, σ=0 .15 ). Model se-lection uses validation AUC on high-involvement ( ≥40% ) cores. 
+
+## 3 Results and Discussion 
+
+Results are summarized in Table 1. Prost-RL consistently outperforms all state-of-the-art (SOTA) baselines across both evaluation heads. For core-level de-tection, it achieves 79 .0 ± 3.5 AUROC, surpassing ProstNFound+ by +2 .1% ,Learning Where to Look 7(a)  Performance across Tumor Involvement Thresholds  (b) Main results for RL VS supervised           
+
+> 0
+> 20
+> 40
+> 60
+> 80
+> 100
+> Value
+> 79.05 78.09
+> 91.25 89.03 89.11 86.20 84.87 84.16
+> AUROC Sens@40SPE Sens@60SPE AUROC HighInv
+> RL Supervised
+> 70
+> 72
+> 74
+> 76
+> 78
+> 80
+> 82
+> AUROC (%)
+> ProstNFound+
+> No Prompt
+> None
+> Age
+> PSA
+> Age & PSA
+> Age & PSA & POS
+> AGE & PSA & POS & PSAD
+> (c) Ablation in different prompt
+> 76
+> 78
+> 80
+> 82
+> AUROC (%)
+> Transformer L
+> CA
+> Deep Conv
+> Transformer  S
+> Shallow Conv
+> (d) Ablation in different policy
+> AUROC (%)
+> 0
+> 20
+> 40
+> 60
+> 80
+> ℒProstnfonud+
+> ℒProstRL
+> ℒProstnfound
+> (e) Ablation in different loss
+
+Fig. 2. Top: comparison of Prost-RL (Full) vs. supervised-only variant and other base-lines. Bottom: ablation study results for different setting choices. 
+
+with sensitivity at 80% specificity improving from 60 .1% to 64 .6% . Gains extend to high-involvement cores ( 84 .9 vs. 83 .6) and csPCa detection ( 79 .9 vs. 79 .6). MedSAM-based approaches without explicit spatial guidance lag considerably behind, underscoring the benefit of learning where to look before decoding. The classification head mirrors this trend: Prost-RL achieves 79 .3 ± 5.8 AUROC for csPCa vs. non-csPCa ( 78 .5 ± 5.3 for ProstNFound+), with sensitivity at 80% specificity improving from 58 .2% to 62 .8% , confirming that the shared attention policy consistently benefits both localization and global risk grading. Fig. 2 part (a) plots mean core-level AUROC as a function of minimum cancer involvement threshold, isolating performance on progressively higher-confidence positive cores. All methods improve with higher involvement, consistent with larger tumors being more visually conspicuous. Parts (a) and (b), illustrate the contribution of our two main additions: the supervised stage alone (Prost-RL Su-pervised, incorporating the attention policy and noise-robust losses) surpasses both baselines, ProstNFound and ProstNFound+, at every threshold, demon-strating that explicit spatial attention modulation and SCE meaningfully im-prove localization. The full Prost-RL model widens this gap further across all thresholds, with the margin over the supervised variant growing at lower involve-ment levels, precisely the regime where weak, noisy labels are most problematic, suggesting that APO does not merely boost overall confidence but specifically 8 M. M. Abootorabi et al.  
+
+> Fig. 3. Example heatmaps generated by ProstRL and ProstNFound+, shown alongside ground-truth labels and radiologist annotations.
+
+improves the model’s ability to rank and localize subtle, low-involvement lesions that supervised training alone struggles to distinguish. 
+
+Ablation Studies and Qualitative Evaluation. Fig. 2 (part c–e) ablates the key design choices of Prost-RL. Prompt ablation (c): even without any clin-ical prompts, Prost-RL surpasses ProstNFound+ by a clear margin, confirming that the attention policy and noise-robust training provide independent gains. Performance improves monotonically as prompts are added, with the full set yielding the best results, consistent with each feature providing complementary clinical context. Policy architecture (d): all tested architectures (transformer and convolutional variants) perform comparably, indicating that the RL training strategy drives the gains rather than a specific network design. Loss function (e): our proposed loss outperforms the needle-region cross-entropy of Prost-NFound and the MIL proportion BCE of ProstNFound+, demonstrating that explicit noise robustness via SCE and negative-entropy regularization is ben-eficial in this weakly supervised, label-noisy setting. Fig. 3 compares outputs qualitatively. For malignant cases, Prost-RL produces sharper, more spatially focused heatmaps confined to biopsy-confirmed regions, while ProstNFound+ yields diffuse activations. The policy attention map provides an interpretable spatial prior correlated with the model’s decision, supporting clinician trust. For the benign case, Prost-RL correctly suppresses needle-region activation where ProstNFound+ does not. Prost-RL’s gains arise from explicit spatial attention guiding decoding under weak supervision, SCE with entropy regularization enforcing sharp heatmaps, and APO refining the policy toward better malignant-benign separation under class imbalance. Extension to 3D volumes remains as an important future works. Learning Where to Look 9
+
+Acknowledgments. This work was supported in part by the Canadian Institutes of Health Research (CIHR), the Natural Sciences and Engineering Research Council of Canada (NSERC), Vector Institute, and through computational resources and services provided by Advanced Research Computing at the University of British Columbia. P. Mousavi is supported in part by Canada CIFAR AI Chair and Canada Research Chair. 
+
+## References 
+
+1. Alzate-Grisales, J.A., Mora-Rubio, A., García-García, F., Tabares-Soto, R., De La Iglesia-Vayá, M.: Sam-unetr: Clinically significant prostate cancer segmentation using transfer learning from large model. IEEE Access 11 , 118217–118228 (2023) 2. Alzate-Grisales, J.A., Mora-Rubio, A., García-García, F., Tabares-Soto, R., De La Iglesia-Vayá, M.: Sam-unetr: Clinically significant prostate cancer segmentation using transfer learning from large model. IEEE Access 11 , 118217–118228 (2023). https://doi.org/10.1109/ACCESS.2023.3326882 3. Bray, F., Laversanne, M., Sung, H., Ferlay, J., Siegel, R.L., Soerjomataram, I., Je-mal, A.: Global cancer statistics 2022: Globocan estimates of incidence and mor-tality worldwide for 36 cancers in 185 countries. CA: a cancer journal for clinicians pp. 229–263 (2024) 4. Dai, W., Chen, P., Ekbote, C., Liang, P.P.: Qoq-med: Building multimodal clinical foundation models with domain-aware grpo training. arXiv preprint arXiv:2506.00711 (2025) 5. DuBois, J., Smani, S., Golos, A., Rivera Lopez, C., Lokeshwar, S.D.: Micro-ultrasound in the detection of clinically significant prostate cancer: A compre-hensive review and comparison with multiparametric mri. Tomography 11 (7), 80 (2025) 6. Elghareb, T., Harmanani, M., To, M.N.N., Wilson, P., Jamzad, A., Fooladgar, F., Abdelsamad, B., Dzikunu, O., Sojoudi, S., Reznik, G., et al.: Proteus: A spatio-temporal enhanced ultrasound-based framework for prostate cancer detection. In: International Conference on Medical Image Computing and Computer-Assisted Intervention. pp. 405–414. Springer (2025) 7. Gavade, A.B., Nerli, R., Kanwal, N., Gavade, P.A., Pol, S.S., Rizvi, S.T.H.: Auto-mated diagnosis of prostate cancer using mpmri images: A deep learning approach for clinical decision support. Computers 12 (8), 152 (2023) 8. Gilany, M., Wilson, P., Jamzad, A., Fooladgar, F., To, M.N.N., Wodlinger, B., Abolmaesumi, P., Mousavi, P.: Towards confident detection of prostate cancer using high resolution micro-ultrasound. In: International conference on medical image computing and computer-assisted intervention. pp. 411–420. Springer (2022) 9. Han, K., Wang, S., Chen, J., Qian, C., Lyu, C., Ma, S., Qiu, C., Sheng, V.S., Huang, Q., Liu, Z.: Region uncertainty estimation for medical image segmentation with noisy labels. IEEE Transactions on Medical Imaging (2025) 10. Harmanani, M., Jamzad, A., To, M.N.N., Wilson, P.F., Guo, Z., Fooladgar, F., Sojoudi, S., Gilany, M., Chang, S., Black, P., et al.: Cinepro: Robust training of foundation models for cancer detection in prostate ultrasound cineloops. In: 2025 IEEE 22nd International Symposium on Biomedical Imaging (ISBI). pp. 1–5. IEEE (2025) 11. Harmanani, M., Wilson, P.F., To, M.N.N., Gilany, M., Jamzad, A., Fooladgar, F., Wodlinger, B., Abolmaesumi, P., Mousavi, P.: Trusworthy: toward clinically appli-cable deep learning for confident detection of prostate cancer in micro-ultrasound. 10 M. M. Abootorabi et al. International Journal of Computer Assisted Radiology and Surgery 20 (5), 981–989 (2025) 12. Hutchinson, R., Lotan, Y.: Cost consideration in utilization of multiparametric magnetic resonance imaging in prostate cancer. Translational andrology and urol-ogy 6(3), 345 (2017) 13. Jiang, H., Imran, M., Muralidharan, P., Patel, A., Pensa, J., Liang, M., Beni-dir, T., Grajo, J.R., Joseph, J.P., Terry, R., et al.: Microsegnet: A deep learning approach for prostate segmentation on micro-ultrasound images. Computerized Medical Imaging and Graphics 112 , 102326 (2024) 14. Klotz, L., Lughezzani, G., Maffei, D., Sánchez, A., Pereira, J.G., Staerman, F., Cash, H., Luger, F., Lopez, L., Sanchez-Salas, R., et al.: Comparison of micro-ultrasound and multiparametric magnetic resonance imaging for prostate cancer: a multicenter, prospective analysis. Canadian Urological Association Journal 15 (1), E11 (2020) 15. Ma, J., He, Y., Li, F., Han, L., You, C., Wang, B.: Segment anything in medical images. Nature Communications 15 , 654 (2024) 16. Ma, J., He, Y., Li, F., Han, L., You, C., Wang, B.: Segment anything in medical images. Nature communications 15 (1), 654 (2024) 17. Reisæter, L.A., Fütterer, J.J., Losnegård, A., Nygård, Y., Monssen, J., Gravdal, K., Halvorsen, O.J., Akslen, L.A., Biermann, M., Haukaas, S., et al.: Optimising preoperative risk stratification tools for prostate cancer using mpmri. European Radiology 28 (3), 1016–1026 (2018) 18. Rohrbach, D., Wodlinger, B., Wen, J., Mamou, J., Feleppa, E.: High-frequency quantitative ultrasound for imaging prostate cancer using a novel micro-ultrasound scanner. Ultrasound in medicine & biology 44 (7), 1341–1354 (2018) 19. Shao, Z., Wang, P., Zhu, Q., Xu, R., Song, J., Bi, X., Zhang, H., Zhang, M., Li, Y., Wu, Y., et al.: Deepseekmath: Pushing the limits of mathematical reasoning in open language models, 2024. URL https://arxiv. org/abs/2402.03300 2(3), 5(2024) 20. Wang, H., Huai, L., Li, W., Qi, L., Jiang, X., Shi, Y.: Weakmedsam: Weakly-supervised medical image segmentation via sam with sub-class exploration and prompt affinity mining. IEEE Transactions on Medical Imaging (2025) 21. Wang, Y., Ma, X., Chen, Z., Luo, Y., Yi, J., Bailey, J.: Symmetric cross entropy for robust learning with noisy labels. In: Proceedings of the IEEE/CVF international conference on computer vision. pp. 322–330 (2019) 22. Willis, E., Elghareb, T., Wilson, P.F.R., To, M.N.N., Abootorabi, M.M., Jamzad, A., Wodlinger, B., Mousavi, P., Abolmaesumi, P.: Guide-us: Grade-informed un-paired distillation of encoder knowledge from histopathology to micro-ultrasound (2026), https://arxiv.org/abs/2602.19005 23. Wilson, P.F., Harmanani, M., To, M.N.N., Jamzad, A., Elghareb, T., Guo, Z., Kinnaird, A., Wodlinger, B., Abolmaesumi, P., Mousavi, P.: Prostnfound+: A prospective study using medical foundation models for prostate cancer detection. International Journal of Computer Assisted Radiology and Surgery pp. 1–10 (2026) 24. Wilson, P.F., To, M.N.N., Jamzad, A., Gilany, M., Harmanani, M., Elghareb, T., Fooladgar, F., Wodlinger, B., Abolmaesumi, P., Mousavi, P.: Prostnfound: Inte-grating foundation models with ultrasound domain knowledge and clinical context for robust prostate cancer detection. In: International Conference on Medical Image Computing and Computer-Assisted Intervention. pp. 499–509. Springer (2024)
