@@ -1,0 +1,317 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-07-08T21:34:03.753802+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 3,
+    "deep_cap": 6,
+    "deep_selected": 3,
+    "quick_candidates": 4,
+    "quick_skim_target": 11,
+    "quick_selected": 4
+  },
+  "deep_dive": [
+    {
+      "id": "2607.06435v1",
+      "source": "arxiv",
+      "title": "Finding H. pylori in the Fine Print: Evidence-Linked Multi-Agent Case Finding from Gastric Biopsy Reports",
+      "abstract": "Data from Singapore indicated that about 31% of the population had evidence of Helicobacter pylori infection. Persistent H. pylori infection is associated with chronic active gastritis and peptic ulcer disease, and its eradication is key to gastric cancer prevention. However, evidence supporting \\textit{H. pylori} positivity and H. pylori-associated gastritis may be distributed across heterogeneous coded and free-text report fields and may require contextual interpretation of assertion and negation, limiting keyword search, and making manual review difficult to scale. We conducted a retrospective pilot evaluation of the Nimblemind Multi-Agent System (nMAS), a field-name-driven, evidence-linked extraction workflow, using 54 de-identified gastric biopsy pathology reports from a large healthcare system in Singapore. Four clinician-scoped binary fields were evaluated: gastric/stomach biopsy, biopsy status, H. pylori positivity, and H. pylori-associated gastritis. Across 216 feature-case decisions, nMAS correctly classified 213, corresponding to 98.61% overall accuracy. A separately implemented UMA-style MiniMax M2.5 comparator produced similar aggregate and per-field classification metrics. Although predictive performance was similar, nMAS maintained unified report-level outputs with supporting source sentences; the demonstrated contribution is therefore workflow integration and traceability rather than predictive superiority. Under an illustrative, unmeasured scenario, reviewing 1,000 reports at five minutes per manual review versus five seconds per evidence-linked verification would reduce review time from 83.3 to 1.4 staff-hours, corresponding to 81.9 staff-hours and about USD~6,100 in potential staff-time value. Larger multi-institutional studies should evaluate evidence-span correctness, clinician verification time, and generalizability.",
+      "authors": [
+        "Yufan Wang",
+        "Anit Kumar Sahu",
+        "Yan Fei Ng",
+        "Daniel Kang",
+        "Shayan Vassef",
+        "Soorya Ram Shimgekar",
+        "Koustuv Saha",
+        "Piyum Zonooz",
+        "Navin Kumar",
+        "Chee Leong Cheng",
+        "Li Yan Khor"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI"
+      ],
+      "published": "2026-07-07T16:05:00+00:00",
+      "link": "https://arxiv.org/pdf/2607.06435v1",
+      "tags": [
+        "keyword:path-agent",
+        "query:path-agent"
+      ],
+      "llm_score": 10.0,
+      "llm_evidence_en": "multi-agent system for pathology case finding from gastric biopsy reports",
+      "llm_evidence_cn": "基于多智能体系统的病理病例发现",
+      "llm_evidence": "基于多智能体系统的病理病例发现",
+      "canonical_evidence": "基于多智能体系统的病理病例发现",
+      "llm_tldr_en": "The Nimblemind Multi-Agent System (nMAS) performs evidence-linked extraction to find H. pylori cases from heterogeneous gastric biopsy reports, demonstrating direct application of pathology agents.",
+      "llm_tldr_cn": "幽门螺杆菌感染证据分散在病理报告各字段中，人工查找困难。本文评估了Nimblemind多智能体系统，通过字段驱动、证据链接的工作流程，自动从胃活检报告中提取H.pylori阳性病例。初步结果表明该系统能有效减少人工审核负担。",
+      "llm_tldr": "幽门螺杆菌感染证据分散在病理报告各字段中，人工查找困难。本文评估了Nimblemind多智能体系统，通过字段驱动、证据链接的工作流程，自动从胃活检报告中提取H.pylori阳性病例。初步结果表明该系统能有效减少人工审核负担。",
+      "llm_tags": [
+        "query:path-agent"
+      ],
+      "matched_query_tag": "query:path-agent",
+      "matched_query_text": "pathology agent",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2607.04747v1",
+      "source": "arxiv",
+      "title": "MergeSurv: Merging-Based Continual Learning for Survival Analysis on Whole-Slide Images",
+      "abstract": "Survival analysis on Whole Slide Images (WSIs) is important in computational pathology for prognosis estimation and treatment planning. However, existing survival models are typically trained independently for each cancer cohort, making continual adaptation computationally expensive for gigapixel-scale WSIs. In this study, we propose MergeSurv, a merging-based continual learning framework for WSI survival analysis. A pathology vision-language foundation model is independently fine-tuned on each task, and the learned parameters are sequentially merged into a unified model without storing previous training data. We further investigate two inference strategies: One-for-All (OFA) and Voting-Expert Aggregation (VEA). Experiments on four TCGA cohorts demonstrate that MergeSurv outperforms naive fine-tuning as well as representative regularization-based and rehearsal-based continual learning methods, while effectively reducing catastrophic forgetting. The results suggest that model merging is a promising direction for scalable and privacy-preserving continual learning in computational pathology.",
+      "authors": [
+        "Vu Minh Tran",
+        "Doanh C. Bui",
+        "Maï K. Nguyen",
+        "Khang Nguyen"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-07-06T07:35:14+00:00",
+      "link": "https://arxiv.org/pdf/2607.04747v1",
+      "tags": [
+        "keyword:path-agent",
+        "query:path-agent"
+      ],
+      "llm_score": 9.0,
+      "llm_evidence_en": "histopathology agent for WSI survival analysis",
+      "llm_evidence_cn": "用于全切片图像生存分析的病理学智能体",
+      "llm_evidence": "用于全切片图像生存分析的病理学智能体",
+      "canonical_evidence": "用于全切片图像生存分析的病理学智能体",
+      "llm_tldr_en": "MergeSurv proposes a merging-based continual learning framework for survival analysis on whole-slide images using a pathology vision-language foundation model, enabling efficient multi-task adaptation without storing previous data.",
+      "llm_tldr_cn": "全切片图像生存分析在计算病理学中至关重要，但现有模型通常为每个癌症队列独立训练，适应性差。本文提出MergeSurv，一种基于参数合并的持续学习框架，利用病理视觉语言基础模型对每个任务独立微调后顺序合并为统一模型，无需存储旧数据。实验表明，该方法在多个癌症队列上有效，并提出了两种推理策略：全能型与投票专家聚合。该工作为病理学智能体的持续学习提供了高效解决方案。",
+      "llm_tldr": "全切片图像生存分析在计算病理学中至关重要，但现有模型通常为每个癌症队列独立训练，适应性差。本文提出MergeSurv，一种基于参数合并的持续学习框架，利用病理视觉语言基础模型对每个任务独立微调后顺序合并为统一模型，无需存储旧数据。实验表明，该方法在多个癌症队列上有效，并提出了两种推理策略：全能型与投票专家聚合。该工作为病理学智能体的持续学习提供了高效解决方案。",
+      "llm_tags": [
+        "query:path-agent"
+      ],
+      "matched_query_tag": "query:path-agent",
+      "matched_query_text": "histopathology agent",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2606.31179v1",
+      "source": "arxiv",
+      "title": "HealthAgentBench: A Unified Benchmark Suite of Realistic Agentic Healthcare Environments for Challenging Frontier AI Agents",
+      "abstract": "As AI agents become increasingly capable of complex, long-horizon reasoning, rigorous and holistic evaluation is essential for measuring progress toward real-world healthcare applications. We introduce HealthAgentBench, a suite of 54 agentic healthcare tasks across 7 categories each with its unique environment. The benchmark suite spans diverse workflows throughout the patient journey and a broad range of modalities. Each task is designed to replicate an end-to-end clinical workflow: given minimal instructions, an agent must explore raw healthcare data, operate within a complex environment, and execute multi-step solutions that go beyond naive prompting. A final task success rate is reported to provide a single, interpretable metric for HealthAgentBench overall performance for each agent. Evaluating frontier agents on HealthAgentBench, we find that overall task success rate remains low, underscoring the difficulty of the suite. The strongest and the most cost effective agent, Codex GPT-5.5, achieves only approximately 42% success rate. Beyond aggregate performance, HealthAgentBench reveals nuanced strengths and weaknesses across task categories. Frontier agents show promise in automatically developing research modeling pipelines over EHR data, but medical imaging remains especially challenging, particularly for Claude Code models, while Codex GPT-5.5 shows emerging capability. Tasks that combine large search spaces with compositional reasoning requirements remain difficult for all current agents. Together, these results suggest that HealthAgentBench provides a challenging and realistic benchmark with substantial room for future progress. We release our benchmark at https://github.com/microsoft/HealthAgentBench.",
+      "authors": [
+        "Qianchu Liu",
+        "Sheng Zhang",
+        "Guanghui Qin",
+        "Jeya Maria Jose Valanarasu",
+        "Maximilian Rokuss",
+        "Mingyu Lu",
+        "Timothy Ossowski",
+        "Juan Manuel Zambrano Chaves",
+        "Cliff Wong",
+        "Peniel Argaw",
+        "Yashna Hasija",
+        "Mu Wei",
+        "Wen-wai Yim",
+        "Qin Liu",
+        "Zilin Jing",
+        "Jason Entenmann",
+        "Naoto Usuyama",
+        "Tristan Naumann",
+        "Hoifung Poon"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI",
+        "cs.CL",
+        "cs.CV"
+      ],
+      "published": "2026-06-30T06:09:01+00:00",
+      "link": "https://arxiv.org/pdf/2606.31179v1",
+      "tags": [
+        "keyword:path-agent",
+        "query:path-agent"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "benchmark suite for healthcare agents including potential pathology tasks",
+      "llm_evidence_cn": "涵盖潜在病理任务的医疗代理基准",
+      "llm_evidence": "涵盖潜在病理任务的医疗代理基准",
+      "canonical_evidence": "涵盖潜在病理任务的医疗代理基准",
+      "llm_tldr_en": "HealthAgentBench provides 54 agentic healthcare tasks across 7 categories, designed to evaluate frontier AI agents in realistic healthcare environments.",
+      "llm_tldr_cn": "医疗AI代理的评估缺乏统一的现实环境基准。本文提出HealthAgentBench，包含54个代理任务和7类医疗环境，模拟患者全流程。任务要求代理在多步推理中探索和处理原始数据，最终报告任务成功率。该基准可用于病理相关代理的测试。",
+      "llm_tldr": "医疗AI代理的评估缺乏统一的现实环境基准。本文提出HealthAgentBench，包含54个代理任务和7类医疗环境，模拟患者全流程。任务要求代理在多步推理中探索和处理原始数据，最终报告任务成功率。该基准可用于病理相关代理的测试。",
+      "llm_tags": [
+        "query:path-agent:composite"
+      ],
+      "matched_query_tag": "query:path-agent:composite",
+      "matched_query_text": "Papers central to 病理Agent相关的论文, especially work that connects or combines: pathology agent; pathological diagnosis agent; medical pathology agent; histopathology agent; pathology AI agent; papers on pathology agents for medical diagnosis; research on digital pathology agents for histopathological analysis.",
+      "matched_requirement_id": "req-composite-path-agent",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": [
+    {
+      "id": "2607.00802v1",
+      "source": "arxiv",
+      "title": "CellPrior-Net: Prior-Guided Nuclei Detection and Classification for H&E Whole-Slide Images",
+      "abstract": "Accurate nuclei detection and classification in hematoxylin and eosin (H and E) whole-slide images (WSIs) is a key task in computational pathology, particularly for quantitative analysis of the tumor microenvironment. However, this task remains highly challenging due to variations in nuclei morphology, staining procedures, scanners, organs, magnifications, and WSI artifacts. In addition, many existing pipelines rely on computationally demanding architectures and post-processing procedures, making gigapixel WSI analysis time consuming. In this work, CellPriorNet (CP Net) is proposed, an efficient nuclei detection and classification pipeline that utilizes a lightweight convolutional neural network architecture and hematoxylin (H) channel as prior information to enhance nuclei-aware feature learning. Extensive benchmarking was conducted against state of the art pipelines on 8 public and private datasets (total:10.4M nuclei) obtained from different organs, scanners, magnifications, and clinical centers. Experimental results demonstrate that CP Net achieves comparable performance while significantly reducing inference time. Furthermore, CellQuant Net was introduced, an end to end nuclei quantification pipeline, that integrates a quality assessment (QA) model to exclude regions with artifacts, followed by CP-Net cell detection and classification. The pipeline is publicly available on GitHub, and provides a potentially efficient and scalable framework for downstream computational pathology applications.",
+      "authors": [
+        "Falah Jabar",
+        "Pasquale Lombardi",
+        "Aria Torkpour",
+        "Masoud Tafavvoghi",
+        "Per Niklas Benzler Waaler",
+        "Sigve Andersen",
+        "Erna-Elise Paulsen",
+        "Mette Pøhl",
+        "Lill-Tove Rasmussen Busund",
+        "Tom Donnem",
+        "Elin Richardsen",
+        "David J. Pinato",
+        "Mehrdad Rakaee"
+      ],
+      "primary_category": "cs.MM",
+      "categories": [
+        "cs.MM"
+      ],
+      "published": "2026-07-01T11:31:09+00:00",
+      "link": "https://arxiv.org/pdf/2607.00802v1",
+      "tags": [
+        "keyword:path-agent",
+        "query:path-agent"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "nuclei detection and classification for H&E WSIs in computational pathology",
+      "llm_evidence_cn": "H&E全切片图像中的细胞核检测与分类",
+      "llm_evidence": "H&E全切片图像中的细胞核检测与分类",
+      "canonical_evidence": "H&E全切片图像中的细胞核检测与分类",
+      "llm_tldr_en": "CellPrior-Net proposes a lightweight prior-guided nuclei detection and classification pipeline for H&E whole-slide images using hematoxylin channel priors.",
+      "llm_tldr_cn": "计算病理中细胞核检测与分类面临形态变异和计算开销大的挑战。本文提出CellPrior-Net，利用苏木精通道先验和轻量级CNN，实现高效的全切片图像细胞核分析。在多种染色和器官条件下，该方法保持高精度并显著降低推理时间。",
+      "llm_tldr": "计算病理中细胞核检测与分类面临形态变异和计算开销大的挑战。本文提出CellPrior-Net，利用苏木精通道先验和轻量级CNN，实现高效的全切片图像细胞核分析。在多种染色和器官条件下，该方法保持高精度并显著降低推理时间。",
+      "llm_tags": [
+        "query:path-agent:composite"
+      ],
+      "matched_query_tag": "query:path-agent:composite",
+      "matched_query_text": "Papers central to 病理Agent相关的论文, especially work that connects or combines: pathology agent; pathological diagnosis agent; medical pathology agent; histopathology agent; pathology AI agent; papers on pathology agents for medical diagnosis; research on digital pathology agents for histopathological analysis.",
+      "matched_requirement_id": "req-composite-path-agent",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2607.01973v1",
+      "source": "arxiv",
+      "title": "Assessing VLM Reliability for Medical Image Quality Evaluation Under Corruption and Bias",
+      "abstract": "Vision-Language Models (VLMs) are increasingly applied in medical tasks such as pathology description, report generation, and visual question answering. Medical Image Quality Assessment (MIQA) supports diagnostic accuracy and patient safety by determining whether images meet the standards required for clinical decision-making. Automating MIQA with VLMs may reduce workload, but their behavior under real-world conditions, where images may be degraded or textual context may affect judgments, should be further explored before deployment. We benchmark VLMs on medical image quality using the MediMeta-C dataset zero-shot across seven corruption types and five severity levels. We evaluate sensitivity to degradation patterns, the effect of corruptions on embedding geometry, and whether textual attributes (demographics, expertise, infrastructure, institution) alter scores. Across 16 VLMs and seven modalities, pixelation produced the largest score reductions (mean -20.58%, up to -34.4% for OCT), whereas brightness had limited effect (-0.81%). Embedding displacement was associated with score changes. Same-family models showed correlations of 0.67-0.83; some produced increases up to +31% for corrupted mammography. Textual attributes affected scores: institutional prestige raised them +17.15%, and equipment age lowered them -14.7%. The largest changes were +95.62% (InternVL-8B) and -37.7% (MedGemma). Current VLMs show limitations for medical image quality assessment. Pixelation, a privacy-preserving transformation, reduces performance, indicating a trade-off between patient privacy and reliability. Sensitivity to contextual metadata indicates limited objectivity and marks metadata as a privacy and bias source. Privacy protection and objective quality assessment are related requirements for use.",
+      "authors": [
+        "Sofiane Ouaari",
+        "Kevin Vorwalder",
+        "Nico Pfeifer"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV",
+        "cs.AI",
+        "cs.LG"
+      ],
+      "published": "2026-07-02T10:08:11+00:00",
+      "link": "https://arxiv.org/pdf/2607.01973v1",
+      "tags": [
+        "keyword:path-agent",
+        "query:path-agent"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "VLM reliability assessment for medical image quality in pathology-related tasks",
+      "llm_evidence_cn": "评估VLM在病理相关任务中医学图像质量的可靠性",
+      "llm_evidence": "评估VLM在病理相关任务中医学图像质量的可靠性",
+      "canonical_evidence": "评估VLM在病理相关任务中医学图像质量的可靠性",
+      "llm_tldr_en": "Benchmarks VLM reliability on medical image quality across corruptions, with applications to pathology.",
+      "llm_tldr_cn": "该论文系统评估了视觉语言模型在医学图像质量评估中的可靠性，涵盖七种退化类型和五级严重程度。结果表明VLMs对退化敏感，且文本上下文可能影响其判断。该评估为病理AI智能体在真实环境下部署提供了重要可靠性参考。",
+      "llm_tldr": "该论文系统评估了视觉语言模型在医学图像质量评估中的可靠性，涵盖七种退化类型和五级严重程度。结果表明VLMs对退化敏感，且文本上下文可能影响其判断。该评估为病理AI智能体在真实环境下部署提供了重要可靠性参考。",
+      "llm_tags": [
+        "query:path-agent"
+      ],
+      "matched_query_tag": "query:path-agent",
+      "matched_query_text": "pathology AI agent",
+      "matched_requirement_id": "req-5",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2607.03853v1",
+      "source": "arxiv",
+      "title": "CogRad: A Cognitively-Inspired Multi-Agent Framework for Radiology Report Generation",
+      "abstract": "Automated radiology report generation (RRG) can ease radiologist workload, yet most existing systems produce a report in a single forward pass, with no mechanism to check a claim against the image or revisit a finding once stated. We present CogRad, a cognitively inspired multi-agent framework that structures generation around four stages of a radiologist's reading process. A Scout agent discovers anatomical regions directly from image patches via slot attention and assigns region and disease-level triage scores; an Investigator agent concentrates representational capacity on the regions Scout flags as suspicious; a Writer agent compiles these signals into a disease gated visual prefix for a large language model; and a Verifier agent supervises training with a visual entailment loss and, at inference, re-examines its own draft sentence by sentence, regenerating any report it judges insufficiently grounded. On CheXpert Plus, CogRad attains a BLEU-4 of 0.316 and a CIDEr of 0.322, the best scores among the methods we compare against. On IU X-Ray, it attains a BLEU-4 of 0.201 and a CIDEr of 0.724, leading every baseline on every standard NLG metric. We further evaluate CogRad with RadGraph F1, CheXbert F1, and a hallucination analysis to assess clinical accuracy beyond standard text-overlap metrics, complemented by ablation studies and Grad-CAM-based visualizations that characterize each agent's contribution and the model's visual grounding.",
+      "authors": [
+        "Saif Ur Rehman Khan",
+        "Hasaan Maqsood",
+        "Sebastian Vollmer",
+        "Andreas Dengel",
+        "Muhammad Nabeel Asim"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-07-04T12:43:04+00:00",
+      "link": "https://arxiv.org/pdf/2607.03853v1",
+      "tags": [
+        "keyword:path-agent",
+        "query:path-agent"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "multi-agent framework for radiology report generation transferable to pathology",
+      "llm_evidence_cn": "用于放射学报告生成的多智能体框架，可迁移至病理学",
+      "llm_evidence": "用于放射学报告生成的多智能体框架，可迁移至病理学",
+      "canonical_evidence": "用于放射学报告生成的多智能体框架，可迁移至病理学",
+      "llm_tldr_en": "CogRad uses four specialized agents to generate radiology reports; methodology can be adapted for pathology report generation.",
+      "llm_tldr_cn": "CogRad模仿放射科医生阅读过程，通过四个专用智能体（侦察、调查、写作、验证）协作生成放射学报告。该多智能体架构可直接迁移至病理学报告生成任务，解决当前病理智能体在报告自动化中的缺失。",
+      "llm_tldr": "CogRad模仿放射科医生阅读过程，通过四个专用智能体（侦察、调查、写作、验证）协作生成放射学报告。该多智能体架构可直接迁移至病理学报告生成任务，解决当前病理智能体在报告自动化中的缺失。",
+      "llm_tags": [
+        "query:path-agent:composite"
+      ],
+      "matched_query_tag": "query:path-agent:composite",
+      "matched_query_text": "Papers central to 病理Agent相关的论文, especially work that connects or combines: pathology agent; pathological diagnosis agent; medical pathology agent; histopathology agent; pathology AI agent; papers on pathology agents for medical diagnosis; research on digital pathology agents for histopathological analysis.",
+      "matched_requirement_id": "req-composite-path-agent",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2607.05533v1",
+      "source": "arxiv",
+      "title": "Multi-Teacher Contrastive Distillation for Edge-Efficient Pathology Foundation Models",
+      "abstract": "Computational pathology foundation models (PFMs) have advanced whole-slide image analysis. However, their size and inference cost hinder local deployment in pathology departments. We propose MuCoDi, a pretraining framework that distills frozen tile embeddings from multiple PFMs into compact edge-oriented encoders. Instead of regressing individual teacher features, MuCoDi trains lightweight MobileOne and RepViT students with a contrastive distillation objective adapted from MoCo v3, where cached Virchow2, UNI2, and H-Optimus-1 embeddings replace momentum-encoder keys. We pretrain students on 14.3M TCGA tiles from only 11.8K WSIs and evaluate frozen encoders on 23 clinically curated downstream classification tasks. RepViT-based MuCoEdge students retain near-teacher performance while reducing model size by orders of magnitude: MuCoEdge-R2.3 and MuCoEdge-R1.5 reach 71.0% external AUROC, within 0.8 percentage points of the best teacher (Virchow2, 71.8%), while MuCoEdge-R2.3 obtains the best external F1 and the second-best AUPRC (51.8% and 53.3%). MuCoEdge-R1.0 reaches 70.9% AUROC with only 6.4M parameters and 1.12 GFLOPs. On a Raspberry Pi 5, sub-million-parameter MobileOne students achieve up to 605-fold single-tile speedup over Virchow2 while retaining 66.5% to 66.9% external AUROC, demonstrating that PFM-quality pathology representations can be moved toward practical edge deployment. Code is available at https://anonymous.4open.science/r/mucodi-6243.",
+      "authors": [
+        "Tim Lenz",
+        "Maurice Heide",
+        "Marco Gustav",
+        "Nic G. Reitsam",
+        "Jakob Nikolas Kather"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-07-06T18:14:37+00:00",
+      "link": "https://arxiv.org/pdf/2607.05533v1",
+      "tags": [
+        "keyword:path-agent",
+        "query:path-agent"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "edge-efficient pathology foundation models via multi-teacher distillation",
+      "llm_evidence_cn": "多教师蒸馏实现边缘高效病理基础模型",
+      "llm_evidence": "多教师蒸馏实现边缘高效病理基础模型",
+      "canonical_evidence": "多教师蒸馏实现边缘高效病理基础模型",
+      "llm_tldr_en": "MuCoDi distills multiple pathology foundation models into compact edge-oriented encoders using contrastive distillation, enabling efficient local deployment.",
+      "llm_tldr_cn": "病理基础模型体积大，难以在科室本地部署。本文提出MuCoDi，通过对比蒸馏从多个教师模型（Virchow2、UNI2等）学习紧凑的MobileOne/RepViT编码器。在23个临床下游任务上，压缩模型保持了较高性能，为病理AI代理的边缘部署提供可能。",
+      "llm_tldr": "病理基础模型体积大，难以在科室本地部署。本文提出MuCoDi，通过对比蒸馏从多个教师模型（Virchow2、UNI2等）学习紧凑的MobileOne/RepViT编码器。在23个临床下游任务上，压缩模型保持了较高性能，为病理AI代理的边缘部署提供可能。",
+      "llm_tags": [
+        "query:path-agent:composite"
+      ],
+      "matched_query_tag": "query:path-agent:composite",
+      "matched_query_text": "Papers central to 病理Agent相关的论文, especially work that connects or combines: pathology agent; pathological diagnosis agent; medical pathology agent; histopathology agent; pathology AI agent; papers on pathology agents for medical diagnosis; research on digital pathology agents for histopathological analysis.",
+      "matched_requirement_id": "req-composite-path-agent",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    }
+  ]
+}

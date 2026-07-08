@@ -6,64 +6,41 @@
 </div>
 
 ## 每次日报
-- 最新运行日期：2026-07-07
-- 运行时间：2026-07-07 20:58:44 UTC
+- 最新运行日期：2026-07-08
+- 运行时间：2026-07-08 21:38:40 UTC
 - 运行状态：成功
-- 本次总论文数：14
-- 精读区：6
-- 速读区：8
+- 本次总论文数：7
+- 精读区：3
+- 速读区：4
 
 ### 今日简报（AI）
-今日共研读14篇论文，精读6篇、速读8篇，重点聚焦病理智能诊断与组织图像分析。  
-最值得关注的是自主计算病理学系统（9.0分）和基于语义分割的肝癌诊断方法（9.0分），两者均在高分精读中表现突出。  
-建议普通读者优先阅读这两篇精读论文，深入理解AI在病理诊断中的自动化与可解释性突破。
-- 详情：[/202607/07/README](/202607/07/README)
+今日精读两篇高分论文，聚焦胃活检病理智能检索与全切片生存分析的持续学习。最值得关注的是《Finding H. pylori in the Fine Print》的10分多Agent证据链接方法，以及《MergeSurv》的9分连续生存分析框架。建议优先精读第一篇，学习其细粒度病例查找思路。
+- 详情：[/202607/08/README](/202607/08/README)
 
 ### 精读区论文标签
-1. [Evaluating Agentic Harness Systems for Autonomous Computational Pathology](/202607/07/2607.02598v1-evaluating-agentic-harness-systems-for-autonomous-computational-pathology)  
+1. [Finding H. pylori in the Fine Print: Evidence-Linked Multi-Agent Case Finding from Gastric Biopsy Reports](/202607/08/2607.06435v1-finding-h-pylori-in-the-fine-print-evidence-linked-multi-agent-case-finding-from-gastric-biopsy-reports)  
+   标签：评分：10.0/10、query:path-agent
+   evidence：基于多智能体系统的病理病例发现
+2. [MergeSurv: Merging-Based Continual Learning for Survival Analysis on Whole-Slide Images](/202607/08/2607.04747v1-mergesurv-merging-based-continual-learning-for-survival-analysis-on-whole-slide-images)  
    标签：评分：9.0/10、query:path-agent
-   evidence：评估用于自主计算病理学的智能体框架系统，直接面向病理智能体任务
-2. [Semantic Segmentation-Driven Image-Level Diagnosis of Liver Cancers in Hematoxylin and Eosin Histopathology Images](/202607/07/2607.03253v1-semantic-segmentation-driven-image-level-diagnosis-of-liver-cancers-in-hematoxylin-and-eosin-histopathology-images)  
-   标签：评分：9.0/10、query:path-agent
-   evidence：基于语义分割的H&E肝脏病理图像诊断
-3. [GRAPE: Graph-Augmented Prototype Explanations for Interactive Medical Image Diagnosis](/202607/07/2606.30901v2-grape-graph-augmented-prototype-explanations-for-interactive-medical-image-diagnosis)  
+   evidence：用于全切片图像生存分析的病理学智能体
+3. [HealthAgentBench: A Unified Benchmark Suite of Realistic Agentic Healthcare Environments for Challenging Frontier AI Agents](/202607/08/2606.31179v1-healthagentbench-a-unified-benchmark-suite-of-realistic-agentic-healthcare-environments-for-challenging-frontier-ai-agents)  
    标签：评分：8.0/10、query:path-agent
-   evidence：交互式医学图像诊断，结合图增强原型解释
-4. [HistoSeg++: Delving deeper with attention and multiscale feature fusion for biomarker segmentation](/202607/07/2607.01675v1-histoseg-delving-deeper-with-attention-and-multiscale-feature-fusion-for-biomarker-segmentation)  
-   标签：评分：8.0/10、query:path-agent
-   evidence：组织病理学生物标志物分割，结合注意力与多尺度融合
-5. [Reinforcement Learning for Evidence-Seeking Diagnostic Reasoning with Large Language Models](/202607/07/2607.02983v1-reinforcement-learning-for-evidence-seeking-diagnostic-reasoning-with-large-language-models)  
-   标签：评分：8.0/10、query:path-agent
-   evidence：将诊断推理形式化为证据寻求任务
-6. [Paired Uterine Whole-Slide Images and Pathology Reports for Multimodal Computational Pathology](/202607/07/2607.04020v1-paired-uterine-whole-slide-images-and-pathology-reports-for-multimodal-computational-pathology)  
-   标签：评分：8.0/10、query:path-agent
-   evidence：配对的子宫全切片图像与病理报告用于多模态计算病理
+   evidence：涵盖潜在病理任务的医疗代理基准
 
 ### 速读区论文标签
-1. [TopoAgent: An Agentic Framework for Automated Topology Learning in Medical Imaging](/202607/07/2606.29763v1-topoagent-an-agentic-framework-for-automated-topology-learning-in-medical-imaging)  
-   标签：评分：7.0/10、query:path-agent
-   evidence：基于LLM的医学影像拓扑学习智能体框架，可迁移至病理学
-2. [Learning Where to Look: A Reinforcement Learning Framework for Robust Micro-Ultrasound Prostate Cancer Detection](/202607/07/2606.30951v1-learning-where-to-look-a-reinforcement-learning-framework-for-robust-micro-ultrasound-prostate-cancer-detection)  
-   标签：评分：7.0/10、query:path-agent
-   evidence：利用组织病理学结果的强化学习前列腺癌检测框架
-3. [MalariAI: A Label-Resilient Decoupled Framework for Universal Cell Segmentation and Explainable Stage Classification in Dense Malaria Blood Smears](/202607/07/2607.00385v1-malariai-a-label-resilient-decoupled-framework-for-universal-cell-segmentation-and-explainable-stage-classification-in-dense-malaria-blood-smears)  
-   标签：评分：7.0/10、query:path-agent
-   evidence：疟疾血涂片诊断AI系统
-4. [Medi-Gemma: A Hybrid Clinical Decision Support System Integrating Deterministic EMR Analytics and Retrieval-Augmented Generation](/202607/07/2607.04907v1-medi-gemma-a-hybrid-clinical-decision-support-system-integrating-deterministic-emr-analytics-and-retrieval-augmented-generation)  
-   标签：评分：7.0/10、query:path-agent
-   evidence：用于伤口病理分诊的混合临床决策支持系统，具有类代理架构
-5. [Graph Representation Learning of Longitudinal Medical Imaging Trajectories for Treatment Response Prediction](/202607/07/2607.04912v1-graph-representation-learning-of-longitudinal-medical-imaging-trajectories-for-treatment-response-prediction)  
-   标签：评分：7.0/10、query:path-agent
-   evidence：利用病理标志物进行治疗反应预测的图表示学习
-6. [HealthAgentBench: A Unified Benchmark Suite of Realistic Agentic Healthcare Environments for Challenging Frontier AI Agents](/202607/07/2606.31179v1-healthagentbench-a-unified-benchmark-suite-of-realistic-agentic-healthcare-environments-for-challenging-frontier-ai-agents)  
+1. [CellPrior-Net: Prior-Guided Nuclei Detection and Classification for H&E Whole-Slide Images](/202607/08/2607.00802v1-cellprior-net-prior-guided-nuclei-detection-and-classification-for-he-whole-slide-images)  
    标签：评分：6.0/10、query:path-agent
-   evidence：面向医疗智能体的基准测试套件，可能包含病理相关任务
-7. [Dual-Adaptive SAM3: Hierarchical Routing over Low-Rank Expert Layers for Parameter-Efficient Medical Image Segmentation](/202607/07/2607.02571v1-dual-adaptive-sam3-hierarchical-routing-over-low-rank-expert-layers-for-parameter-efficient-medical-image-segmentation)  
+   evidence：H&E全切片图像中的细胞核检测与分类
+2. [Assessing VLM Reliability for Medical Image Quality Evaluation Under Corruption and Bias](/202607/08/2607.01973v1-assessing-vlm-reliability-for-medical-image-quality-evaluation-under-corruption-and-bias)  
    标签：评分：6.0/10、query:path-agent
-   evidence：参数高效的医学图像分割，支持语言交互
-8. [The Good, the Bad, and the Brittle: Benchmarking Robustness and Generalisation of Histopathology Foundation Models](/202607/07/2607.04401v1-the-good-the-bad-and-the-brittle-benchmarking-robustness-and-generalisation-of-histopathology-foundation-models)  
+   evidence：评估VLM在病理相关任务中医学图像质量的可靠性
+3. [CogRad: A Cognitively-Inspired Multi-Agent Framework for Radiology Report Generation](/202607/08/2607.03853v1-cograd-a-cognitively-inspired-multi-agent-framework-for-radiology-report-generation)  
    标签：评分：6.0/10、query:path-agent
-   evidence：对组织病理学基础模型进行鲁棒性和泛化性基准测试
+   evidence：用于放射学报告生成的多智能体框架，可迁移至病理学
+4. [Multi-Teacher Contrastive Distillation for Edge-Efficient Pathology Foundation Models](/202607/08/2607.05533v1-multi-teacher-contrastive-distillation-for-edge-efficient-pathology-foundation-models)  
+   标签：评分：6.0/10、query:path-agent
+   evidence：多教师蒸馏实现边缘高效病理基础模型
 
 
 <div class="dpr-home-promo-card">
