@@ -1,0 +1,103 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-07-09T21:32:30.752924+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 0,
+    "deep_cap": 6,
+    "deep_selected": 0,
+    "quick_candidates": 2,
+    "quick_skim_target": 11,
+    "quick_selected": 2
+  },
+  "deep_dive": [],
+  "quick_skim": [
+    {
+      "id": "2607.00802v1",
+      "source": "arxiv",
+      "title": "CellPrior-Net: Prior-Guided Nuclei Detection and Classification for H&E Whole-Slide Images",
+      "abstract": "Accurate nuclei detection and classification in hematoxylin and eosin (H and E) whole-slide images (WSIs) is a key task in computational pathology, particularly for quantitative analysis of the tumor microenvironment. However, this task remains highly challenging due to variations in nuclei morphology, staining procedures, scanners, organs, magnifications, and WSI artifacts. In addition, many existing pipelines rely on computationally demanding architectures and post-processing procedures, making gigapixel WSI analysis time consuming. In this work, CellPriorNet (CP Net) is proposed, an efficient nuclei detection and classification pipeline that utilizes a lightweight convolutional neural network architecture and hematoxylin (H) channel as prior information to enhance nuclei-aware feature learning. Extensive benchmarking was conducted against state of the art pipelines on 8 public and private datasets (total:10.4M nuclei) obtained from different organs, scanners, magnifications, and clinical centers. Experimental results demonstrate that CP Net achieves comparable performance while significantly reducing inference time. Furthermore, CellQuant Net was introduced, an end to end nuclei quantification pipeline, that integrates a quality assessment (QA) model to exclude regions with artifacts, followed by CP-Net cell detection and classification. The pipeline is publicly available on GitHub, and provides a potentially efficient and scalable framework for downstream computational pathology applications.",
+      "authors": [
+        "Falah Jabar",
+        "Pasquale Lombardi",
+        "Aria Torkpour",
+        "Masoud Tafavvoghi",
+        "Per Niklas Benzler Waaler",
+        "Sigve Andersen",
+        "Erna-Elise Paulsen",
+        "Mette Pøhl",
+        "Lill-Tove Rasmussen Busund",
+        "Tom Donnem",
+        "Elin Richardsen",
+        "David J. Pinato",
+        "Mehrdad Rakaee"
+      ],
+      "primary_category": "cs.MM",
+      "categories": [
+        "cs.MM"
+      ],
+      "published": "2026-07-01T11:31:09+00:00",
+      "link": "https://arxiv.org/pdf/2607.00802v1",
+      "tags": [
+        "keyword:path-agent",
+        "query:path-agent"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "nuclei detection and classification in H&E WSIs for histopathological analysis via lightweight CNN",
+      "llm_evidence_cn": "通过轻量级CNN进行H&E全切片图像中的核检测与分类，用于组织病理学分析",
+      "llm_evidence": "通过轻量级CNN进行H&E全切片图像中的核检测与分类，用于组织病理学分析",
+      "canonical_evidence": "通过轻量级CNN进行H&E全切片图像中的核检测与分类，用于组织病理学分析",
+      "llm_tldr_en": "Proposes CellPriorNet, a lightweight CNN for nuclei detection and classification in H&E WSIs using hematoxylin channel prior.",
+      "llm_tldr_cn": "该论文针对H&E全切片图像中的细胞核检测与分类任务，提出CellPriorNet轻量级卷积神经网络。利用苏木精通道先验信息和高效流水线，在多个数据集上实现了高准确度，同时大幅降低计算开销，为计算病理学中的自动化分析提供了实用工具。",
+      "llm_tldr": "该论文针对H&E全切片图像中的细胞核检测与分类任务，提出CellPriorNet轻量级卷积神经网络。利用苏木精通道先验信息和高效流水线，在多个数据集上实现了高准确度，同时大幅降低计算开销，为计算病理学中的自动化分析提供了实用工具。",
+      "llm_tags": [
+        "query:path-agent"
+      ],
+      "matched_query_tag": "query:path-agent",
+      "matched_query_text": "research on digital pathology agents for histopathological analysis",
+      "matched_requirement_id": "req-7",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2607.03481v1",
+      "source": "arxiv",
+      "title": "Learning from Lost Provenance: Multiple Instance Learning for Cancer Registry Tumor Group Classification",
+      "abstract": "Modernizing cancer registries with deep learning is opening new opportunities to automate labor-intensive tasks such as the coding of pathology reports. However, progress is constrained by the scarcity of report-level human-annotated training data. Cancer registries generate substantial volumes of expert-assigned labels as a routine product of their operations, but these exist at the patient level and are not linked to the individual pathology reports that informed them, limiting their direct use for training models. We develop an efficient framework for training deep learning classifiers by leveraging these operationally-generated labels without requiring per-report human annotation, demonstrated for tumor group classification at the BC Cancer Registry. We use Attention-Based Multiple Instance Learning (ABMIL) to recover the lost link between patient-level labels and the reports that informed them, leveraging the attention the model places on each report to distil a large, noisily-labeled corpus into a compact, high-quality per-report training dataset. A classifier fine-tuned on a distilled dataset achieved a macro F1 of 0.83, outperforming established baselines across most tumor groups. By turning routine operational labels into high-quality training data without additional annotation or large-scale computing infrastructure, ABMIL offers a practical and accessible route to automating cancer registry workflows.",
+      "authors": [
+        "Leonard Ruocco",
+        "Jonathan Simkin",
+        "Lovedeep Gondora",
+        "Gregory Arbour",
+        "Raymond Ng"
+      ],
+      "primary_category": "cs.CL",
+      "categories": [
+        "cs.CL"
+      ],
+      "published": "2026-07-03T16:48:06+00:00",
+      "link": "https://arxiv.org/pdf/2607.03481v1",
+      "tags": [
+        "keyword:path-agent",
+        "query:path-agent"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "MIL framework for tumor group classification using patient-level labels, supporting digital pathology",
+      "llm_evidence_cn": "使用患者级标签的多实例学习框架进行肿瘤组分类，支持数字病理学",
+      "llm_evidence": "使用患者级标签的多实例学习框架进行肿瘤组分类，支持数字病理学",
+      "canonical_evidence": "使用患者级标签的多实例学习框架进行肿瘤组分类，支持数字病理学",
+      "llm_tldr_en": "Develops a MIL framework using operationally-generated patient-level labels for tumor group classification without per-report annotation.",
+      "llm_tldr_cn": "该论文针对癌症登记中病理报告标注稀缺的问题，提出利用运营中产生的患者级标签，通过多实例学习训练肿瘤分类器。无需逐报告人工标注，即可实现肿瘤组分类，为大规模自动化病理编码提供了实用方法。",
+      "llm_tldr": "该论文针对癌症登记中病理报告标注稀缺的问题，提出利用运营中产生的患者级标签，通过多实例学习训练肿瘤分类器。无需逐报告人工标注，即可实现肿瘤组分类，为大规模自动化病理编码提供了实用方法。",
+      "llm_tags": [
+        "query:path-agent"
+      ],
+      "matched_query_tag": "query:path-agent",
+      "matched_query_text": "research on digital pathology agents for histopathological analysis",
+      "matched_requirement_id": "req-7",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    }
+  ]
+}

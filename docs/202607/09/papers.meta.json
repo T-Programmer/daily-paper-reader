@@ -1,0 +1,39 @@
+{
+  "label": "2026-07-09",
+  "date": "2026-07-09",
+  "generated_at": "2026-07-09T21:33:12",
+  "count": 2,
+  "papers": [
+    {
+      "paper_id": "202607/09/2607.00802v1-cellprior-net-prior-guided-nuclei-detection-and-classification-for-he-whole-slide-images",
+      "section": "quick",
+      "title_en": "CellPrior-Net: Prior-Guided Nuclei Detection and Classification for H&E Whole-Slide Images",
+      "authors": "Falah Jabar, Pasquale Lombardi, Aria Torkpour, Masoud Tafavvoghi, Per Niklas Benzler Waaler, Sigve Andersen, Erna-Elise Paulsen, Mette Pøhl, Lill-Tove Rasmussen Busund, Tom Donnem, Elin Richardsen, David J. Pinato, Mehrdad Rakaee",
+      "date": "2026-07-01",
+      "pdf": "https://arxiv.org/pdf/2607.00802v1",
+      "score": "6.0",
+      "evidence": "通过轻量级CNN进行H&E全切片图像中的核检测与分类，用于组织病理学分析",
+      "tldr": "针对H&E全切片图像中细胞核检测与分类受形态、染色、扫描仪等差异影响大且现有方法计算量高的问题，提出CellPriorNet，采用轻量级CNN和H通道先验信息增强特征学习，并集成质量评估模型构建CellQuantNet管道。在8个数据集（1040万细胞核）上性能与先进方法相当，推理时间显著缩短。该高效可扩展框架为下游计算病理学应用提供有力工具。",
+      "tags": "query:path-agent",
+      "abstract_en": "Accurate nuclei detection and classification in hematoxylin and eosin (H and E) whole-slide images (WSIs) is a key task in computational pathology, particularly for quantitative analysis of the tumor microenvironment. However, this task remains highly challenging due to variations in nuclei morphology, staining procedures, scanners, organs, magnifications, and WSI artifacts. In addition, many existing pipelines rely on computationally demanding architectures and post-processing procedures, making gigapixel WSI analysis time consuming. In this work, CellPriorNet (CP Net) is proposed, an efficient nuclei detection and classification pipeline that utilizes a lightweight convolutional neural network architecture and hematoxylin (H) channel as prior information to enhance nuclei-aware feature learning. Extensive benchmarking was conducted against state of the art pipelines on 8 public and private datasets (total:10.4M nuclei) obtained from different organs, scanners, magnifications, and clinical centers. Experimental results demonstrate that CP Net achieves comparable performance while significantly reducing inference time. Furthermore, CellQuant Net was introduced, an end to end nuclei quantification pipeline, that integrates a quality assessment (QA) model to exclude regions with artifacts, followed by CP-Net cell detection and classification. The pipeline is publicly available on GitHub, and provides a potentially efficient and scalable framework for downstream computational pathology applications.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202607/09/2607.03481v1-learning-from-lost-provenance-multiple-instance-learning-for-cancer-registry-tumor-group-classification",
+      "section": "quick",
+      "title_en": "Learning from Lost Provenance: Multiple Instance Learning for Cancer Registry Tumor Group Classification",
+      "authors": "Leonard Ruocco, Jonathan Simkin, Lovedeep Gondora, Gregory Arbour, Raymond Ng",
+      "date": "2026-07-03",
+      "pdf": "https://arxiv.org/pdf/2607.03481v1",
+      "score": "6.0",
+      "evidence": "使用患者级标签的多实例学习框架进行肿瘤组分类，支持数字病理学",
+      "tldr": "癌症登记依赖病理报告编码，但人工标注报告数据稀缺。作者利用操作中产生的患者级标签，通过注意力多实例学习(ABMIL)自动关联报告与标签，并基于注意力权重蒸馏出高质量报告级训练集。微调后的分类器在肿瘤组分类任务上宏F1达0.83，超越多种基线。该方法无需额外标注和大型计算资源，为自动化登记工作流提供了高效低成本的途径。",
+      "tags": "query:path-agent",
+      "abstract_en": "Modernizing cancer registries with deep learning is opening new opportunities to automate labor-intensive tasks such as the coding of pathology reports. However, progress is constrained by the scarcity of report-level human-annotated training data. Cancer registries generate substantial volumes of expert-assigned labels as a routine product of their operations, but these exist at the patient level and are not linked to the individual pathology reports that informed them, limiting their direct use for training models. We develop an efficient framework for training deep learning classifiers by leveraging these operationally-generated labels without requiring per-report human annotation, demonstrated for tumor group classification at the BC Cancer Registry. We use Attention-Based Multiple Instance Learning (ABMIL) to recover the lost link between patient-level labels and the reports that informed them, leveraging the attention the model places on each report to distil a large, noisily-labeled corpus into a compact, high-quality per-report training dataset. A classifier fine-tuned on a distilled dataset achieved a macro F1 of 0.83, outperforming established baselines across most tumor groups. By turning routine operational labels into high-quality training data without additional annotation or large-scale computing infrastructure, ABMIL offers a practical and accessible route to automating cancer registry workflows.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "errors": []
+}
