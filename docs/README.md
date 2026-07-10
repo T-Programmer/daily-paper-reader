@@ -6,27 +6,26 @@
 </div>
 
 ## 每次日报
-- 最新运行日期：2026-07-09
-- 运行时间：2026-07-09 21:33:05 UTC
+- 最新运行日期：2026-07-10
+- 运行时间：2026-07-10 21:26:38 UTC
 - 运行状态：成功
-- 本次总论文数：2
-- 精读区：0
-- 速读区：2
+- 本次总论文数：1
+- 精读区：1
+- 速读区：0
 
 ### 今日简报（AI）
-今天速读了两篇病理AI论文，分别关注HE全切片中的细胞检测与肿瘤起源分类难题。最值得关注的是将先验知识融入细胞检测，以及利用弱监督多实例学习处理癌症登记数据。建议对这两篇中等评分论文保持关注，后续可结合更多同类研究进行方法对比。
-- 详情：[/202607/09/README](/202607/09/README)
+今日精读一篇病理AI高分论文，聚焦边缘高效模型。
+核心方向：多教师对比蒸馏，压缩病理基础模型同时保持性能。
+若关注医疗AI边缘部署，可深入探究其蒸馏策略与实验细节。
+- 详情：[/202607/10/README](/202607/10/README)
 
 ### 精读区论文标签
-- 本次无精读推荐。
+1. [Multi-Teacher Contrastive Distillation for Edge-Efficient Pathology Foundation Models](/202607/10/2607.05533v1-multi-teacher-contrastive-distillation-for-edge-efficient-pathology-foundation-models)  
+   标签：评分：8.0/10、query:path-agent
+   evidence：病理基础模型蒸馏技术用于边缘部署
 
 ### 速读区论文标签
-1. [CellPrior-Net: Prior-Guided Nuclei Detection and Classification for H&E Whole-Slide Images](/202607/09/2607.00802v1-cellprior-net-prior-guided-nuclei-detection-and-classification-for-he-whole-slide-images)  
-   标签：评分：6.0/10、query:path-agent
-   evidence：通过轻量级CNN进行H&E全切片图像中的核检测与分类，用于组织病理学分析
-2. [Learning from Lost Provenance: Multiple Instance Learning for Cancer Registry Tumor Group Classification](/202607/09/2607.03481v1-learning-from-lost-provenance-multiple-instance-learning-for-cancer-registry-tumor-group-classification)  
-   标签：评分：6.0/10、query:path-agent
-   evidence：使用患者级标签的多实例学习框架进行肿瘤组分类，支持数字病理学
+- 本次无速读推荐。
 
 
 <div class="dpr-home-promo-card">

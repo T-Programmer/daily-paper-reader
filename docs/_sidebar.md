@@ -1,6 +1,9 @@
 * <a class="dpr-sidebar-root-link" href="#/">首页</a>
 * <a class="dpr-sidebar-root-link dpr-sidebar-noactive-link" href="javascript:void(0)" data-dpr-hash="#/tutorial/README">使用教程</a>
 * Daily Papers
+  * 2026-07-10 <!--dpr-date:20260710-->
+    * 精读区
+      * <a class="dpr-sidebar-item-link dpr-sidebar-item-structured" href="#/202607/10/2607.05533v1-multi-teacher-contrastive-distillation-for-edge-efficient-pathology-foundation-models" data-sidebar-item="{&quot;title&quot;: &quot;Multi-Teacher Contrastive Distillation for Edge-Efficient Pathology Foundation Models&quot;, &quot;link&quot;: &quot;https://arxiv.org/abs/2607.05533v1-multi-teacher-contrastive-distillation-for-edge-efficient-pathology-foundation-models&quot;, &quot;score&quot;: &quot;8.0&quot;, &quot;tags&quot;: [{&quot;kind&quot;: &quot;query&quot;, &quot;label&quot;: &quot;path-agent&quot;}], &quot;evidence&quot;: &quot;病理基础模型蒸馏技术用于边缘部署&quot;}">Multi-Teacher Contrastive Distillation for Edge-Efficient Pathology Foundation Models</a>
   * 2026-07-09 <!--dpr-date:20260709-->
     * 速读区
       * <a class="dpr-sidebar-item-link dpr-sidebar-item-structured" href="#/202607/09/2607.00802v1-cellprior-net-prior-guided-nuclei-detection-and-classification-for-he-whole-slide-images" data-sidebar-item="{&quot;title&quot;: &quot;CellPrior-Net: Prior-Guided Nuclei Detection and Classification for H&amp;E Whole-Slide Images&quot;, &quot;link&quot;: &quot;https://arxiv.org/abs/2607.00802v1-cellprior-net-prior-guided-nuclei-detection-and-classification-for-he-whole-slide-images&quot;, &quot;score&quot;: &quot;6.0&quot;, &quot;tags&quot;: [{&quot;kind&quot;: &quot;query&quot;, &quot;label&quot;: &quot;path-agent&quot;}], &quot;evidence&quot;: &quot;通过轻量级CNN进行H&amp;E全切片图像中的核检测与分类，用于组织病理学分析&quot;}">CellPrior-Net: Prior-Guided Nuclei Detection and Classification for H&amp;E Whole-Slide Images</a>

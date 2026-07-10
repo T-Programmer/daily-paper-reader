@@ -1,0 +1,55 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-07-10T21:25:45.618730+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 1,
+    "deep_cap": 6,
+    "deep_selected": 1,
+    "quick_candidates": 0,
+    "quick_skim_target": 11,
+    "quick_selected": 0
+  },
+  "deep_dive": [
+    {
+      "id": "2607.05533v1",
+      "source": "arxiv",
+      "title": "Multi-Teacher Contrastive Distillation for Edge-Efficient Pathology Foundation Models",
+      "abstract": "Computational pathology foundation models (PFMs) have advanced whole-slide image analysis. However, their size and inference cost hinder local deployment in pathology departments. We propose MuCoDi, a pretraining framework that distills frozen tile embeddings from multiple PFMs into compact edge-oriented encoders. Instead of regressing individual teacher features, MuCoDi trains lightweight MobileOne and RepViT students with a contrastive distillation objective adapted from MoCo v3, where cached Virchow2, UNI2, and H-Optimus-1 embeddings replace momentum-encoder keys. We pretrain students on 14.3M TCGA tiles from only 11.8K WSIs and evaluate frozen encoders on 23 clinically curated downstream classification tasks. RepViT-based MuCoEdge students retain near-teacher performance while reducing model size by orders of magnitude: MuCoEdge-R2.3 and MuCoEdge-R1.5 reach 71.0% external AUROC, within 0.8 percentage points of the best teacher (Virchow2, 71.8%), while MuCoEdge-R2.3 obtains the best external F1 and the second-best AUPRC (51.8% and 53.3%). MuCoEdge-R1.0 reaches 70.9% AUROC with only 6.4M parameters and 1.12 GFLOPs. On a Raspberry Pi 5, sub-million-parameter MobileOne students achieve up to 605-fold single-tile speedup over Virchow2 while retaining 66.5% to 66.9% external AUROC, demonstrating that PFM-quality pathology representations can be moved toward practical edge deployment. Code is available at https://anonymous.4open.science/r/mucodi-6243.",
+      "authors": [
+        "Tim Lenz",
+        "Maurice Heide",
+        "Marco Gustav",
+        "Nic G. Reitsam",
+        "Jakob Nikolas Kather"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-07-06T18:14:37+00:00",
+      "link": "https://arxiv.org/pdf/2607.05533v1",
+      "tags": [
+        "keyword:path-agent",
+        "query:path-agent"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "pathology foundation model distillation for edge deployment",
+      "llm_evidence_cn": "病理基础模型蒸馏技术用于边缘部署",
+      "llm_evidence": "病理基础模型蒸馏技术用于边缘部署",
+      "canonical_evidence": "病理基础模型蒸馏技术用于边缘部署",
+      "llm_tldr_en": "Proposes MuCoDi to distill multiple pathology foundation models into compact edge-oriented encoders for efficient local deployment.",
+      "llm_tldr_cn": "针对病理基础模型尺寸大、推理成本高的问题，提出多教师对比蒸馏框架MuCoDi，将多个大型病理基础模型的知识蒸馏至轻量级边缘编码器，在仅用11.8K张WSI训练的14.3M tile上，下游分类任务表现优异，支持病理部门本地部署。",
+      "llm_tldr": "针对病理基础模型尺寸大、推理成本高的问题，提出多教师对比蒸馏框架MuCoDi，将多个大型病理基础模型的知识蒸馏至轻量级边缘编码器，在仅用11.8K张WSI训练的14.3M tile上，下游分类任务表现优异，支持病理部门本地部署。",
+      "llm_tags": [
+        "query:path-agent"
+      ],
+      "matched_query_tag": "query:path-agent",
+      "matched_query_text": "pathology AI agent",
+      "matched_requirement_id": "req-5",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": []
+}
