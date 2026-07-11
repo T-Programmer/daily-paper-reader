@@ -1,0 +1,100 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-07-11T20:32:50.676472+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 0,
+    "deep_cap": 6,
+    "deep_selected": 0,
+    "quick_candidates": 2,
+    "quick_skim_target": 11,
+    "quick_selected": 2
+  },
+  "deep_dive": [],
+  "quick_skim": [
+    {
+      "id": "2607.03853v1",
+      "source": "arxiv",
+      "title": "CogRad: A Cognitively-Inspired Multi-Agent Framework for Radiology Report Generation",
+      "abstract": "Automated radiology report generation (RRG) can ease radiologist workload, yet most existing systems produce a report in a single forward pass, with no mechanism to check a claim against the image or revisit a finding once stated. We present CogRad, a cognitively inspired multi-agent framework that structures generation around four stages of a radiologist's reading process. A Scout agent discovers anatomical regions directly from image patches via slot attention and assigns region and disease-level triage scores; an Investigator agent concentrates representational capacity on the regions Scout flags as suspicious; a Writer agent compiles these signals into a disease gated visual prefix for a large language model; and a Verifier agent supervises training with a visual entailment loss and, at inference, re-examines its own draft sentence by sentence, regenerating any report it judges insufficiently grounded. On CheXpert Plus, CogRad attains a BLEU-4 of 0.316 and a CIDEr of 0.322, the best scores among the methods we compare against. On IU X-Ray, it attains a BLEU-4 of 0.201 and a CIDEr of 0.724, leading every baseline on every standard NLG metric. We further evaluate CogRad with RadGraph F1, CheXbert F1, and a hallucination analysis to assess clinical accuracy beyond standard text-overlap metrics, complemented by ablation studies and Grad-CAM-based visualizations that characterize each agent's contribution and the model's visual grounding.",
+      "authors": [
+        "Saif Ur Rehman Khan",
+        "Hasaan Maqsood",
+        "Sebastian Vollmer",
+        "Andreas Dengel",
+        "Muhammad Nabeel Asim"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-07-04T12:43:04+00:00",
+      "link": "https://arxiv.org/pdf/2607.03853v1",
+      "tags": [
+        "keyword:path-agent",
+        "query:path-agent"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "multi-agent framework for radiology report generation, transferable to pathology agent",
+      "llm_evidence_cn": "用于放射学报告生成的多智能体框架，可迁移至病理智能体",
+      "llm_evidence": "用于放射学报告生成的多智能体框架，可迁移至病理智能体",
+      "canonical_evidence": "用于放射学报告生成的多智能体框架，可迁移至病理智能体",
+      "llm_tldr_en": "CogRad presents a multi-agent framework mimicking radiologist reading process for report generation, highly transferable to pathology agent design.",
+      "llm_tldr_cn": "针对现有放射学报告生成系统缺乏验证和回溯机制的问题，提出CogRad多智能体框架，模拟放射科医生的阅读流程：侦察智能体发现可疑区域，调查智能体聚焦分析，撰写智能体生成报告，验证智能体检查一致性。该框架虽用于放射学，但其多智能体协作思路可直接迁移至病理学报告生成智能体，为病理智能体研究提供了方法论参考。",
+      "llm_tldr": "针对现有放射学报告生成系统缺乏验证和回溯机制的问题，提出CogRad多智能体框架，模拟放射科医生的阅读流程：侦察智能体发现可疑区域，调查智能体聚焦分析，撰写智能体生成报告，验证智能体检查一致性。该框架虽用于放射学，但其多智能体协作思路可直接迁移至病理学报告生成智能体，为病理智能体研究提供了方法论参考。",
+      "llm_tags": [
+        "query:path-agent:composite"
+      ],
+      "matched_query_tag": "query:path-agent:composite",
+      "matched_query_text": "Papers central to 病理Agent相关的论文, especially work that connects or combines: pathology agent; pathological diagnosis agent; medical pathology agent; histopathology agent; pathology AI agent; papers on pathology agents for medical diagnosis; research on digital pathology agents for histopathological analysis.",
+      "matched_requirement_id": "req-composite-path-agent",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2607.08162v1",
+      "source": "arxiv",
+      "title": "ProsMAE: Multi-Source MAE Pretraining for ISUP Grade Classification",
+      "abstract": "Whole slide images (WSIs) provide rich diagnostic information for computational pathology, but their gigapixel scale, stain variation, scanner differences, tissue artifacts, and limited expert annotation make robust model training challenging. This paper presents a multi-source Masked Autoencoder (MAE) framework, named ProsMAE, for histopathology representation learning. Tiles from Prostate cANcer graDe Assessment (PANDA), CAncer MEtastases in LYmph nOdes challeNge 2017 (CAMELYON17), and BReAst Carcinoma Subtyping (BRACS) are used for ProsMAE pretraining to expose the encoder to diverse tissue morphology and acquisition conditions. The learned encoder is transferred for International Society of Urological Pathology (ISUP) grade classification through ProsCLS, using a frozen encoder and a linear classification head. ProsMAE achieved a higher mean validation quadratic weighted kappa (QWK) than the vanilla MAE frozen linear-probe baseline under the evaluated disjoint PANDA split. Repeated-split evaluation remains necessary to further establish robustness across split compositions.",
+      "authors": [
+        "Anna Jung",
+        "Kyeonghun Kim",
+        "Youngung Han",
+        "Eunseob Choi",
+        "Jiwon Yang",
+        "Ken Ying-Kai Liao",
+        "Hyuk-Jae Lee",
+        "Nam-Joon Kim"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV",
+        "cs.AI",
+        "cs.LG"
+      ],
+      "published": "2026-07-09T06:57:18+00:00",
+      "link": "https://arxiv.org/pdf/2607.08162v1",
+      "tags": [
+        "keyword:path-agent",
+        "query:path-agent"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "multi-source MAE pretraining for histopathology representation learning for ISUP grade classification",
+      "llm_evidence_cn": "多源MAE预训练用于组织病理学表示学习，实现ISUP分级分类",
+      "llm_evidence": "多源MAE预训练用于组织病理学表示学习，实现ISUP分级分类",
+      "canonical_evidence": "多源MAE预训练用于组织病理学表示学习，实现ISUP分级分类",
+      "llm_tldr_en": "Proposes ProsMAE, a multi-source masked autoencoder pretraining framework for histopathology representation learning, achieving robust ISUP grade classification.",
+      "llm_tldr_cn": "本文提出ProsMAE，一种多源掩码自编码器预训练框架，用于组织病理学表示学习。通过利用多个数据源（PANDA、CAMELYON17、BRACS）进行预训练，学习到的编码器在ISUP分级分类任务上表现优异，解决了全切片图像中的尺度、染色和伪影多样性问题。",
+      "llm_tldr": "本文提出ProsMAE，一种多源掩码自编码器预训练框架，用于组织病理学表示学习。通过利用多个数据源（PANDA、CAMELYON17、BRACS）进行预训练，学习到的编码器在ISUP分级分类任务上表现优异，解决了全切片图像中的尺度、染色和伪影多样性问题。",
+      "llm_tags": [
+        "query:path-agent"
+      ],
+      "matched_query_tag": "query:path-agent",
+      "matched_query_text": "histopathology agent",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    }
+  ]
+}

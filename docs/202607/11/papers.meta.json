@@ -1,0 +1,39 @@
+{
+  "label": "2026-07-11",
+  "date": "2026-07-11",
+  "generated_at": "2026-07-11T20:34:15",
+  "count": 2,
+  "papers": [
+    {
+      "paper_id": "202607/11/2607.03853v1-cograd-a-cognitively-inspired-multi-agent-framework-for-radiology-report-generation",
+      "section": "quick",
+      "title_en": "CogRad: A Cognitively-Inspired Multi-Agent Framework for Radiology Report Generation",
+      "authors": "Saif Ur Rehman Khan, Hasaan Maqsood, Sebastian Vollmer, Andreas Dengel, Muhammad Nabeel Asim",
+      "date": "2026-07-04",
+      "pdf": "https://arxiv.org/pdf/2607.03853v1",
+      "score": "6.0",
+      "evidence": "用于放射学报告生成的多智能体框架，可迁移至病理智能体",
+      "tldr": "自动生成放射学报告可减轻医生负担，但现有系统多采用单次生成且缺乏验证和修正机制，可能导致报告包含幻觉或遗漏关键发现。CogRad采用受认知启发的多代理框架，四阶段模拟放射科医生阅读过程：包含Scout（槽注意力定位可疑区域）、Investigator（精细分析）、Writer（生成报告）和Verifier（逐句验证并修正）。在CheXpert Plus上BLEU-4达0.316、CIDEr 0.322，在IU X-Ray上BLEU-4达0.201、CIDEr 0.724，均超越所有对比方法且在所有标准NLG指标领先，同时RadGraph F1和CheXbert F1等临床指标也显著优于现有方法。RadGraph F1和CheXbert F1表明临床准确性更高、幻觉显著减少，Grad-CAM可视化验证了视觉基础，为可靠医疗AI提供新范式。",
+      "tags": "query:path-agent",
+      "abstract_en": "Automated radiology report generation (RRG) can ease radiologist workload, yet most existing systems produce a report in a single forward pass, with no mechanism to check a claim against the image or revisit a finding once stated. We present CogRad, a cognitively inspired multi-agent framework that structures generation around four stages of a radiologist's reading process. A Scout agent discovers anatomical regions directly from image patches via slot attention and assigns region and disease-level triage scores; an Investigator agent concentrates representational capacity on the regions Scout flags as suspicious; a Writer agent compiles these signals into a disease gated visual prefix for a large language model; and a Verifier agent supervises training with a visual entailment loss and, at inference, re-examines its own draft sentence by sentence, regenerating any report it judges insufficiently grounded. On CheXpert Plus, CogRad attains a BLEU-4 of 0.316 and a CIDEr of 0.322, the best scores among the methods we compare against. On IU X-Ray, it attains a BLEU-4 of 0.201 and a CIDEr of 0.724, leading every baseline on every standard NLG metric. We further evaluate CogRad with RadGraph F1, CheXbert F1, and a hallucination analysis to assess clinical accuracy beyond standard text-overlap metrics, complemented by ablation studies and Grad-CAM-based visualizations that characterize each agent's contribution and the model's visual grounding.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "paper_id": "202607/11/2607.08162v1-prosmae-multi-source-mae-pretraining-for-isup-grade-classification",
+      "section": "quick",
+      "title_en": "ProsMAE: Multi-Source MAE Pretraining for ISUP Grade Classification",
+      "authors": "Anna Jung, Kyeonghun Kim, Youngung Han, Eunseob Choi, Jiwon Yang, Ken Ying-Kai Liao, Hyuk-Jae Lee, Nam-Joon Kim",
+      "date": "2026-07-09",
+      "pdf": "https://arxiv.org/pdf/2607.08162v1",
+      "score": "6.0",
+      "evidence": "多源MAE预训练用于组织病理学表示学习，实现ISUP分级分类",
+      "tldr": "全切片图像尺度大、染色和扫描差异多、标注稀缺，导致模型训练困难。本文提出多源MAE预训练框架ProsMAE，使用PANDA、CAMELYON17和BRACS三个数据集预训练编码器，然后冻结编码器训练线性分类头进行ISUP分级。在PANDA数据集上，ProsMAE相比普通MAE基线取得了更高的验证二次加权kappa。实验表明多源预训练能提升病理表示学习，但需进一步跨划分重复评估验证稳健性。",
+      "tags": "query:path-agent",
+      "abstract_en": "Whole slide images (WSIs) provide rich diagnostic information for computational pathology, but their gigapixel scale, stain variation, scanner differences, tissue artifacts, and limited expert annotation make robust model training challenging. This paper presents a multi-source Masked Autoencoder (MAE) framework, named ProsMAE, for histopathology representation learning. Tiles from Prostate cANcer graDe Assessment (PANDA), CAncer MEtastases in LYmph nOdes challeNge 2017 (CAMELYON17), and BReAst Carcinoma Subtyping (BRACS) are used for ProsMAE pretraining to expose the encoder to diverse tissue morphology and acquisition conditions. The learned encoder is transferred for International Society of Urological Pathology (ISUP) grade classification through ProsCLS, using a frozen encoder and a linear classification head. ProsMAE achieved a higher mean validation quadratic weighted kappa (QWK) than the vanilla MAE frozen linear-probe baseline under the evaluated disjoint PANDA split. Repeated-split evaluation remains necessary to further establish robustness across split compositions.",
+      "source": "arxiv",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "errors": []
+}

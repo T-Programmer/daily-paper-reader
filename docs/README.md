@@ -6,26 +6,27 @@
 </div>
 
 ## 每次日报
-- 最新运行日期：2026-07-10
-- 运行时间：2026-07-10 21:26:38 UTC
+- 最新运行日期：2026-07-11
+- 运行时间：2026-07-11 20:34:09 UTC
 - 运行状态：成功
-- 本次总论文数：1
-- 精读区：1
-- 速读区：0
+- 本次总论文数：2
+- 精读区：0
+- 速读区：2
 
 ### 今日简报（AI）
-今日精读一篇病理AI高分论文，聚焦边缘高效模型。
-核心方向：多教师对比蒸馏，压缩病理基础模型同时保持性能。
-若关注医疗AI边缘部署，可深入探究其蒸馏策略与实验细节。
-- 详情：[/202607/10/README](/202607/10/README)
+今日速读2篇放射学与病理学相关论文，均为6分。最值得关注的是CogRad多智能体框架提升报告生成质量，以及ProsMAE多源预训练改进ISUP分级。建议进一步关注这些方法在临床部署时的效果与计算成本。
+- 详情：[/202607/11/README](/202607/11/README)
 
 ### 精读区论文标签
-1. [Multi-Teacher Contrastive Distillation for Edge-Efficient Pathology Foundation Models](/202607/10/2607.05533v1-multi-teacher-contrastive-distillation-for-edge-efficient-pathology-foundation-models)  
-   标签：评分：8.0/10、query:path-agent
-   evidence：病理基础模型蒸馏技术用于边缘部署
+- 本次无精读推荐。
 
 ### 速读区论文标签
-- 本次无速读推荐。
+1. [CogRad: A Cognitively-Inspired Multi-Agent Framework for Radiology Report Generation](/202607/11/2607.03853v1-cograd-a-cognitively-inspired-multi-agent-framework-for-radiology-report-generation)  
+   标签：评分：6.0/10、query:path-agent
+   evidence：用于放射学报告生成的多智能体框架，可迁移至病理智能体
+2. [ProsMAE: Multi-Source MAE Pretraining for ISUP Grade Classification](/202607/11/2607.08162v1-prosmae-multi-source-mae-pretraining-for-isup-grade-classification)  
+   标签：评分：6.0/10、query:path-agent
+   evidence：多源MAE预训练用于组织病理学表示学习，实现ISUP分级分类
 
 
 <div class="dpr-home-promo-card">
