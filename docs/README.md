@@ -6,27 +6,41 @@
 </div>
 
 ## 每次日报
-- 最新运行日期：2026-07-11
-- 运行时间：2026-07-11 20:34:09 UTC
+- 最新运行日期：2026-07-12
+- 运行时间：2026-07-12 19:56:12 UTC
 - 运行状态：成功
-- 本次总论文数：2
-- 精读区：0
-- 速读区：2
+- 本次总论文数：7
+- 精读区：1
+- 速读区：6
 
 ### 今日简报（AI）
-今日速读2篇放射学与病理学相关论文，均为6分。最值得关注的是CogRad多智能体框架提升报告生成质量，以及ProsMAE多源预训练改进ISUP分级。建议进一步关注这些方法在临床部署时的效果与计算成本。
-- 详情：[/202607/11/README](/202607/11/README)
+今天精读1篇前列腺癌多视图检测高分论文，速读6篇覆盖空间转录组、放射报告和白细胞计数等方向。最值得看的是8.0分的《Compass》和7.0分的《DriftST》，分别聚焦多视图上下文与一步生成空间转录组。下一步可关注多视图融合在医疗影像中的落地，并尝试将预训练模型迁移至小样本任务。
+- 详情：[/202607/12/README](/202607/12/README)
 
 ### 精读区论文标签
-- 本次无精读推荐。
+1. [Compass: Prostate Cancer Detection Needs Multi-View Context](/202607/12/2607.06919v1-compass-prostate-cancer-detection-needs-multi-view-context)  
+   标签：评分：8.0/10、query:path-agent
+   evidence：前列腺癌检测的AI方法，与病理诊断相关
 
 ### 速读区论文标签
-1. [CogRad: A Cognitively-Inspired Multi-Agent Framework for Radiology Report Generation](/202607/11/2607.03853v1-cograd-a-cognitively-inspired-multi-agent-framework-for-radiology-report-generation)  
+1. [DriftST: One-Step Generative Inference of Spatial Transcriptomics from H\&E Histology](/202607/12/2607.04740v1-driftst-one-step-generative-inference-of-spatial-transcriptomics-from-he-histology)  
+   标签：评分：7.0/10、query:path-agent
+   evidence：从H&E到空间转录组的生成推理，可用于病理Agent管道
+2. [CogRad: A Cognitively-Inspired Multi-Agent Framework for Radiology Report Generation](/202607/12/2607.03853v1-cograd-a-cognitively-inspired-multi-agent-framework-for-radiology-report-generation)  
    标签：评分：6.0/10、query:path-agent
-   evidence：用于放射学报告生成的多智能体框架，可迁移至病理智能体
-2. [ProsMAE: Multi-Source MAE Pretraining for ISUP Grade Classification](/202607/11/2607.08162v1-prosmae-multi-source-mae-pretraining-for-isup-grade-classification)  
+   evidence：放射学报告生成的多代理框架作为病理诊断代理
+3. [LeukocyteCount: Automatic Identification and Counting for leukocytes using Deep Learning](/202607/12/2607.04486v1-leukocytecount-automatic-identification-and-counting-for-leukocytes-using-deep-learning)  
    标签：评分：6.0/10、query:path-agent
-   evidence：多源MAE预训练用于组织病理学表示学习，实现ISUP分级分类
+   evidence：自动化白细胞计数用于血液疾病诊断
+4. [HPR-SAM: Hierarchical Probabilistic Representation Learning for Prompt-free SAM-based Medical Image Segmentation](/202607/12/2607.06972v1-hpr-sam-hierarchical-probabilistic-representation-learning-for-prompt-free-sam-based-medical-image-segmentation)  
+   标签：评分：6.0/10、query:path-agent
+   evidence：基于层次概率表示的SAM医学图像分割方法可应用于病理图像
+5. [A safety-oriented hypothetico-deductive framework for AI-assisted differential diagnosis](/202607/12/2607.08038v1-a-safety-oriented-hypothetico-deductive-framework-for-ai-assisted-differential-diagnosis)  
+   标签：评分：6.0/10、query:path-agent
+   evidence：面向安全的LLM框架用于鉴别诊断，可应用于病理诊断代理
+6. [Classifier Chain-based Pathological Test Recommendation](/202607/12/2607.08299v1-classifier-chain-based-pathological-test-recommendation)  
+   标签：评分：6.0/10、query:path-agent
+   evidence：病理测试推荐作为病理代理组件
 
 
 <div class="dpr-home-promo-card">

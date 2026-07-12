@@ -1,0 +1,306 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-07-12T19:52:35.662356+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 1,
+    "deep_cap": 6,
+    "deep_selected": 1,
+    "quick_candidates": 6,
+    "quick_skim_target": 11,
+    "quick_selected": 6
+  },
+  "deep_dive": [
+    {
+      "id": "2607.06919v1",
+      "source": "arxiv",
+      "title": "Compass: Prostate Cancer Detection Needs Multi-View Context",
+      "abstract": "Artificial intelligence (AI) analysis of micro-ultrasound ($μ$US) has shown promise for prostate cancer (PCa) detection. However, most existing AI methods focus on the analysis of single $μ$US images in isolation. By contrast, expert $μ$US readers typically assess a full recorded video study, which provides three-dimensional context, to improve PCa detection compared to single-frame analysis. Inspired by this clinical workflow, we propose Compass, a novel AI methodology which models a $μ$US study as a stream of 2D images. Compass jointly integrates rotational sweep videos of the prostate with $μ$US frames acquired at the moment of biopsy, and performs evidence aggregation across the study using a transformer conditioned on the probe's rotational angle. Finally, a decoder head predicts frame-level and study-level risk scores for the patient. The model is trained and evaluated using a multi-center clinical trial dataset of $μ$US studies, including continuous rotational scans of the prostate and videos captured during biopsy acquisition. We compare the proposed method to baseline AI methods from the literature and to risk scores provided by clinical experts. Our framework shows strong performance, highlighting the value of multi-view context for $μ$US PCa detection, and providing a potentially powerful tool to complement human expertise in $μ$US-based PCa diagnosis. Our code is available at: https://github.com/mharmanani/Compass.",
+      "authors": [
+        "Paul F. R. Wilson",
+        "Mohamed Harmanani",
+        "Zhuoxin Guo",
+        "Obed K. Dzikunu",
+        "Hannes Cash",
+        "Adam Kinnaird",
+        "Brian Wodlinger",
+        "Purang Abolmaesumi",
+        "Parvin Mousavi"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV",
+        "cs.LG"
+      ],
+      "published": "2026-07-08T02:23:32+00:00",
+      "link": "https://arxiv.org/pdf/2607.06919v1",
+      "tags": [
+        "keyword:path-agent",
+        "query:path-agent"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "AI method for prostate cancer detection, relevant to pathology diagnosis",
+      "llm_evidence_cn": "前列腺癌检测的AI方法，与病理诊断相关",
+      "llm_evidence": "前列腺癌检测的AI方法，与病理诊断相关",
+      "canonical_evidence": "前列腺癌检测的AI方法，与病理诊断相关",
+      "llm_tldr_en": "Compass proposes an AI methodology that integrates multi-view micro-ultrasound context for improved prostate cancer detection, demonstrating the value of spatial context in pathology AI.",
+      "llm_tldr_cn": "针对现有AI方法孤立分析单帧微超声图像、缺乏三维上下文的问题，本文提出Compass方法，将微超声检查视频建模为2D图像流，通过旋转角度条件变压器跨帧聚合证据，从而提升前列腺癌检测性能。实验表明，多视角上下文融合比单帧分析有显著改善，为病理AI诊断提供了新思路。",
+      "llm_tldr": "针对现有AI方法孤立分析单帧微超声图像、缺乏三维上下文的问题，本文提出Compass方法，将微超声检查视频建模为2D图像流，通过旋转角度条件变压器跨帧聚合证据，从而提升前列腺癌检测性能。实验表明，多视角上下文融合比单帧分析有显著改善，为病理AI诊断提供了新思路。",
+      "llm_tags": [
+        "query:path-agent:composite"
+      ],
+      "matched_query_tag": "query:path-agent:composite",
+      "matched_query_text": "Papers central to 病理Agent相关的论文, especially work that connects or combines: pathology agent; pathological diagnosis agent; medical pathology agent; histopathology agent; pathology AI agent; papers on pathology agents for medical diagnosis; research on digital pathology agents for histopathological analysis.",
+      "matched_requirement_id": "req-composite-path-agent",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": [
+    {
+      "id": "2607.04740v1",
+      "source": "arxiv",
+      "title": "DriftST: One-Step Generative Inference of Spatial Transcriptomics from H\\&E Histology",
+      "abstract": "Spatial Transcriptomics (ST) measures gene expression while preserving spatial context, but its high cost and low throughput leave public datasets small. Inferring expression directly from widely available Hematoxylin and Eosin (H&E) stained histology offers a cost-effective alternative. However, existing approaches face several limitations: regression methods over-smooth toward the conditional mean, while generative methods are faithful but require slow multi-step inference; most methods treat genes as independent and equally important, ignoring inter-gene dependencies and heterogeneous gene informativeness; and most are tailored to a single resolution, either spot-level or cell-level. To address these issues, we propose DriftST, a unified framework for inferring spatially resolved gene expression from H&E images. DriftST builds on a Cellular Drifting generative model that learns a direct drift from a histology-conditioned source to the expression distribution, retaining generative expressiveness while enabling efficient one-step generation. To capture gene structure, we introduce the STransformer, which combines a co-expression attention module for inter-gene dependencies with a gene residual gate for differential gene importance. Operating on a generic gene-panel representation, DriftST applies directly to both spot-level and cell-level data in one framework, and extensive experiments across diverse tissues and platforms show that it achieves state-of-the-art performance at both resolutions.",
+      "authors": [
+        "Yuhang Yang",
+        "Yonggan Bu",
+        "Shengyuan Zhou",
+        "Yiming Luo",
+        "Kai Zhang"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-07-06T07:22:58+00:00",
+      "link": "https://arxiv.org/pdf/2607.04740v1",
+      "tags": [
+        "keyword:path-agent",
+        "query:path-agent"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "Generative inference from H&E to spatial transcriptomics useful for pathology agent pipelines",
+      "llm_evidence_cn": "从H&E到空间转录组的生成推理，可用于病理Agent管道",
+      "llm_evidence": "从H&E到空间转录组的生成推理，可用于病理Agent管道",
+      "canonical_evidence": "从H&E到空间转录组的生成推理，可用于病理Agent管道",
+      "llm_tldr_en": "DriftST proposes one-step generative inference of spatial transcriptomics from H&E histology, enabling cost-effective histopathological analysis that could be integrated into pathology AI agents.",
+      "llm_tldr_cn": "空间转录组测序成本高、通量低，现有从H&E组织学推断基因表达的方法存在过平滑或推理慢等局限。本文提出DriftST，一种一步生成式推理框架，能够从H&E染色图像高效推断空间转录组，同时考虑基因间依赖性和多分辨率。实验表明DriftST在多个数据集上取得了更准确的推断结果，为数字病理Agent提供了可扩展的组学分析工具。",
+      "llm_tldr": "空间转录组测序成本高、通量低，现有从H&E组织学推断基因表达的方法存在过平滑或推理慢等局限。本文提出DriftST，一种一步生成式推理框架，能够从H&E染色图像高效推断空间转录组，同时考虑基因间依赖性和多分辨率。实验表明DriftST在多个数据集上取得了更准确的推断结果，为数字病理Agent提供了可扩展的组学分析工具。",
+      "llm_tags": [
+        "query:path-agent"
+      ],
+      "matched_query_tag": "query:path-agent",
+      "matched_query_text": "research on digital pathology agents for histopathological analysis",
+      "matched_requirement_id": "req-7",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2607.03853v1",
+      "source": "arxiv",
+      "title": "CogRad: A Cognitively-Inspired Multi-Agent Framework for Radiology Report Generation",
+      "abstract": "Automated radiology report generation (RRG) can ease radiologist workload, yet most existing systems produce a report in a single forward pass, with no mechanism to check a claim against the image or revisit a finding once stated. We present CogRad, a cognitively inspired multi-agent framework that structures generation around four stages of a radiologist's reading process. A Scout agent discovers anatomical regions directly from image patches via slot attention and assigns region and disease-level triage scores; an Investigator agent concentrates representational capacity on the regions Scout flags as suspicious; a Writer agent compiles these signals into a disease gated visual prefix for a large language model; and a Verifier agent supervises training with a visual entailment loss and, at inference, re-examines its own draft sentence by sentence, regenerating any report it judges insufficiently grounded. On CheXpert Plus, CogRad attains a BLEU-4 of 0.316 and a CIDEr of 0.322, the best scores among the methods we compare against. On IU X-Ray, it attains a BLEU-4 of 0.201 and a CIDEr of 0.724, leading every baseline on every standard NLG metric. We further evaluate CogRad with RadGraph F1, CheXbert F1, and a hallucination analysis to assess clinical accuracy beyond standard text-overlap metrics, complemented by ablation studies and Grad-CAM-based visualizations that characterize each agent's contribution and the model's visual grounding.",
+      "authors": [
+        "Saif Ur Rehman Khan",
+        "Hasaan Maqsood",
+        "Sebastian Vollmer",
+        "Andreas Dengel",
+        "Muhammad Nabeel Asim"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-07-04T12:43:04+00:00",
+      "link": "https://arxiv.org/pdf/2607.03853v1",
+      "tags": [
+        "keyword:path-agent",
+        "query:path-agent"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "multi-agent framework for radiology report generation as a pathological diagnosis agent",
+      "llm_evidence_cn": "放射学报告生成的多代理框架作为病理诊断代理",
+      "llm_evidence": "放射学报告生成的多代理框架作为病理诊断代理",
+      "canonical_evidence": "放射学报告生成的多代理框架作为病理诊断代理",
+      "llm_tldr_en": "CogRad proposes a cognitively-inspired multi-agent framework with Scout, Investigator, Writer, and Verifier agents for accurate and interpretable radiology report generation.",
+      "llm_tldr_cn": "该论文针对现有放射学报告生成系统缺乏多步骤验证与反思能力的问题，受放射科医生认知流程启发，提出了包含侦察、调查、撰写和验证四个代理的CogRad框架。侦察代理通过插槽注意力从图像中定位可疑区域，调查代理集中分析这些区域的特征，撰写代理基于多模态信息生成报告文本，验证代理则对报告与图像的一致性进行核查。在多个放射学数据集上的实验表明，CogRad在报告准确性、完整性和可解释性方面显著优于单步生成方法，为病理影像诊断领域的多代理系统设计提供了重要的方法论参考。",
+      "llm_tldr": "该论文针对现有放射学报告生成系统缺乏多步骤验证与反思能力的问题，受放射科医生认知流程启发，提出了包含侦察、调查、撰写和验证四个代理的CogRad框架。侦察代理通过插槽注意力从图像中定位可疑区域，调查代理集中分析这些区域的特征，撰写代理基于多模态信息生成报告文本，验证代理则对报告与图像的一致性进行核查。在多个放射学数据集上的实验表明，CogRad在报告准确性、完整性和可解释性方面显著优于单步生成方法，为病理影像诊断领域的多代理系统设计提供了重要的方法论参考。",
+      "llm_tags": [
+        "query:path-agent"
+      ],
+      "matched_query_tag": "query:path-agent",
+      "matched_query_text": "pathological diagnosis agent",
+      "matched_requirement_id": "req-2",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2607.04486v1",
+      "source": "arxiv",
+      "title": "LeukocyteCount: Automatic Identification and Counting for leukocytes using Deep Learning",
+      "abstract": "Diagnosing and monitoring diseases frequently involves the analysis of human biological samples, with blood analysis being pivotal. Specifically, leukocytes, or white blood cells (WBCs), are essential markers for evaluating the body's defense mechanisms against infections. Traditional methods for WBC counting and classification are labor-intensive and prone to inaccuracies, primarily due to human error. The conventional processes for blood cell analysis, especially those concerning WBCs, are beset with difficulties. These include the laborious nature of manual counting and the susceptibility to errors, which can significantly impact the accuracy and reliability of disease diagnosis and monitoring. This study proposes an automated, machine learning-based solution aimed at mitigating the identified challenges. By employing a hybrid model that integrates Yolov5 for the detection of WBCs, coupled with a finely tuned, pre-trained MobileNetV2 model and a Logistic Regression classifier, the study innovates in the accurate identification, counting, and classification of WBCs into four distinct types. The methodology leverages the BCCD dataset for training and validation purposes. The application of the proposed hybrid machine learning model has yielded remarkable results, demonstrating a detection accuracy rate of 98\\% through the Yolov5 stage, and an unparalleled classification accuracy of 99.04\\% in subsequent stages utilizing MobileNetV2 and Logistic Regression. Additionally, Our proposed YOLOv5-based RBC detection module achieves an F1 score of 99.73\\%, which outperforms the baseline. These findings underscore the model's potential in transforming traditional laboratory practices for WBC analysis, offering a path towards more accurate, efficient, and reliable disease diagnostics and monitoring.",
+      "authors": [
+        "Ahmed M. Sayed",
+        "Sondos A. Refaat",
+        "Abdallah M. Mostafa",
+        "Mariam S. El-Rahmany",
+        "Ensaf Hussein Mohamed"
+      ],
+      "primary_category": "cs.LG",
+      "categories": [
+        "cs.LG",
+        "cs.CV"
+      ],
+      "published": "2026-07-05T20:18:31+00:00",
+      "link": "https://arxiv.org/pdf/2607.04486v1",
+      "tags": [
+        "keyword:path-agent",
+        "query:path-agent"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "automated leukocyte counting for hematological disease diagnosis",
+      "llm_evidence_cn": "自动化白细胞计数用于血液疾病诊断",
+      "llm_evidence": "自动化白细胞计数用于血液疾病诊断",
+      "canonical_evidence": "自动化白细胞计数用于血液疾病诊断",
+      "llm_tldr_en": "Proposes a deep learning system for automatic identification and counting of leukocytes from blood samples, supporting disease diagnosis.",
+      "llm_tldr_cn": "该论文针对传统白细胞计数费时且易错的问题，提出了一种基于深度学习的自动化系统。利用宏观图像进行白细胞检测和计数，实验表明该方法在准确性和效率上优于传统方法，可辅助血液病理学诊断。该系统可视为一种针对血细胞分析的病理学人工智能代理。",
+      "llm_tldr": "该论文针对传统白细胞计数费时且易错的问题，提出了一种基于深度学习的自动化系统。利用宏观图像进行白细胞检测和计数，实验表明该方法在准确性和效率上优于传统方法，可辅助血液病理学诊断。该系统可视为一种针对血细胞分析的病理学人工智能代理。",
+      "llm_tags": [
+        "query:path-agent"
+      ],
+      "matched_query_tag": "query:path-agent",
+      "matched_query_text": "pathology AI agent",
+      "matched_requirement_id": "req-5",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2607.06972v1",
+      "source": "arxiv",
+      "title": "HPR-SAM: Hierarchical Probabilistic Representation Learning for Prompt-free SAM-based Medical Image Segmentation",
+      "abstract": "Prompt-free adaptation of the Segment Anything Model (SAM) has emerged as a promising paradigm for automatic medical image segmentation. Existing methods mainly focus on prompt generation, while overlooking that prompt quality is fundamentally constrained by the expressiveness of anatomical representations. However, deterministic prototypes or semantic tokens are insufficient to jointly capture global anatomical priors, intra-structure diversity, and local structural reliability. To address this limitation, we propose the Hierarchical Probabilistic Representation (HPR) framework, which learns complementary anatomical representations through Distributional Anatomical Representation (DAR), Multi-component Anatomical Representation (MAR), and Local Reliability Representation (LRR), and integrates their predictions via Hierarchical Prediction Fusion (HPF) while remaining compatible with the original SAM decoder. Experiments on the Synapse, LA, and PROMISE12 datasets demonstrate that HPR-SAM achieves state-of-the-art performance on Synapse and the best performance under few-shot settings on LA and PROMISE12, validating the effectiveness of the proposed hierarchical probabilistic representation learning framework for prompt-free medical image segmentation. Code is available at https://anonymous.4open.science/r/HPR-SAM-E4AF.",
+      "authors": [
+        "Yingzhen Hu",
+        "Yiheng Zhong",
+        "Keying Zhu",
+        "Zimu Zhang",
+        "Zihan Ye",
+        "Sifan Song",
+        "Jionglong Su",
+        "Xiaofeng Liu"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV"
+      ],
+      "published": "2026-07-08T03:49:08+00:00",
+      "link": "https://arxiv.org/pdf/2607.06972v1",
+      "tags": [
+        "keyword:path-agent",
+        "query:path-agent"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "Hierarchical probabilistic representation for SAM-based medical image segmentation applicable to pathology",
+      "llm_evidence_cn": "基于层次概率表示的SAM医学图像分割方法可应用于病理图像",
+      "llm_evidence": "基于层次概率表示的SAM医学图像分割方法可应用于病理图像",
+      "canonical_evidence": "基于层次概率表示的SAM医学图像分割方法可应用于病理图像",
+      "llm_tldr_en": "HPR-SAM introduces hierarchical probabilistic representations to enhance SAM-based medical image segmentation without prompts, achieving robust performance across diverse datasets, including potential pathology applications.",
+      "llm_tldr_cn": "无提示SAM在医学图像分割中受限于解剖表征的表达力。本文提出层次概率表示框架HPR，通过分布解剖表示和多组分解剖表示学习互补特征，提升分割精度。在多个医学数据集上，HPR-SAM优于现有方法，为病理图像自动分割提供了可靠组件。",
+      "llm_tldr": "无提示SAM在医学图像分割中受限于解剖表征的表达力。本文提出层次概率表示框架HPR，通过分布解剖表示和多组分解剖表示学习互补特征，提升分割精度。在多个医学数据集上，HPR-SAM优于现有方法，为病理图像自动分割提供了可靠组件。",
+      "llm_tags": [
+        "query:path-agent"
+      ],
+      "matched_query_tag": "query:path-agent",
+      "matched_query_text": "research on digital pathology agents for histopathological analysis",
+      "matched_requirement_id": "req-7",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2607.08038v1",
+      "source": "arxiv",
+      "title": "A safety-oriented hypothetico-deductive framework for AI-assisted differential diagnosis",
+      "abstract": "Diagnostic error is a major threat to patient safety, yet current large language model (LLM) systems often treat diagnosis as a one-shot prediction task, lacking safeguards against missed high-risk alternatives or rigorous verification of their reasoning. Here, we present AegisDx, a safety-oriented framework for hypothetico-deductive clinical reasoning. AegisDx coordinates specialized LLM components through role-specific contracts, structured intermediate outputs, evidence-retrieval interfaces, and verification gates to generate broad differential diagnoses, enforce explicit screening for dangerous \"must-not-miss\" conditions, verify reasoning against grounded medical evidence, and structure actionable next steps. We evaluated AegisDx across three layers. On literature-derived case reports from NEJM and JAMA, with GPT-oss-120B as the shared backbone, Top-3 diagnostic accuracy was 59.9% versus 52.1% for the standalone LLM on JAMA cases and 62.7% versus 51.4% on NEJM cases. On cases from Annals of Emergency Medicine, Top-3 accuracy was 85.7% versus 68.6%; against physician-consensus must-not-miss diagnosis sets, AegisDx captured at least one such condition among its top three diagnoses in 78.0% of cases versus 52.0%. In a blinded physician evaluation of 43 real-world emergency department notes from the Yale New Haven Health System compared against GPT-5, AegisDx improved the physician-rated composite safety score from 4.31 to 4.55 on a 5-point scale (adjusted p = 2.1x10^-4), with qualitative gains in must-not-miss identification and reasoning safety. Our findings suggest that engineering diagnostic AI as a safety-oriented reasoning framework, rather than optimizing raw predictive accuracy alone, can provide a safer, more transparent, and clinically meaningful layer of bedside decision support for acute care workflows.",
+      "authors": [
+        "Fan Ma",
+        "Mauro Giuffrè",
+        "Donald Wright",
+        "Kent McCann",
+        "Mark Iscoe",
+        "Lingfei Qian",
+        "Mingyang Jiang",
+        "Chi Wing Ng",
+        "Na Hong",
+        "Huan He",
+        "Cathy Shyr",
+        "Qingyu Chen",
+        "Lee Schwamm",
+        "Lucila Ohno-Machado",
+        "Hua Xu"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI"
+      ],
+      "published": "2026-07-09T01:30:24+00:00",
+      "link": "https://arxiv.org/pdf/2607.08038v1",
+      "tags": [
+        "keyword:path-agent",
+        "query:path-agent"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "safety-oriented LLM framework for differential diagnosis, applicable to pathological diagnosis agents",
+      "llm_evidence_cn": "面向安全的LLM框架用于鉴别诊断，可应用于病理诊断代理",
+      "llm_evidence": "面向安全的LLM框架用于鉴别诊断，可应用于病理诊断代理",
+      "canonical_evidence": "面向安全的LLM框架用于鉴别诊断，可应用于病理诊断代理",
+      "llm_tldr_en": "AegisDx coordinates specialized LLM components with verification gates for safe differential diagnosis, providing a framework that can be adapted for pathological diagnosis agents.",
+      "llm_tldr_cn": "AegisDx提出安全导向的假说演绎推理框架，通过角色分工、结构化输出和证据检索接口协调多个LLM组件，生成广泛鉴别诊断并强制筛查必须排除的危重疾病。该方法虽针对通用诊断，但其验证机制和模块化设计可直接迁移至病理诊断代理，提升诊断安全性与可靠性。",
+      "llm_tldr": "AegisDx提出安全导向的假说演绎推理框架，通过角色分工、结构化输出和证据检索接口协调多个LLM组件，生成广泛鉴别诊断并强制筛查必须排除的危重疾病。该方法虽针对通用诊断，但其验证机制和模块化设计可直接迁移至病理诊断代理，提升诊断安全性与可靠性。",
+      "llm_tags": [
+        "query:path-agent"
+      ],
+      "matched_query_tag": "query:path-agent",
+      "matched_query_text": "pathological diagnosis agent",
+      "matched_requirement_id": "req-2",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2607.08299v1",
+      "source": "arxiv",
+      "title": "Classifier Chain-based Pathological Test Recommendation",
+      "abstract": "Accurate and timely diagnoses are essential for quality patient care. However, delayed recommendation of diagnostic tests and physicians' subjective interpretations can hinder effective care. This study introduces a pathological test recommendation system that speeds up the test selection process using patient symptoms before physician consultation. The recommendation task is framed as a multi-label classification problem utilising the Classifier Chain (CC) technique to consider dependencies between tests. We collected data from the SOUTHERN.IML pathology and then created a custom dataset with the help of the expertise. Multiple machine learning algorithms, including Logistic Regression, Decision Tree, and Random Forest, were applied to compare models and identify the best fit for our study context. The Logistic Regression with CC model had the highest overall accuracy at 98.83%, while the Majority Voting ensemble model provided the best balance with a precision of 0.93, recall of 0.85, and F1-score of 0.89. To ensure transparency of the models and clinical interpretability, we used Explainable AI (XAI) techniques utilising SHAP (SHapley Additive Explanations), which identifies how each symptom is contributing to a test recommendation. The diagnostic reasoning revealed by the model was consistent with established medical knowledge of symptoms for the recommended tests, which further adds confidence to the model's reliability for diagnostic purposes. The reasoning could help physicians make logical decisions in critical scenarios. Overall, our findings suggest that CC can improve the efficiency of the traditional algorithms in diagnostic process providing accurate test recommendations.",
+      "authors": [
+        "Abu Rafe Md Jamil",
+        "Nayan Malakar"
+      ],
+      "primary_category": "cs.LG",
+      "categories": [
+        "cs.LG"
+      ],
+      "published": "2026-07-09T09:41:34+00:00",
+      "link": "https://arxiv.org/pdf/2607.08299v1",
+      "tags": [
+        "keyword:path-agent",
+        "query:path-agent"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "pathological test recommendation as a pathology agent component",
+      "llm_evidence_cn": "病理测试推荐作为病理代理组件",
+      "llm_evidence": "病理测试推荐作为病理代理组件",
+      "canonical_evidence": "病理测试推荐作为病理代理组件",
+      "llm_tldr_en": "This study presents a classifier chain-based pathological test recommendation system that uses patient symptoms to recommend diagnostic tests before physician consultation, supporting pathology agent workflows.",
+      "llm_tldr_cn": "针对诊断测试推荐延迟影响诊疗效率的问题，本文提出基于分类器链的病理测试推荐系统。将推荐任务建模为多标签分类问题，考虑测试间的依赖关系，利用患者症状快速推荐所需病理检测。在真实病理数据集上验证，随机森林等算法取得较好性能。该系统可作为病理诊断代理的决策支持模块，加速诊断流程。",
+      "llm_tldr": "针对诊断测试推荐延迟影响诊疗效率的问题，本文提出基于分类器链的病理测试推荐系统。将推荐任务建模为多标签分类问题，考虑测试间的依赖关系，利用患者症状快速推荐所需病理检测。在真实病理数据集上验证，随机森林等算法取得较好性能。该系统可作为病理诊断代理的决策支持模块，加速诊断流程。",
+      "llm_tags": [
+        "query:path-agent"
+      ],
+      "matched_query_tag": "query:path-agent",
+      "matched_query_text": "pathology agent",
+      "matched_requirement_id": "req-1",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    }
+  ]
+}

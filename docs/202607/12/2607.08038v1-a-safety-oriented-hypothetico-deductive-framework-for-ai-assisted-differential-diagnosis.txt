@@ -1,0 +1,950 @@
+Title: A safety-oriented hypothetico-deductive framework for AI-assisted differential diagnosis
+
+URL Source: https://arxiv.org/pdf/2607.08038v1
+
+Published Time: Fri, 10 Jul 2026 00:21:08 GMT
+
+Number of Pages: 26
+
+Markdown Content:
+# A safety-oriented hypothetico-deductive framework for AI-assisted differential diagnosis 
+
+Fan Ma 1, ∗, Mauro Giuffrè 2, ∗, Donald Wright 3, Kent McCann 3, Mark Iscoe 1,3 , Lingfei Qian 1, Mingyang Jiang 4, Chi Wing Ng 1, Na Hong 1, Huan He 1, Cathy Shyr 5, Qingyu Chen 1, Lee Schwamm 1,6 , Lucila Ohno-Machado 1 and Hua Xu 1, †
+
+> 1
+
+Department of Biomedical Informatics and Data Science, Yale School of Medicine, Yale University, New Haven, USA 
+
+> 2
+
+Department of Medical, Surgical and Health Sciences, Università degli Studi di Trieste, Trieste, Italy 
+
+> 3
+
+Department of Emergency Medicine, Yale School of Medicine, Yale University, New Haven, USA 
+
+> 4
+
+Applied Mathematics and Computer Science, Vanderbilt University, Nashville, USA 
+
+> 5
+
+Department of Biomedical Informatics, Vanderbilt University, Nashville, USA 
+
+> 6
+
+Department of Neurology, Yale School of Medicine, Yale University, New Haven, USA 
+
+> ∗
+
+Equal contributions †Corresponding author Hua Xu: hua.xu@yale.edu 
+
+Diagnostic error is a major threat to patient safety, yet current large language model (LLM) systems often treat diagnosis as a one-shot prediction task, lacking systematic safeguards against missed high-risk alternatives or rigorous verification of their reasoning. Here, we present AegisDx , a safety-oriented diagnostic reasoning framework for hypothetico-deductive clinical reasoning rather than a conventional free-form model call or agent-only pipeline. AegisDx coordinates specialized LLM components through role-specific contracts, structured intermediate outputs, evidence-retrieval interfaces, and verification gates to generate broad differential diagnoses, enforce explicit screening for dangerous “must-not-miss” conditions, verify reasoning against grounded medical evidence (e.g., PubMed and clinical guidelines), and structure actionable next diagnostic and management steps. We evaluated AegisDx across three distinct layers. First, on literature-derived case reports from two general medical journals—The New England Journal of Medicine (NEJM) and the Journal of the American Medical Association (JAMA)—using the final diagnoses reported in the source articles as the reference standard, AegisDx consistently outperformed the matched standalone LLM. With GPT-oss-120B as the shared backbone, Top-3 diagnostic accuracy was 59 .9% versus 52 .1% on JAMA cases (+7.8 percentage points) and 62 .7% versus 51 .4% on NEJM cases (+11.3 percentage points). Second, on cases from Annals of Emergency Medicine (Annals of EM), Top-3 accuracy against the final diagnoses reported in the source articles was 85 .7% for AegisDx versus 
+
+68 .6% for the standalone LLM (+17.1 percentage points). Against physician-consensus must-not-miss diagnosis sets, AegisDx captured at least one such condition among its top three diagnoses in 78 .0% of cases versus 52 .0% for the standalone LLM (+26.0 percentage points). Third, in a blinded physician evaluation of 43 real-world emergency department (ED) clinical notes from the Yale New Haven Health System (YNHHS) compared against GPT-5, AegisDx improved the physician-rated composite safety score from 4.31 to 4.55 on a 5-point scale (adjusted p = 2 .1 × 10 −4), with specific qualitative gains in “must-not-miss” condition identification and reasoning safety. Our findings suggest that engineering diagnostic artificial intelligence (AI) as a safety-oriented diagnostic reasoning framework, rather than optimizing raw predictive accuracy alone, can provide a safer, more transparent, and clinically meaningful layer of bedside decision support for acute care workflows. 
+
+## 1 Introduction 
+
+Diagnostic error remains one of the most consequential and unresolved patient-safety challenges in modern medicine [ 1, 2, 3]. Across all healthcare settings, missed, delayed, or incorrect diagnoses contribute substantially to preventable morbidity, mortality, and unsustainable downstream resource utilization [ 4, 5 , 6]. In a national study of U.S. Medicare beneficiaries aged 65 years or older, potential diagnostic errors were estimated to arXiv:2607.08038v1 [cs.AI] 9 Jul 2026 precede 3.2% of hospitalizations for selected high-risk emergency conditions and were associated with higher 30-day mortality and fewer healthy days at home [ 7]. These risks are especially salient in time-pressured environments such as the emergency department, where clinicians must reason rapidly using incomplete information from complex, dynamic presentations while managing high cognitive load [3]. LLMs have demonstrated remarkable capabilities on medical knowledge benchmarks, frequently approaching or exceeding human expert performance in controlled settings [ 8, 9, 10 ]. These advances build on a longstanding goal of clinical decision support: generating and prioritizing differential diagnoses. Before the emergence of LLMs, knowledge-based expert systems such as INTERNIST-1 and DXplain generated ranked diagnostic hypotheses [ 11 , 12 ]. Modern LLM-based systems now support related but broader diagnostic functions: AMIE generates comprehensive differential diagnoses and assists clinicians in refining diagnostic hypotheses [ 9]; ConfiDx identifies and explains diagnostic uncertainty [ 13 ]; and sequential and agentic approaches generate, test, or revise hypotheses as additional evidence becomes available [14, 15, 16, 17, 18]. Despite this progress, an important translational gap remains. Existing systems often address only selected components of the diagnostic process, while many evaluations continue to emphasize final-answer or Top-k
+
+accuracy without systematically assessing protection against dangerous omissions, evidentiary support for competing hypotheses, or the clinical actionability of recommendations. For routine clinical use, diagnostic safety requires systems that preserve attention to dangerous alternatives, avoid unsupported reassurance, expose the evidence underlying their conclusions, and remain auditable under uncertainty [19, 20]. Clinical diagnosis is not a classification exercise but an iterative, hypothetico-deductive reasoning process [ 21 ]. Clinicians simultaneously generate competing hypotheses, maintain strict attention to “must-not-miss” con-ditions, rigorously test these against evolving evidence, and translate residual uncertainty into actionable next steps. We therefore hypothesized that organizing diagnostic AI around these safety-critical functions, rather than relying on predictive generation alone, could enhance diagnostic safety and transparency. Here, we present AegisDx , a novel safety-oriented hypothetico-deductive diagnostic reasoning framework tailored for the rigorous demands of acute and emergency care. AegisDx coordinates specialized agent components through role contracts, structured intermediate outputs, evidence-retrieval interfaces, verification gates, and clinician-facing output schemas for: (1) broad differential hypothesis generation, (2) explicit must-not-miss condition screening, (3) grounded evidence verification against PubMed and clinical guidelines, and (4) structured planning of next diagnostic and management steps. We evaluated AegisDx in three stages aligned with increasing clinical complexity. First, on public literature-derived case reports from NEJM and JAMA, controlled same-backbone comparisons showed that AegisDx consistently improved diagnostic accuracy over a strong standalone LLM, increasing Top-3 accuracy by up to 13.3 percentage points. Second, on Annals of EM, AegisDx showed the largest source-level diagnostic gain (+17.1 percentage points in Top-3 accuracy) and more directly improved must-not-miss safety performance, with a +26.0 percentage-point gain in capturing at least one must-not-miss condition within the top three predictions. Finally, in a blinded physician review of 43 real-world, de-identified ED clinical notes from YNHHS against GPT-5, AegisDx showed higher safety-related quality on a composite safety metric (4.31 to 4.55 on a 5-point Likert scale; adjusted p = 2 .1 × 10 −4), with gains observed in qualitative aspects of reasoning, treatment safety, and the identification of critical conditions. Together, these findings suggest that diagnostic reasoning frameworks designed around safety-oriented, transparent clinical functions can move the field beyond static benchmarks toward a clinically meaningful and safer layer of acute care decision support. 
+
+## 2 Results 
+
+2.1 Overview and Evaluation Setting 
+
+Figure 1 summarizes how the AegisDx diagnostic reasoning framework operationalizes the clinical priorities in acute care. Rather than returning a single diagnosis, the system produces a clinician-oriented output that combines a Top-3 differential diagnosis list with explicit must-not-miss conditions, evidence-linked reasoning, and an initial management plan (Figure 1a), directly addressing the needs for safety coverage, traceability, and actionability at the point of care. The framework is organized into three linked stages (Figure 1b): hypothesis generation, which combines specialist hypothesis generation, a must-not-miss safety check, and 
+
+> |2
+
+Management Plan 
+
+> 1. Immediate safety : Telemetry, IV access, ECG, O₂ monitoring, K/Mg correction … 2.Rate/rhythm control : Beta-blocker for stable AF with RVR; cardioversion if unstable. 3.Treat trigger : Start antithyroid therapy; confirm etiology with thyroid studies/imaging. 4. Rule out high-risk causes : Serial troponins/ECGs; assess ACS, PE, dissection if indicated. 5.Stroke prevention/follow-up :Anticoagulate by CHA₂DS₂-VASc; cardiology/endocrinology follow-up …
+
+Input 
+
+Clinical Descriptions 
+
+Output Traceable Reasoning   
+
+> Irregularly irregular tachycardia with acute palpitations and dyspnea supports new-onset AF with RVR [1] .Suppressed TSH/elevated free T4 with weight loss, heat intolerance, and tremor suggests thyrotoxicosis-triggered AF [2] .……. Therefore, thyrotoxicosis-associated new-onset AF with RVR is prioritized.
+> References
+> [1] January et al., AHA/ACC/HRS AF Guideline, 2014. [2] Klein and Danzi, Thyroid Disease and the Heart, 2007.
+
+Top-3 MUST-NOT-MISS 
+
+Diagnoses 
+
+1. ACS / AMI 2. Pulmonary embolism 3. Aortic dissection 
+
+Top-3 Differential Diagnoses 
+
+1. AF with RVR 2. Overt thyrotoxicosis 3. Toxic multinodular goiter    
+
+> Patient: 67M with HTN/T2DM/HLD
+> Symptoms: acute irregular palpitations + dyspnea. Recent weight loss, heat intolerance …
+> Labs: suppressed TSH with elevated free T4; initial troponin negative…
+
+(b)(a)
+
+(c)
+
+Hypothesis Generation 
+
+Specialist 
+
+> Hypothesis Generator
+> Differential Consolidation
+
+Evidence Gathering & Verification Clinical Management  
+
+> Suggested Next Diagnostic Steps
+> Early Management Considerations
+> MUST-NOT-MISS Safety Check
+> Evidence Retrieval
+> Hypothesis Verification
+> Clinical Reasoning
+> Management
+> Correctness
+> Management
+> Safety Reasoning Correctness Reasoning Safety
+> MUST -NOT-MISS
+> Diagnosis Diagnosis Accuracy Description # Cases Dataset
+> ×××××√Public literature-derived case reports 302 NEJM
+> ×××××√Public literature-derived case reports 480 JAMA
+> ××××√√
+> Public literature -derived emergency medicine
+> case reports 50 Annals of EM
+> √√√√√√
+> Private de-identified real-world emergency department clinical notes 43 YNHHS
+
+Clinician-Facing Decision Support     
+
+> •Ranked diagnoses
+> •MUST-NOT-MISSING conditions
+> •Sourced-linked reasoning
+> •Early management consideration
+
+Figure 1 | Overview of the AegisDx diagnostic reasoning framework. (a) Example input-output view mapping free-text clinical descriptions to a Top-3 differential diagnosis list, Top-3 must-not-miss conditions, traceable reasoning with references, and a structured management plan. (b) Stage-wise organization of AegisDx across hypothesis generation, evidence gathering and verification, and clinical management, including specialist hypothesis generation, a must-not-miss safety check, differential consolidation, evidence retrieval, clinical reasoning, hypothesis verification, suggested next diagnostic steps, and early management considerations. (c) Summary of the four datasets and three complementary evaluation approaches: Top-k diagnostic accuracy on the public literature-derived benchmarks, must-not-miss diagnosis coverage on Annals of EM, and blinded physician evaluation on the YNHHS real-world clinical-note cohort. 
+
+differential consolidation; evidence gathering and verification, which links evidence retrieval, clinical reasoning, and hypothesis verification; and clinical management, which translates the retained differential into suggested next diagnostic steps and early management considerations. Figure 1c summarizes the four datasets and the three complementary evaluation approaches used in this study: Top-k diagnostic accuracy on the public literature-derived benchmarks, must-not-miss diagnosis coverage on Annals of EM, and comprehensive safety evaluation on the YNHHS real-world clinical-note cohort. Together, these three evaluation approaches assess ranking performance, safety-oriented coverage, and clinician-perceived utility. 
+
+2.2 Diagnostic accuracy across model classes, backbones, specialties, and benchmarks 
+
+We first compared AegisDx against a representative suite of foundation models spanning generic, medical-specific, reasoning-oriented, and state-of-the-art medical agentic systems [ 22 , 23 , 24 , 25 , 26 , 15 , 27 ]. As shown in Figure 2(a), AegisDx achieved the highest Top-3 diagnostic accuracy across all four comparison groups. Within the medical-agentic-systems group, AegisDx outperformed the strongest competitor, DeepRare [ 27 ], by a margin of 10 .3 percentage points. Given that DeepRare was evaluated with its full search stack enabled (PubMed and Google Search), this result suggests that the performance gains of AegisDx are related to its hypothetico-deductive reasoning architecture and safety-oriented design, rather than merely to access to external retrieval tools. To isolate the benefit of the AegisDx diagnostic reasoning framework from the performance of the underlying foundation model, we conducted a series of controlled, shared-backbone analyses, directly comparing AegisDx 
+
+|3General LLMs Medical LLMs Reasoning LLMs Other Medical           
+
+> Agentic Systems
+> AegisDx
+> 30
+> 35
+> 40
+> 45
+> 50
+> 55
+> 60
+> 65
+> 70
+> 75
+> 80
+> 85
+> Top-3 Accuracy (%)
+> Qwen-3-32B LLaMA3-70B
+> GPT-4.1-mini
+> MedGemma-27B Huatuo-70B Baichuan-M2-32B
+> GPT-oss-120B
+> GLM-4.7-358B
+> GPT5
+> MDAgents
+> (GPT-4.1-mini)
+> DeepRare
+> (GPT-4.1-mini)
+> DeepRare
+> (GPT-5)
+> AegisDx General LLMs
+> Medical LLMs
+> Reasoning LLMs
+> Other Medical Agentic Systems
+> AegisDx (Ours) (a) Qwen3-32B
+> LLaMa-3.1-70B
+> GPT-4.1
+> GPT-oss-120B
+> 20
+> 30
+> 40
+> 50
+> 60
+> Accuracy (%)
+> 9.2
+> 11.1 4.0 5.2
+> Top-1 Acc
+> Qwen3-32B
+> LLaMa-3.1-70B
+> GPT-4.1
+> GPT-oss-120B
+> 11.4 12.1
+> 5.7 8.4
+> Top-2 Acc
+> Qwen3-32B
+> LLaMa-3.1-70B
+> GPT-4.1
+> GPT-oss-120B
+> 9.9
+> 13.3 6.4 9.6
+> Top-3 Acc
+> Standalone LLM AegisDx
+> (b)
+
+Figure 2 | Diagnostic accuracy across model classes and shared backbones. (a) Broad benchmark comparison: scatter plot summarizing diagnostic performance on the three literature-derived case-report datasets for representative general-purpose, medical-domain, reasoning-oriented, and other medical agentic systems, with AegisDx achieving the strongest overall Top-3
+
+diagnostic accuracy. (b) Top-k diagnostic accuracy ( k = 1 –3) of AegisDx versus standalone LLMs across Qwen3-32B, LLaMA-3.1-70B, GPT-4.1 and GPT-oss-120B. 
+
+against standalone LLMs across shared specialties, backbones, and source datasets (Figure 2 and 3). 
+
+Performance consistency across foundation model backbones. Across all four tested foundation model backbones (Qwen3-32B, LLaMA-3.1-70B, GPT-4.1, and GPT-oss-120B), AegisDx yielded consistent improvements over the corresponding standalone LLM baselines (Figure 2b). While gains were evident across all metrics, the most pronounced improvements were observed in Top-3 accuracy, ranging from 6.4
+
+to 13 .3 percentage points. The magnitude of the Top-3 gain, particularly visible with the LLaMA-3.1-70B backbone, suggests that the framework’s hypothetico-deductive coordination is effective at surfacing and ordering plausible alternative diagnoses, rather than only sharpening the single top prediction. This ability to maintain a broad and ordered differential is a key requirement for reducing diagnostic errors in practice. 
+
+Performance generalizability across clinical specialties. This same pattern of improvement was preserved across 12 distinct medical specialties (Figure 3a). Gains were broadly distributed and generally more pronounced at Top-3 accuracy, consistent with broader coverage of the clinical differential. We observed that the relative benefits of AegisDx were particularly visible in specialties characterized by heterogeneous clinical presentations and high symptom overlap, where the framework decomposes complexity across role-constrained specialist-agent components to help disentangle competing diagnostic explanations. Furthermore, domains with strong standalone LLM baseline performance remained similarly strong under AegisDx, indicating that the architecture did not appear to introduce trade-offs in easier cases. 
+
+Robustness across independent clinical benchmarks. AegisDx maintained favorable performance across the distinct distributions of JAMA and NEJM (Figure 3b). Improvements reached +14.6 percentage points for Top-1 in NEJM and +11.7 percentage points for Top-1 in JAMA. This pattern is notable given the substantial differences between the two sources, which span curated teaching cases and diagnostically challenging, atypical reports. These results suggest that the performance gains of AegisDx are not tied to a single optimized dataset, but extend across different styles and complexities of clinical documentation. 
+
+|4Allergy & Immunology 
+
+> Cardiology
+> Dermatology
+> Endocrinology
+> Gastroenterology
+> Hematology
+> Infectious Disease
+> Neurology
+> Pediatrics
+> Pulmonology
+> Rheumatology
+> Surgery
+> 0.29
+> 0.46
+> 0.62
+
+Top-1 Acc 
+
+> Allergy & Immunology
+> Cardiology
+> Dermatology
+> Endocrinology
+> Gastroenterology
+> Hematology
+> Infectious Disease
+> Neurology
+> Pediatrics
+> Pulmonology
+> Rheumatology
+> Surgery
+> 0.35
+> 0.59
+> 0.83
+
+Top-2 Acc 
+
+> Allergy & Immunology
+> Cardiology
+> Dermatology
+> Endocrinology
+> Gastroenterology
+> Hematology
+> Infectious Disease
+> Neurology
+> Pediatrics
+> Pulmonology
+> Rheumatology
+> Surgery
+> 0.38
+> 0.66
+> 0.93
+
+Top-3 Acc 
+
+Qwen3-32B AegisDx-Qwen3-32B GPT-oss-120B AegisDx-GPT-oss-120B (a) Top-1 Acc Top-2 Acc Top-3 Acc 
+
+> 20
+> 30
+> 40
+> 50
+> 60
+> Accuracy (%)
+
++11.7 
+
++4.3 +8.0 
+
++7.4 
+
++6.0 
+
++7.8 
+
+JAMA 
+
+Top-1 Acc Top-2 Acc Top-3 Acc 
+
++14.6 +7.5 +9.4 
+
++9.4 
+
++6.1 
+
++11.3 
+
+NEJM 
+
+GPT-oss-20B AegisDx-GPT-oss-20B GPT-oss-120B AegisDx-GPT-oss-120B 
+
+(b) 
+
+Figure 3 | Diagnostic accuracy across specialties and benchmark sources. (a) Top-k diagnostic accuracy stratified by clinical specialty. (b) Dataset-level Top-k accuracy across sources JAMA and NEJM. Top-1 Acc Top-2 Acc Top-3 Acc 
+
+> 50
+> 55
+> 60
+> 65
+> 70
+> 75
+> 80
+> 85
+> 90
+> Accuracy (%)
+> 5.7
+> 5.7
+> 17.1 GPT-oss-120B
+> AegisDx
+
+(a) Top-k diagnostic accuracy on Annals of EM. Top-1 Coverage Top-2 Coverage Top-3 Coverage 
+
+> 0.2
+> 0.3
+> 0.4
+> 0.5
+> 0.6
+> 0.7
+> 0.8
+> 0.9
+> Fraction of cases
+> 12.0%
+> 24.0%
+> 26.0%
+
+(b) Must-not-miss safety coverage on Annals of EM. Top-1 Recall Top-2 Recall Top-3 Recall 
+
+> 0.00
+> 0.05
+> 0.10
+> 0.15
+> 0.20
+> 0.25
+> 0.30
+> Fraction of cases
+> 2.5%
+> 7.1%
+> 9.0%
+
+(c) Mean set recall of must-not-miss diagnoses. 
+
+Figure 4 | Diagnostic accuracy and safety evaluation on the emergency-medicine benchmark (Annals of EM [ 28 ]). (a) Top-k accuracy comparison between AegisDx and GPT-oss-120B on Annals of EM cases. (b) Must-not-miss safety coverage (fraction of cases with at least one must-not-miss condition captured in the Top-k list). (c) Mean set recall of must-not-miss diagnoses at Top-k.
+
+2.3 Safety-focused evaluation on emergency medicine cases 
+
+On the emergency-medicine benchmark (Annals of EM [ 28 ]), relative to GPT-oss-120B, AegisDx improved Top-1 accuracy by +5.7 percentage points and Top-3 accuracy by +17.1 percentage points (Figure 4a), supporting its usefulness for acute, safety-critical presentations. These gains are particularly relevant because ED cases demand both diagnostic breadth and rapid identification of must-not-miss conditions. To characterize safety directly, we evaluate AegisDx from two complementary perspectives against the physician-curated must-not-miss consensus annotations (Section 4.2). Safety Coverage@K measures the proportion of cases for which at least one ground-truth must-not-miss diagnosis appears in the model’s top-K differential list, whereas Safety Set Recall@K measures, for each case, the fraction of ground-truth must-not-miss diagnoses covered by the top-K predictions (formal definitions in Section 4.2). Together, 
+
+|51
+
+> 2
+> 3
+> 4
+> 5
+> Score
+> BH-FDR p=0.002
+> = +0.29
+
+Must-Not-Miss Diagnosis 
+
+> GPT-5
+> AegisDx
+> BH-FDR p=0.001
+> = +0.25
+
+Safety 
+
+> BH-FDR p=0.008
+> = +0.20
+
+Safety 
+
+> 1
+> 2
+> 3
+> 4
+> 5
+> Score
+> BH-FDR p=0.035
+> = +0.20
+
+Most-Likely Diagnosis 
+
+> BH-FDR p=0.002
+> = +0.27
+
+Correctness 
+
+> BH-FDR p=0.031
+> = +0.22
+
+Correctness 
+
+> 1
+> 2
+> 3
+> 4
+> 5
+> Score
+> BH-FDR p=<0.001
+> = +0.27
+
+Completeness 
+
+> BH-FDR p=0.001
+> = +0.25
+
+Completeness 
+
+> 1
+> 2
+> 3
+> 4
+> 5
+> Score
+> BH-FDR p=0.001
+> = -0.40
+
+Helpfulness 
+
+> BH-FDR p=0.075
+> = -0.19
+
+Helpfulness 
+
+> 1
+> 2
+> 3
+> 4
+> 5
+> Score
+> BH-FDR p=<0.001
+> = -0.69
+
+Readability 
+
+> BH-FDR p=0.002
+> = -0.36
+
+Readability       
+
+> 0.3 0.2 0.1 0.0 0.1 0.2 0.3
+> ICC(2,1)
+> Must-Not-Miss
+> Most-Likely
+> Reasoning Correct.
+> Reasoning Complete.
+> Reasoning Safety
+> Mgmt Correct.
+> Mgmt Complete.
+> Mgmt Safety
+> ICC(2,1), 95% bootstrap CI
+
+Diagnosis Reasoning Management Figure 5 | Physician evaluation on real-world clinical cases. Boxplots summarize the distribution across the 43 paired cases, evaluated by the same three physicians for both AegisDx (GPT-5) and standalone GPT-5; overlaid jittered points denote case-level mean scores averaged across physicians for the 12 physician-rated criteria on the YNHHS real-world clinical-note cohort. Boxes indicate the median and interquartile range. Panel annotations show Benjamini-Hochberg-adjusted p values from two-sided Wilcoxon signed-rank tests and ∆, the mean paired score difference (AegisDx − GPT-5); positive ∆ favors AegisDx and negative ∆ favors GPT-5. In the boxplot panels, scores range from 1 to 5, with higher values indicating better performance. The embedded intra-class correlation coefficient (ICC) panel in the lower portion of the Diagnosis column reports ICC(2,1) estimates with 95% bootstrap confidence intervals across eight core rubric items from the physician-evaluation cohort. 
+
+these two metrics quantify whether the model surfaces at least one clinically critical diagnosis and how comprehensively it covers the full set of safety-critical diagnoses. Relative to GPT-oss-120B, AegisDx improved Safety Coverage by +12.0, +24.0, and +26.0 percentage points at K = 1 , 2, 3 (Figure 4b), indicating that the framework was more likely to surface at least one dangerous alternative within the top-K list. The corresponding Safety Set Recall rose by +2.5, +7.1, and +9.0 percentage points at K = 1 , 2, 3 (Figure 4c), showing that AegisDx also covers a larger fraction of the full must-not-miss set per case, with gains growing with K. The larger absolute improvements in Safety Coverage than in Safety Set Recall at the same K are consistent with the difficulty of enumerating multiple safety-critical alternatives within a short differential, and suggest that the gains are driven by broader differential-diagnostic reasoning rather than by surfacing a single obvious alternative. 
+
+|62.4 Physician evaluation on real-world clinical cases 
+
+To assess clinical utility beyond standard Top-k diagnostic accuracy, we conducted a structured physician evaluation on a de-identified, institutional review board (IRB)-approved YNHHS real-world clinical-note cohort ( n = 43 ), covering diverse medical specialties. Three independent physicians, blinded to the underlying model, scored outputs from AegisDx and GPT-5 [ 29 ] on a 5-point Likert scale across 12 specific criteria. The prespecified rubric decomposed clinical review into three core dimensions: differential-list quality (including critical “must-not-miss” conditions), reasoning quality, and treatment recommendations. Paired, two-sided Wilcoxon signed-rank tests were performed on case-level mean scores, with false discovery rates controlled via the Benjamini-Hochberg procedure across all multiple comparisons. Inter-rater agreement across eight core items was limited overall (ICC(2,1) estimates are embedded in Figure 5), so we report these agreement estimates alongside the physician-evaluation results for transparency. In this 43-case paired cohort, AegisDx increased the key composite safety score–defined as the mean of must-not-miss, most-likely diagnosis, and reasoning and treatment safety–from 4.31 to 4.55 (p =< 0.001 ). This improvement was accompanied by higher scores across safety-critical, content-focused criteria (Figure 5). After correction, the largest gain in list quality was observed for must-not-miss condition identification (+0.29; 
+
+p = 0 .002 ). Furthermore, AegisDx scored higher across the dimensions of correctness, completeness, and safety for both clinical reasoning and treatment recommendations (all adjusted p =< 0.05 ), suggesting its potential to provide actionable and grounded bedside decision support. While content quality improved, our initial assessment highlighted an important usability limitation: AegisDx scored lower than the GPT-5 baseline on reasoning and treatment readability ( p =< 0.001 and p = 0 .002 ,respectively; Figure 5). Combined with follow-up physician interviews, this pattern indicated that AegisDx’s evidence-linked reasoning, while safety-oriented, often resulted in overly long free-text outputs that physicians found difficult to scan during rapid clinical review. These findings motivate a conciseness-oriented refinement for future iterations of AegisDx. This refinement should prioritize brief, actionable presentation of reasoning and management plans while preserving the observed safety benefits and improving readability for rapid clinical review. 
+
+2.5 Synthetic Case Study 
+
+To illustrate how AegisDx structures a challenging acute-care presentation into actionable and safety-oriented decision support, we highlighted a synthetic physician-generated case of four days of black, tarry stools, coffee-ground emesis, progressive fatigue, and near-syncope (Figure 6). Orthostatic hypotension, tachycardia, anemia, melena on rectal examination, and an elevated blood urea nitrogen-to-creatinine ratio supported a high-risk upper gastrointestinal bleeding source. At the same time, daily ibuprofen use with epigastric discomfort favored NSAID-associated peptic ulcer bleeding, whereas regular alcohol use, thrombocytopenia, coagulopathy, splenomegaly, and other stigmata of chronic liver disease raised concern for portal hypertensive or variceal bleeding. AegisDx organized these findings into a ranked differential that prioritized NSAID-related peptic ulcer bleeding and variceal or portal hypertensive bleeding while retaining aortoenteric fistula after prior endovascular abdominal aortic aneurysm repair as a rare but life-threatening diagnostic alternative. In parallel, the must-not-miss list highlighted acute coronary syndrome/myocardial infarction, ruptured abdominal aortic aneurysm, and perforated viscus, reflecting dangerous mimics or complications that require early exclusion in an unstable patient with epigastric pain, near-syncope, and prior aortic repair. The resulting management plan emphasized monitored admission, large-bore intravenous access, resuscitation and transfusion as needed, intravenous proton-pump inhibitor therapy, and empiric octreotide with antibiotic prophylaxis when portal hypertensive bleeding was suspected. It also recommended urgent gastroenterology consultation and upper endoscopy, with computed tomography angiography and early vascular-surgery involvement if bleeding was severe, recurrent, or otherwise unexplained. This example demonstrates how the framework links a traceable, evidence-supported differential to prioritized diagnostic and management actions while preserving attention to rare but immediately life-threatening alternatives. 
+
+> |7
+
+Chief Complaint: Black, tarry stools and light-headedness. 
+
+History of Present Illness: The patient reports four days of black, tarry stools and progressive fatigue, with one episode of near-syncope this morning on standing. He notes mild epigastric discomfort and one episode of dark, coffee-ground emesis. He has been taking over-the-counter ibuprofen daily for chronic back pain and reports a long history of regular alcohol use. He denies bright red blood per rectum, fever, or recent travel. Oral intake has been poor over the past two days. 
+
+Past Surgical History: Endovascular abdominal aortic aneurysm repair several years ago; appendectomy in childhood. 
+
+Allergies: Penicillin causing hives. 
+
+Vital Signs: BP 104/62 mmHg, orthostatic drop to 86/54 mmHg on standing, HR 112 bpm, Temp 98.2 °F, RR 18/min, SpO₂ 98%. 
+
+Physical Examination: The patient appears pale and mildly diaphoretic but is alert. Conjunctivae are pale. Cardiovascular exam shows tachycardia with a regular rhythm. The abdomen is soft with mild epigastric tenderness and no rebound. There are scattered spider angiomata on the chest, palmar erythema, and a spleen tip palpable below the costal margin. Rectal examination reveals melena. Neurologic exam is normal. 
+
+Laboratory Findings: Hemoglobin 7.8 g/dL with MCV 88 fL. Platelets 96 × 10⁹/L. BUN 48 mg/dL, creatinine 0.9 mg/dL. INR 1.6. Hepatic panel shows mildly elevated transaminases and total bilirubin 1.9 mg/dL. Lactate 3.2 mmol/L. 
+
+# Clinical Reasoning 
+
+- UGIB : Melena, coffee-ground emesis, orthostasis, anemia, and high BUN/Cr support an 
+
+upper GI source [1] .- Peptic ulcer bleeding : Daily ibuprofen use with epigastric pain suggests NSAID-related 
+
+ulcer bleeding [1] .- Portal hypertensive bleeding : Alcohol use, liver stigmata, thrombocytopenia, INR 
+
+elevation, and splenomegaly suggest portal hypertension [2] .- Aortoenteric fistula : Prior EVAR is a rare but life-threatening red flag in GI bleeding [3] .
+
+References :
+
+[1] ACG Clinical Guideline: Upper Gastrointestinal and Ulcer Bleeding. 
+
+https://pubmed.ncbi.nlm.nih.gov/33929377/ 
+
+[2] Baveno VII – Renewing consensus in portal hypertension. 
+
+https://pubmed.ncbi.nlm.nih.gov/35120736/ 
+
+[3] Aortoenteric Fistula as a Complication of Open Reconstruction and Endovascular Repair of Abdominal Aorta. https://pmc.ncbi.nlm.nih.gov/articles/PMC4180205/ 
+
+# Management 
+
+- Summary : High-risk UGIB; stabilize first, treat 
+
+empirically for ulcer/variceal bleeding, and exclude aortoenteric fistula after EVAR. - Stabilization : Admit to monitored/ICU care; 
+
+keep NPO, place two large-bore IVs, monitor vitals/oxygenation, type & crossmatch, give IV fluids, and transfuse PRBCs as needed. - Initial therapy : IV PPI; add octreotide + 
+
+antibiotics given portal hypertension concern; stop NSAIDs … - Definitive evaluation : Urgent GI consult and 
+
+upper endoscopy for diagnosis and hemostasis. - Exclude AEF : CTA abdomen/pelvis and early 
+
+vascular surgery if severe, recurrent, or unexplained bleeding. - Monitoring/follow-up : Trend 
+
+Hb/vitals/lactate/coags; GI/hepatology/vascular follow-up, H. pylori treatment, NSAID avoidance … 
+
+# Top-3 Differential Diagnosis 
+
+1. NSAID-related peptic ulcer bleeding 2. Variceal / portal hypertensive bleeding 3. Aortoenteric fistula after EVAR 
+
+# Top-3 NOT-TO-MISS Diagnosis 
+
+1. ACS / AMI 2. Ruptured AAA 3. Perforated viscus Figure 6 | Synthetic physician-generated case study illustrating AegisDx output for a high-risk upper gas-trointestinal bleeding presentation. The system synthesizes clinical features supporting an upper gastrointestinal bleeding source, prioritizes NSAID-associated peptic ulcer bleeding and portal hypertensive bleeding, retains aortoenteric fistula after prior endovascular aortic repair as a rare but life-threatening diagnostic alternative, flags acute coronary syndrome/myocardial infarction, ruptured abdominal aortic aneurysm, and perforated viscus as must-not-miss considerations, and recommends immediate stabilization followed by targeted endoscopic and vascular evaluation. 
+
+## 3 Discussion 
+
+This work presents AegisDx as a safety-oriented diagnostic reasoning framework for ED acute care, where clinicians must construct and update a differential rapidly while avoiding omission of time-sensitive conditions. AegisDx is motivated by a central translational mismatch: clinical diagnosis is an iterative, hypothesis-driven reasoning process, whereas most LLM systems still approach diagnosis as a single-pass prediction task. The framework addresses this mismatch by separating broad differential generation, explicit “must-not-miss” warning coverage, evidence-grounded verification, and structured planning of next diagnostic and management steps within a reproducible runtime orchestration layer of role contracts, intermediate outputs, retrieval interfaces, and verification gates. The goal is not autonomous execution of clinical decisions, but clinician-facing decision support that is safer, more auditable, and better aligned with diagnostic reasoning in time-pressured acute-care settings. Across complementary evaluations, AegisDx improved diagnostic performance and clinician-rated safety relative to standalone LLM baselines. It achieved the strongest overall Top-3 diagnostic accuracy in the broad benchmark, produced consistent gains across matched standalone LLM backbones, specialties, and source datasets, and showed its largest source-level gain on the emergency-medicine Annals of EM cohort (+17.1 percentage points in Top-3 accuracy relative to GPT-oss-120B; Figures 2 and 3). In blinded physician evaluation on 43 de-identified YNHHS ED clinical notes, AegisDx also improved the composite safety score 
+
+|8and multiple diagnosis-list, reasoning, and management quality dimensions relative to GPT-5 (Figure 5). Taken together, these findings argue that diagnostic AI for ED acute care should be optimized around safety-oriented clinical functions rather than likely-answer generation alone. Although the literature-derived benchmarks span multiple specialties, the principal translational setting considered in this study is acute diagnostic decision support in the ED, where incomplete information, time pressure, and the consequences of missing a dangerous alternative are especially salient. The larger gains at Top-3 and in physician-rated safety dimensions suggest that AegisDx adds value by preserving attention to dangerous alternatives, weighing supporting evidence, and translating residual uncertainty into reviewable next steps, rather than merely sharpening the most likely diagnosis. The observed scaling behavior with specialist team size (Appendix C) further suggests a pragmatic deployment strategy: compact teams of roughly 3–5 diverse role-constrained specialist-agent components capture most of the diagnostic benefit before redundancy and coordination costs dominate. An additional contribution is the structured physician-evaluation protocol itself. Rather than relying on a single holistic preference judgment, we decomposed clinician review into anchored diagnosis-list, reasoning, and management dimensions. At the same time, the physician evaluation and follow-up interviews make clear that better content alone does not guarantee better usability. AegisDx scored lower on reasoning readability and treatment readability, and physicians reported that reasoning and management sections were easiest to use when each remained below roughly 500 words. They also noted that explicit references improve traceability but can reduce scanability when they substantially lengthen the response. These findings motivated a conciseness-oriented refinement direction for later AegisDx iterations, but the present evaluation highlights an important design constraint for ED acute care: safety, traceability, and communication efficiency must be balanced under substantial time pressure. 
+
+Limitations. Despite these promising results, AegisDx has several limitations. First , our evaluation remains retrospective and relies substantially on published case reports. Such reports are written with hindsight after the diagnosis is known and are selected partly for their novelty or educational value; they are therefore not representative of the prevalence, ambiguity, or information constraints of routine clinical care. Their narratives may also foreground diagnostically salient details that were elicited, recognized, or synthesized only later in the clinical course. At the time of presentation, patients may not know to volunteer these details and clinicians may not know to ask about them. Performance on these curated narratives may consequently overestimate performance during real-time diagnosis, when histories are incomplete and trajectories continue to evolve. Our complementary evaluation on de-identified YNHHS ED notes partially addresses this concern by testing the systems on documentation generated in routine care, but that cohort was modest and retrospective; prospective performance in high-throughput clinical environments with institution-specific documentation remains to be established. Second , public case reports may have appeared in the foundation models’ pretraining or post-training data. We could not audit the proprietary training corpora or exclude case-level overlap, so memorization or prior exposure could inflate apparent benchmark performance. We therefore interpret the public case-report results as comparative stress tests rather than contamination-free estimates of real-world diagnostic performance and view the private real-world note evaluation as an important complementary assessment. Third , the broad benchmark compares heterogeneous system implementations with non-identical retrieval and tool configurations, so it should be interpreted as a representative system-level positioning analysis rather than a fully matched engineering comparison; accordingly, the shared-backbone standalone LLM experiments provide the more direct test of gains attributable to the diagnostic reasoning framework. Fourth ,the Annals of EM safety-focused assessment depends on physician annotation and consensus construction of must-not-miss reference sets rather than outcome-linked gold standards, and those annotations may not capture the full range of clinically defensible safety priorities. Fifth , AegisDx relies on external evidence retrieval and guideline resources; retrieval quality, source reliability, and coverage can vary, and evidence may be missing or outdated for uncommon presentations. Sixth , although model labels were hidden and both methods were rendered with the same four-part template, residual differences in verbosity or citation density may still have allowed partial inference of model identity; we did not perform a formal post-rating blinding check. Finally , because AegisDx was not evaluated as a live clinical intervention, the present study cannot determine its effect on clinician behavior, diagnostic timeliness, downstream testing, or patient outcomes. 
+
+Future work. Future directions include (i) prospective validation in ED acute-care workflows with outcome-
+
+> |9
+
+and process-oriented endpoints; (ii) explicit evaluation of sequential diagnosis, in which the system iteratively incorporates newly available patient information and updates its differential over time, consistent with emerging stepwise diagnostic benchmarks [ 18 ]; (iii) deeper integration with electronic health record (EHR) data, including longitudinal and temporal reasoning over evolving data; (iv) expanding verification to incorporate multimodal evidence (e.g., imaging summaries, electrocardiogram (ECG) interpretations) and institution-specific guidelines; (v) improving calibration and uncertainty reporting so that clinicians can more reliably interpret when AegisDx is confident versus when additional workup is essential; and (vi) developing adaptive presentation strategies that preserve evidence traceability while keeping acute-care outputs concise and easy to scan. 
+
+## 4 Method 
+
+4.1 Benchmark Cohorts 
+
+We evaluated AegisDx using three cohorts of increasing clinical realism: public diagnostic case reports, a safety-focused emergency-medicine subset, and real-world ED clinical notes reviewed by blinded physicians. 
+
+Public case-report diagnostic benchmark. For diagnostic-accuracy benchmarking, we assembled three literature-derived case-report datasets from NEJM (302 cases), JAMA (480 cases), and Annals of EM (50 cases) [ 28 ]. The reference standard for each case was the final diagnosis reported in the source article or case report. Across the combined literature-derived pool, we used 30% ( n = 250 ) for parameter selection, including the default specialist team size, and held out the remaining 70% ( n = 582 ) for final evaluation. The held-out public benchmark spans 12 specialties, with the largest representation in hematology, infectious disease, and surgery. 
+
+Emergency-medicine safety cohort. Because Annals of EM emphasizes acute-care presentations in which omission of dangerous alternatives is especially consequential, we additionally treated that subset as a dedicated safety-focused emergency-medicine cohort. For all 50 Annals of EM cases, two physicians independently reviewed each case and annotated three candidate must-not-miss diagnoses. They then derived a consensus master set for each case: overlapping annotations were merged, and distinct but clinically important annotations were combined when both were judged necessary. To reduce semantic mismatch across differently worded labels, all annotations were normalized to concepts from the Systematized Nomenclature of Medicine (SNOMED) before comparison and consolidation. This process yielded case-level consensus labels across all 50 Annals of EM cases. 
+
+Real-world clinical-note cohort. For clinical-utility assessment on private data, we used real clinical notes from the YNHHS ED, collected under IRB approval. We initially sampled 50 ED cases. Two case reports were unavailable, and five cases were excluded because the documentation contained diagnosis information that could reveal the reference diagnosis, leaving 43 cases. After manual physician de-identification, these cases were used for blinded physician evaluation. 
+
+4.2 Evaluation Setup 
+
+We used cohort-specific protocols: Top-k diagnostic accuracy for public case reports, must-not-miss coverage for emergency-medicine cases, and blinded physician scoring for real-world clinical notes. 
+
+Diagnostic accuracy evaluation. For the public case-report benchmark, we evaluated whether the final source diagnosis appeared in the model’s ranked Top-k differential. For the broad benchmark in Figure 2(a), we intentionally retained heterogeneous system configurations rather than enforcing an identical retrieval, tool-use, or prompt-engineering stack across all baselines. General, medical, and reasoning-oriented foundation-model baselines were run as direct model baselines, whereas multi-agent comparators were evaluated with their intended search components when applicable. In particular, DeepRare was run with PubMed and Google Search, but not with an Orphanet-specific rare-disease database. Accordingly, we interpret the broad benchmark as a representative system-level comparison, whereas the controlled AegisDx-versus-standalone-LLM analyses, which match the backbone and prompt template, provide the clearest estimate of the incremental contribution of the AegisDx diagnostic reasoning framework itself. 
+
+> |10
+
+Safety-oriented emergency evaluation. The Annals of EM cohort tested whether the system could identify dangerous alternative diagnoses in addition to Top-k diagnostic accuracy. Let N denote the number of cases, Gi the physician-curated must-not-miss diagnosis set for case i, and P (K) 
+
+> i
+
+the top-K differential predicted by the system for case i after SNOMED normalization. We evaluate safety from two complementary perspectives. First, Safety Coverage@K measures the proportion of cases for which at least one ground-truth must-not-miss diagnosis is included in the model’s top-K differential list: 
+
+SafetyCoverage@ K = 1
+
+N
+
+> N
+
+X
+
+> i=1
+
+1
+
+
+
+Gi ∩ P (K)
+
+> i
+
+̸ = ∅
+
+
+
+. (1) Second, Safety Set Recall@K measures, for each case, the fraction of ground-truth must-not-miss diagnoses covered by the top-K predictions: 
+
+SafetySetRecall@ K = 1
+
+N
+
+> N
+
+X
+
+> i=1
+
+|Gi ∩ P (K) 
+
+> i
+
+||Gi| . (2) Together, these two metrics quantify whether the model surfaces at least one clinically critical diagnosis and how comprehensively it covers the full set of safety-critical diagnoses. 
+
+Blinded physician evaluation. For each YNHHS case, AegisDx and GPT-5 generated outputs using the same four-part template: Top-3 most likely diagnoses, Top-3 must-not-miss conditions, diagnostic reasoning, and management recommendations. Three physicians independently reviewed both outputs for every included case in blinded order on a 5-point Likert scale (1, poor; 5, excellent) using a prespecified multi-item rubric rather than a single overall impression score. Method labels were suppressed during review, and both systems were rendered with identical formatting to reduce method identification. Before formal scoring, we conducted a structured calibration discussion with the physician raters to align interpretation of the rubric, with particular emphasis on how to evaluate safety-related information, unsafe reassurance, escalation language, and acknowledgment of uncertainty. That calibration process finalized use of a Bond differential-diagnosis score-informed framework for the diagnosis-list items, following its recent use in LLM-based rare-disease diagnostic evaluation [ 30 , 31 ], and bedside-oriented anchor definitions for the safety dimensions of the reasoning and management sections. The rubric converted physician review into a structured 12-item assessment. The most-likely diagnosis list and the must-not-miss conditions list were each scored once per case as overall list-quality items using the Bond differential-diagnosis score-informed framework described above. Reasoning and management were each evaluated along five dimensions: safety, correctness, completeness, helpfulness, and readability. No forced-consensus adjudication was performed; all ratings were retained as independent assessments, and inferential analyses were prespecified on case-level mean scores across the three raters. To characterize between-rater agreement, we additionally summarized item-level absolute-agreement ICC(2,1) values for eight core clinical items: the two list-quality items plus safety, correctness, and completeness for reasoning and management. Detailed five-level rubric anchors are provided in Appendix A. 
+
+4.3 Diagnostic Reasoning Architecture 
+
+We developed AegisDx as a safety-oriented Hypothetico-Deductive Diagnostic Reasoning Framework rather than a single free-form model call. The framework maps a patient case to clinician-facing decision support by coordinating role-specific tasks, structured intermediate objects, evidence-retrieval interfaces, verification gates, and final output contracts. It mirrors bedside reasoning through three linked stages: hypothesis generation ,
+
+evidence gathering and verification , and clinical management .Given a patient case C, comprising symptoms, history, examination findings, and available initial tests, the framework first expands the differential through parallel specialist hypothesis generation while an independent safety stream surfaces high-risk alternatives. The consolidated diagnosis list is then tested through iterative evidence retrieval, diagnosis-specific reasoning, and verification before being translated into clinician-facing recommendations.         
+
+> |11 Multi-Specialist Agents
+> Symptoms Differential diagnoses Should not missing diagnoses Patient Case Diagnosis List New Lab Results
+> Specialty B Specialty C
+> Specialty A
+> Warning Agent Review Agent
+> Management Agent
+> Action Agent Verification Agent
+> Reasoning Agent Searching Agent
+> •Ranked diagnoses
+> •MUST-NOT-MISSING conditions
+> •Sourced-linked reasoning
+> •Early management consideration
+> Hypothesis Generation Evidence Gathering & Verification Clinical Management Clinician-Facing Decision Support
+
+Figure 7 | Diagnostic reasoning architecture of the AegisDx framework. AegisDx is organized into three stages: 
+
+hypothesis generation , in which specialist-agent components and an independent warning stream expand the candidate differential; evidence gathering and verification , in which candidates are iteratively tested against retrieved literature and case facts; and clinical management , in which the verified differential is translated into next diagnostic steps and early management considerations for clinician-facing decision support. 
+
+Diagnostic reasoning framework design. The methodological contribution is a structured architecture that constrains and coordinates otherwise general-purpose LLM components. Each component is assigned a narrow contract: what clinical object it receives, what structured object it must return, what external evidence it may use, and how its output is checked before downstream use. The framework enforces five design constraints throughout the pipeline: (i) separation of likely-diagnosis generation from must-not-miss screening, (ii) preservation of safety-critical alternatives through consolidation and ranking, (iii) retrieval-grounded reasoning for each retained candidate, (iv) explicit verification before final prioritization, and (v) clinician-facing output schemas that expose diagnoses, evidence, next tests, and early management recommendations as reviewable objects. In this framing, the individual agents are interchangeable workers; the reproducible unit is the framework that routes information, preserves auditability, and converts model reasoning into bounded clinical decision support. 
+
+Problem formulation. We model diagnosis as a mapping from case information to a structured clinical output. For input case C (symptoms S, history, demographics, and available early findings), AegisDx returns 
+
+O = {D ranked , Dwarn , E, Pplan },
+
+where Dranked is the ranked likely-diagnosis list, Dwarn is the retained set of safety-critical must-not-miss conditions, E is the aggregated evidence-and-reasoning synthesis across retained diagnoses, and Pplan contains suggested next diagnostic steps and early management considerations. Formally, 
+
+O = AegisDx (C), (3) implemented by the framework components below. Here, E is not a single retrieval output; rather, it is a clinician-facing evidence bundle synthesized from the full set of diagnosis-specific reasoning contexts, verification results, and consolidated references across retained candidates. Although evaluated here on single case snapshots, the framework can be re-run when additional laboratory, imaging, or follow-up information becomes available, allowing the differential, safety list, evidence synthesis, and management recommendations to be updated. 
+
+Stage 1: hypothesis generation. This stage corresponds to the hypothesis-formulation component of the diagnostic reasoning framework. Its goal is to broaden the early differential while explicitly guarding against omission of dangerous alternatives. 
+
+Multi-specialist agents. We use K specialist agents ( a1
+
+> spec
+
+, . . . , a Kspec ), each parameterized with a clinical specialty role (for example, cardiology, neurology, infectious disease). Unless otherwise noted, the default AegisDx configuration uses K = 5 , selected on the development split of the three literature-derived case-report 
+
+|12 datasets described below. Each agent independently proposes differentials from C:
+
+Dspec =
+
+> K
+
+[
+
+> k=1
+
+akspec (C) (4) Parallel specialization increases hypothesis diversity for multi-system presentations and reduces early fixation on a single diagnostic pathway. 
+
+Warning agent. A dedicated warning agent operates independently of specialist proposals to detect high-risk conditions from the full case description using a must-not-miss diagnosis guideline: 
+
+Dwarn = Awarn (C | <guideline> ) (5) 
+
+Dwarn captures “must-not-miss” conditions and is preserved as a safety constraint during downstream consolidation. 
+
+Review agent. The review agent consolidates specialist and warning outputs by ontology normalization, synonym resolution, and deduplication: 
+
+Ldiag = Areview (Dspec ∪ D warn ) (6) It groups near-duplicate entities at different granularity levels, harmonizes naming, and yields a coherent candidate list Ldiag for downstream evidence testing while preserving safety-critical alternatives. 
+
+Stage 2: evidence gathering and verification. This stage corresponds to the deductive testing component of the diagnostic reasoning framework. Each candidate diagnosis is challenged against external biomedical evidence and the case facts before final prioritization. 
+
+Reasoning and verification agents. For each candidate diagnosis d ∈ L diag , the system first generates a disease-specific PubMed [32] query using the query-construction prompt (Prompt 8): 
+
+qd = Aquery (d) (7) The retrieved articles and case reports are then assembled into a diagnosis-level reasoning context: 
+
+Xd = Retrieve( qd, PubMed ) (8) Using the case description, candidate diagnosis, and retrieved context Xd, the reasoning agent produces a concise diagnosis-specific rationale with source-linked references (Prompt 9): 
+
+rd = Areasoning (C, d, X d) (9) The verification agent then evaluates how well each diagnosis-specific rationale is supported by the case facts, requests additional retrieval when support is insufficient or contradictory, and outputs a ranked differential: 
+
+vd = Aver (C, d, r d) (10) 
+
+Dranked = Rank( Ldiag , {vd}d∈L diag ) (11) This verification loop enables evidence-guided iterative refinement rather than one-pass selection of a single diagnosis. Finally, the overall evidence object E is synthesized from the full set of diagnosis-level reasoning contexts across retained diseases, together with their verification outputs and the warning diagnoses, using a cross-diagnosis summarization prompt (Prompt 10): 
+
+E = Aoverall 
+
+ C, Dranked , {(Xd, r d, v d)}d∈D ranked , Dwarn 
+
+ (12) 
+
+> |13
+
+This stage yields the clinician-facing overall reasoning narrative and consolidated reference list, rather than a single disease-level retrieval trace. 
+
+Stage 3: clinical management. The final stage translates the verified differential into bedside decision support. Rather than ending at diagnosis ranking, AegisDx converts residual uncertainty into concrete next steps for workup, escalation, and early management. 
+
+Action agent. For each retained diagnosis d ∈ D ranked , the action agent converts residual diagnostic uncertainty into concrete next tests or assessments: 
+
+ad = Aaction (C, d, v d) (13) 
+
+Anext = {ad}d∈D ranked (14) Recommended actions are selected to maximize discriminatory value between leading candidates while respecting clinical urgency. 
+
+Management agent. The management agent integrates the ranked differential, the overall evidence synthesis, and the diagnosis-specific action set to generate an initial, case-specific management plan: 
+
+Pplan = Amgmt (C, Dranked , E, Anext ) (15) The final output includes immediate care priorities, monitoring considerations, disposition-oriented recommen-dations, and safety escalation triggers aligned with the current evidence state. 
+
+> |14
+
+## References 
+
+[1] World Health Organization. Global patient safety action plan 2021–2030: towards eliminating avoidable harm in health care, 2021. [2] World Health Organization. Technical series on safer primary care: Diagnostic errors, 2016. [3] R. Andrew Taylor, Rohit B. Sangal, Moira E. Smith, Adrian D. Haimovich, Adam Rodman, Mark S. Iscoe, Suresh K. Pavuluri, Christian Rose, Alexander T. Janke, Donald S. Wright, Vimig Socrates, and Arwen Declan. Leveraging artificial intelligence to reduce diagnostic errors in emergency medicine: Challenges, opportunities, and future directions. Academic Emergency Medicine , 32(3):327–339, 2025. [4] Mark L. Graber. The incidence of diagnostic error in medicine. BMJ Quality & Safety , 22(Suppl 2):ii21–ii27, 2013. [5] Ali S. Saber Tehrani, Hyun J. Lee, Simon C. Mathews, Aaron Shore, Michael A. Makary, Peter J. Pronovost, and David E. Newman-Toker. 25-year summary of us malpractice claims for diagnostic errors 1986–2010: an analysis from the national practitioner data bank. BMJ Quality & Safety , 22(8):672–680, 2013. [6] Gordon D. Schiff, Omar Hasan, Soe Kim, Robert Abrams, Karen Cosby, Barbara L. Lambert, Arthur S. Elstein, Susan Hasler, Mamy L. Kabongo, Natasha Krosnjar, Richard Odwazny, Marcin F. Wisniewski, and Robert A. McNutt. Diagnostic error in medicine: analysis of 583 physician-reported errors. Archives of Internal Medicine , 169(20):1881–1887, 2009. [7] Matthew P. Lin, Ryan C. Burke, Aimee K. Sabbatini, et al. Potential diagnostic error for emergency conditions, mortality, and healthy days at home. JAMA Network Open , 8(6):e2516400, 2025. [8] Karan Singhal, Shekoofeh Azizi, Tao Tu, S Sara Mahdavi, Jason Wei, Hyung Won Chung, Nathan Scales, Ajay Tanwani, Heather Cole-Lewis, Stephen Pfohl, et al. Large language models encode clinical knowledge. Nature , 620(7972):172–180, 2023. [9] Daniel McDuff, Mike Schaekermann, Tao Tu, Anil Palepu, Amy Wang, Jake Garrison, Karan Singhal, Yash Sharma, Shekoofeh Azizi, Kavita Kulkarni, Le Hou, Yong Cheng, Yun Liu, S. Sara Mahdavi, Sushant Prakash, Anupam Pathak, Christopher Semturs, Shwetak N. Patel, Dale R. Webster, Ewa Dominowska, Juraj Gottweis, Joelle Barral, Katherine Chou, Greg S Corrado, Yossi Matias, Jacob Sunshine, Alan Karthikesalingam, and Vivek Natarajan. Towards accurate differential diagnosis with large language models. Nature , 642(8067):451–457, 2025. [10] Michael Moor, Oishi Banerjee, Zahra F H Abad, Harlan M. Krumholz, Jure Leskovec, Eric J. Topol, and Pranav Rajpurkar. Foundation models for generalist medical artificial intelligence. Nature , 616:259–265, 2023. [11] Randolph A. Miller, Harry E. Pople, Jr., and Jack D. Myers. INTERNIST-1, an experimental computer-based diagnostic consultant for general internal medicine. New England Journal of Medicine , 307(8):468– 476, 1982. [12] G. Octo Barnett, James J. Cimino, Jon A. Hupp, and Edward P. Hoffer. DXplain: An evolving diagnostic decision-support system. JAMA , 258(1):67–74, 1987. [13] Shuang Zhou, Jiashuo Wang, Zidu Xu, Song Wang, David Brauer, Lindsay Welton, Jacob Cogan, Yuen-Hei Chung, Lei Tian, Zaifu Zhan, Yu Hou, Mingquan Lin, Genevieve B. Melton, and Rui Zhang. Uncertainty-aware large language models for explainable disease diagnosis. npj Digital Medicine , 8:690, 2025. [14] Zhiyao Ren, Yibing Zhan, Baosheng Yu, Liang Ding, Pingbo Xu, and Dacheng Tao. Healthcare agent: eliciting the power of large language models for medical consultation. npj Artificial Intelligence , 1(1):24, 2025. 
+
+> |15
+
+[15] Yubin Kim, Chanwoo Park, Hyewon Jeong, Yik Siu Chan, Xuhai Xu, Daniel McDuff, Hyeonhoon Lee, Marzyeh Ghassemi, Cynthia Breazeal, and Hae Won Park. Mdagents: An adaptive collaboration of llms for medical decision-making. In Advances in Neural Information Processing Systems 38 (NeurIPS 2024) ,2024. [16] Wenliang Li, Rui Yan, Xu Zhang, Li Chen, Hongji Zhu, Jing Zhao, Junjun Li, Mengru Li, Wei Cao, Zihang Jiang, Wei Wei, Kun Zhang, and Shaohua Kevin Zhou. Macd: Multi-agent clinical diagnosis with self-learned knowledge for llm. arXiv preprint arXiv:2509.20067 , 2025. [17] Qiaoyu Zheng, Yuze Sun, Chaoyi Wu, Weike Zhao, Pengcheng Qiu, Ge Wang, Yongguo Yu, Kun Sun, Jian Zhang, Yanfeng Wang, Ya Zhang, and Weidi Xie. End-to-end agentic rag system training for traceable diagnostic reasoning. arXiv preprint arXiv:2508.15746 , 2025. Project page: https://qiaoyu-zheng.github.io/Deep-DxSearch. [18] Harsha Nori, Mayank Daswani, Christopher Kelly, Scott Lundberg, Marco Tulio Ribeiro, Marc Wilson, Xiaoxuan Liu, Viknesh Sounderajah, Jonathan M Carlson, Matthew P. Lungren, Bay Gross, Peter Hames, Mustafa Suleyman, Dominic King, and Eric Horvitz. Sequential diagnosis with language models. arXiv preprint arXiv:2506.22405 , 2025. [19] Eyal Klang, Girish N Nadkarni, Benjamin S Glicksberg, Mahmud Omar, and Alon Gorenshtein. Ai agents in clinical medicine: A systematic review. medRxiv , 2025. [20] National Academies of Sciences, Engineering, and Medicine. Improving Diagnosis in Health Care . The National Academies Press, Washington, DC, 2015. [21] Arthur S. Elstein, Lee S. Shulman, and Sarah A. Sprafka. Medical Problem Solving: An Analysis of Clinical Reasoning . Harvard University Press, Cambridge, MA, 1978. [22] Andrea Grattafiori et al. The llama 3 herd of models. arXiv preprint arXiv:2407.21783 , 2024. [23] OpenAI. Introducing gpt-4.1 in the api. https://openai.com/index/gpt-4-1/ , April 2025. Announces GPT-4.1, GPT-4.1 mini, and GPT-4.1 nano; published 2025-04-14. [24] Qwen Team. Qwen3 technical report. arXiv preprint arXiv:2505.09388 , 2025. [25] A. Sellergren et al. Medgemma technical report. arXiv preprint arXiv:2507.05201 , 2025. [26] Junying Chen et al. Huatuogpt-o1, towards medical complex reasoning with llms. arXiv preprint arXiv:2412.18925 , 2024. [27] Weike Zhao, Chaoyi Wu, Yanjie Fan, Pengcheng Qiu, Xiaoman Zhang, Yuze Sun, Xiao Zhou, Shuju Zhang, Yu Peng, Yanfeng Wang, Xin Sun, Ya Zhang, Yongguo Yu, Kun Sun, and Weidi Xie. An agentic system for rare disease diagnosis with traceable reasoning. Nature , 651(8106):775–784, 2026. [28] Elsevier. Annals of emergency medicine, 2026. ScienceDirect journal homepage. Accessed March 11, 2026. [29] OpenAI. Introducing gpt-5. https://openai.com/index/introducing-gpt-5/ , August 2025. [30] William F. Bond, Lisa M. Schwartz, Kelly R. Weaver, Diane Levick, Michelle Giuliano, and Mark L. Graber. Differential diagnosis generators: an evaluation of currently available computer programs. Journal of General Internal Medicine , 27(2):213–219, 2012. [31] Cathy Shyr, Thomas A. Cassini, Rory J. Tinker, Kevin W. Byram, Peter J. Embí, Lisa Bastarache, Josh F. Peterson, Hua Xu, and Rizwan Hamid. Large language models for rare disease diagnosis at the undiagnosed diseases network. JAMA Network Open , 8(8):e2528538, aug 2025. [32] J. McEntyre and D. Lipman. Pubmed: bridging the information gap. CMAJ , 164(9):1317–1319, 2001. 
+
+> |16
+
+## A Physician Evaluation Rubric 
+
+Rubric anchors. Each item used explicit five-level anchor definitions, with higher scores indicating better clinical quality, usefulness, and safety. The rubric was organized into three groups: diagnosis-list quality, reasoning quality, and management quality. 
+
+Diagnosis-list quality. Rubric Rubric 1. Rubric Anchor for Most Likely Diagnoses 
+
+(1) None of the top-3 diagnoses are clinically appropriate for the presentation, and the list reflects a fundamental misinterpretation of key symptoms or findings. (2) Only one of the three diagnoses is marginally plausible, and obvious high-probability conditions are missing; overall prioritization is clinically unreasonable. (3) At least one diagnosis is reasonable, but the list is incomplete or mis-prioritized; the differential is only partially aligned with expected reasoning. (4) The correct or most likely diagnosis appears in the top-3 and prioritization generally reflects appropriate clinical judgment; all entries are plausible and consistent with the presentation. (5) The top-3 diagnoses strongly match expert-level expectations, with the correct diagnosis included and appropriately ranked; the list is coherent, well-prioritized, and clinically optimal. 
+
+Rubric Rubric 2. Rubric Anchor for Must-not-miss Conditions 
+
+(1) The model fails to identify critical, life-threatening conditions that must be considered, resulting in dangerous omissions of standard red-flag conditions. (2) The model identifies only a minority of relevant must-not-miss conditions, missing other major threats that should be included given the case presentation. (3) The model captures most relevant must-not-miss conditions but may miss one important condition or include an irrelevant one; overall output is usable but requires caution. (4) The model identifies all key must-not-miss conditions that should be considered, with clear clinical relevance and minimal noise. (5) The model provides complete, precise coverage of life-threatening conditions expected for the case, with no omissions and no unnecessary alarmist additions. 
+
+Reasoning quality. Rubric Rubric 3.1. Rubric Anchor for Reasoning: Safety 
+
+(1) Potentially unsafe; misses or downplays major red flags or must-not-miss concerns, risking delayed or inappropriate care. (2) Safety gaps; insufficient acknowledgment of uncertainty or risk, and reasoning could be misinter-preted in a harmful way. (3) Generally safe but incomplete; recognizes risk broadly but lacks robust safety framing around critical exclusions or escalation. (4) Safety-aware; appropriately frames uncertainty and risk, avoids unsafe reassurance, and flags key must-not-miss concerns. (5) Strong safety-first reasoning; clearly communicates risk, uncertainty, and must-not-miss considera-tions without unnecessary alarmism. 
+
+> |17
+
+Rubric 
+
+Rubric 3.2. Rubric Anchor for Reasoning: Correctness 
+
+(1) Medical information and interpretation are inaccurate or not evidence-based; reasoning conflicts with established medical knowledge or current guidelines. (2) Multiple clinically relevant inaccuracies or weak or unsupported claims; limited alignment with evidence and guideline-based practice. (3) Generally plausible and partially evidence-aligned, but includes some inaccuracies, overstatements, or non-guideline-consistent elements. (4) Largely accurate, scientifically sound, and consistent with established knowledge and guidelines, with only minor issues. (5) Highly accurate and factually reliable; strongly evidence-based and guideline-consistent, with expert-level interpretation of case data. 
+
+Rubric 
+
+Rubric 3.3. Rubric Anchor for Reasoning: Completeness 
+
+(1) Fails to address key aspects of the case, including implicit concerns, and omits important context or potential complications. (2) Partially addresses the case but misses multiple relevant considerations, uncertainties, or complica-tions that should be discussed. (3) Covers the main issues but omits at least one relevant aspect (for example, an implicit concern, important context, or a plausible complication). (4) Covers most relevant aspects, including key implicit concerns and context; acknowledges relevant complications and uncertainties. (5) Comprehensive and well-balanced; addresses explicit and implicit concerns, relevant context, related considerations, and potential complications. 
+
+Rubric 
+
+Rubric 3.4. Rubric Anchor for Reasoning: Helpfulness 
+
+(1) Provides little practical value; does not support clinical decision-making or reduce uncertainty. (2) Limited utility; mostly generic statements with minimal linkage between case details and diagnostic conclusions. (3) Moderately useful; some case-specific interpretation, but prioritization and implications are not consistently clear. (4) Very useful; interprets key findings, supports prioritization of diagnoses, and meaningfully reduces uncertainty. (5) Highly helpful; provides strong, case-grounded rationale that clearly supports diagnostic prioritization and next-step thinking. 
+
+Rubric 
+
+Rubric 3.5. Rubric Anchor for Reasoning: Readability 
+
+(1) Unclear, disorganized, or internally inconsistent; difficult to follow how conclusions were reached. (2) Limited clarity or coherence; structure is weak and terminology or phrasing reduces accessibility for clinician readers. (3) Understandable overall, but flow or structure is uneven; some unclear phrasing or logical gaps remain. (4) Clear, coherent, and well-structured; uses appropriate terminology and is easy to follow for the target clinical audience. (5) Exceptionally clear and accessible; logically structured, concise yet complete, with transparent reasoning flow. 
+
+> |18
+
+Management quality. Rubric Rubric 4.1. Rubric Anchor for Management Plan: Safety 
+
+(1) Unsafe plan likely to cause harm or delay appropriate care (for example, missed escalation, risky therapy, omitted critical contraindications, or inappropriate discharge). (2) Major safety gaps (for example, insufficient monitoring or escalation criteria, missing contraindication checks such as allergies or renal or hepatic issues, weak or absent return precautions or follow-up). (3) Generally safe but incomplete; includes some safeguards, yet safety-netting or conditional escalation or admission criteria are insufficiently clear. (4) Safe and appropriately cautious; includes contraindications, clear escalation triggers, and reasonable return precautions and follow-up. (5) Safety-optimized; explicitly anticipates deterioration, uses conditional escalation and admission thresholds, addresses medication safety (dosing and contraindications), and provides strong safety-netting (return precautions, follow-up, and plans for pending results). 
+
+Rubric Rubric 4.2. Rubric Anchor for Management Plan: Correctness 
+
+(1) Recommends incorrect or unsafe tests, therapies, or disposition; conflicts with established medical knowledge or current guidelines and could clearly harm the patient. (2) Multiple clinically important errors or guideline-inconsistent recommendations (for example, wrong antibiotics or diagnostics, inappropriate disposition, incorrect medication dosing, or contraindications). (3) Overall direction is reasonable but includes some incorrect or suboptimal choices (test selection, empiric therapy, dosing, or disposition thresholds) that require clinician correction. (4) Mostly accurate and guideline-consistent; appropriate diagnostics, therapy, and disposition with only minor issues unlikely to change outcomes. (5) Highly accurate, evidence-based, and guideline-consistent; includes correct emergency-care se-quencing and clinically precise recommendations, including conditional empiricism and medication safety. 
+
+Rubric Rubric 4.3. Rubric Anchor for Management Plan: Completeness 
+
+(1) Omits essential emergency-care elements (for example, key diagnostics, stabilization or monitoring, disposition criteria, follow-up, or return precautions when relevant). (2) Covers only part of the needed plan and misses several major components (for example, no clear workup, no treatment plan, no disposition logic, or no safety-netting). (3) Includes core actions but lacks one or more important components or contingencies (for example, incomplete diagnostic panel, unclear admission versus discharge criteria, or missing follow-up or return precautions). (4) Largely complete; includes workup, treatment, and disposition with reasonable contingencies, follow-up, and safety-netting. (5) Fully complete and appropriately scoped; includes clear immediate actions, conditional steps based on instability or results, treatment details, disposition thresholds, follow-up plan (including pending results), and robust return precautions. 
+
+> |19
+
+Rubric 
+
+Rubric 4.4. Rubric Anchor for Management Plan: Helpfulness 
+
+(1) Not actionable; provides little practical guidance for emergency-care decision-making. (2) Limited utility; overly generic and lacking concrete next steps, thresholds, or practical details that change management. (3) Moderately helpful; provides actionable items, but prioritization, thresholds, or applicability to the case are incomplete. (4) Very helpful; offers practical, case-tailored actions that clearly support decisions (what to order or do now, what to do if X, and when to admit or discharge). (5) Maximally helpful; directly reduces uncertainty with a prioritized, case-specific plan, clear triggers for escalation or de-escalation, and practical details (medication safety, follow-up timing, and handling pending tests). 
+
+Rubric 
+
+Rubric 4.5. Rubric Anchor for Management Plan: Readability 
+
+(1) Disorganized or hard to execute; priorities are unclear and recommendations are scattered without structure. (2) Some structure but sequencing or priorities are confusing; conditional logic is unclear or missing, limiting usability. (3) Understandable but could be more operational; prioritization and if/then decision points are not consistently clear. (4) Clear, well-structured, and easy to implement; prioritizes actions and separates immediate versus conditional steps. (5) Exceptionally readable and execution-ready; clear sections, explicit prioritization, concise bullets, and clear decision thresholds or conditions. 
+
+## B Prompt Sets 
+
+Prompt 
+
+Prompt 1. Prompt for Initial Diagnosis 
+
+Please analyze this patient’s case and provide ten possible diagnosis results. You must return ONLY ten JSON Object Notation (JSON) objects, with the key: “diagnosis” (str). The output format must be: [ {“diagnosis”: “disease 1”}, {“diagnosis”: “disease 2”}, {“diagnosis”: “disease 3”}, {“diagnosis”: “disease 4”}, {“diagnosis”: “disease 5”}] The case description is: {case_description} Output: 
+
+> |20
+
+Prompt 
+
+Prompt 2. Prompt for Specialty Diagnosis 
+
+Please analyze this patient’s case and provide one possible diagnosis result that is related to the specialty: {specialty}. You must return ONLY a JSON object, with the key: “reasoning” (str) and “diagnosis” (str). The output format must be: { “reasoning”: <str>, “diagnosis”: <str> } The diagnoses that are related to the specialty are: {diagnosis_list} The case description is: {case_description} Output: 
+
+Prompt 
+
+Prompt 3. Prompt for Additional Diagnosis 
+
+Please analyze this patient’s case and provide one possible diagnosis result. The diagnosis should be different from the previous diagnoses and should be related to the case description. You must return ONLY a JSON object, with the key: “reasoning” (str), “diagnosis” (str). The case description is: {case_description} The previous diagnoses are: {diagnosis_list_str} Please output the result in the following json format, with the key “reasoning” and “diagnosis”: { “reasoning”: <str>, “diagnosis”: <str> } Output: 
+
+Prompt 
+
+Prompt 4. System Prompt for Warning Diagnosis 
+
+You are an emergency medicine expert. Below are must-not-miss diagnosis guidelines: {warning_diagnosis_guidelines} Rules: 1. The final warning diagnoses must be copied verbatim from the guideline list above. 2. Choose diagnoses from distinct disease categories; do not select three subtypes of the same condition. 3. Prioritize high-mortality, time-sensitive conditions. 
+
+Prompt 
+
+Prompt 5. User Prompt for Warning Diagnosis 
+
+Patient case: {case_description} Briefly reason what the most dangerous diagnostic categories are for this presentation. Then pick exactly 3 diagnoses verbatim from the allowed list, one per distinct category. Output ONLY a JSON list of exactly 3 items: [ {“warning_diagnosis”: “<warning diagnosis>”, “reason”: “< ≤20 words>”}, ...] Output: 
+
+> |21
+
+Prompt 
+
+Prompt 6. Prompt for Diagnoses Review 
+
+Please analyze these medical diagnoses and cluster them into groups of similar conditions. You will be provided with a list of diagnoses, and you should group the similar diagnoses into different groups. The group name should be a short description of the diagnosis, each diagnosis should be only in one group. Different group names mean different diagnoses. You must return ONLY json objects, with the key: “diagnosis” (str) and “group” (str). The key is the orignal diagnosis and the value is the group name. The output format must be: [{“diagnosis”: “diagnosis 1”, “group”: “group 1”}, {“diagnosis”: “diagnosis 2”, “group”: “group 2”}, {“diagnosis”: “diagnosis 3”, “group”: “group 3”}}] The provided diagnoses are: {diagnosis_list} Output: 
+
+Prompt 
+
+Prompt 7. Prompt for Diagnosis Verification 
+
+You are provided with a case description and a list of diagnoses. You task is to verify the diagnoses based on the confidence of the diagnosis for the case description. The case description is: {case_description}. The diagnoses and reasonings are: {diag_reason}. The verification score should be a number between 0 and 1, where 1 means the diagnosis is sufficiently supported by the case description, and 0 means the diagnosis is totally wrong. Please output the verified diagnoses in the following format: [{“diagnosis”: “diagnosis 1”, “verification_score”: score1}, {“diagnosis”: “diagnosis 2”, “verification_score”: score2}, {“diagnosis”: “diagnosis 3”, “verification_score”: score3}, . . . }] Output: 
+
+Prompt 
+
+Prompt 8. Prompt for Query Search 
+
+Generate a PubMed search query to find reviews and clinical guidelines for the given disease or medical condition. Make sure the output can be used with the Entrez.esearch application programming interface (API). The search query should be as short as possible. You can use these search features: 
+
+• Simple keyword search: “covid vaccine” 
+
+• Field-specific search: 
+
+• Title search: [Title] 
+
+• Author search: [Author] 
+
+• MeSH terms: [MeSH Terms] 
+
+• Journal: [Journal] 
+
+• Date ranges: Add year or date range like “2020:2024[Date - Publication]” 
+
+• Combine terms with AND, OR, NOT 
+
+• Use quotation marks for exact phrases User query: {disease} Output the search query only, do not include any other text. 
+
+> |22
+
+Prompt 
+
+Prompt 9. Prompt for Single Diagnosis Reasoning 
+
+You are provided with a case description, diagnosis result, and diagnosis references from multiple papers. Your task is to craft a concise, physician-style rationale for the diagnosis. Keep the explanation focused no more than 30 words, or roughly 2 to 3 sentences. Use the references to support the reasoning. Put the paper identifier (ID) in the end of the reasoning sentence if relevant. You must put all the used reference papers in the references list. References should be in the following format: [1]. Paper 1 title [2]. Paper 2 title ... Here is the case description, diagnosis result, and diagnosis context from different papers: Case Description: {case_description} Diagnosis: {diagnosis} Diagnosis references: {diagnosis_context} Output: 
+
+Prompt 
+
+Prompt 10. Prompt for Overall Reasoning 
+
+You are provided with a case description and multiple diagnoses. The diagnoses contain the possible diagnoses and the warning diagnoses that should not be missed for the case presentation. Each diagnosis has a corresponding reasoning and verification. You task is to give the whole reasoning for all the diagnoses, considering the reasoning and verification for each diagnosis. The reasoning should be concise and to the point, one of two summary sentences is present at the beginning. For the case description {case_description}. The current diagnoses are {diagnosis_list}. The corresponding reasonings are {reasoning_list}. The corresponding verifications are {verification_list}. The warning diagnoses are {warning_diagnosis_list}. Include all the diagnosis_list and warning_diagnosis_list in the reasoning. Write the summary sentence of the reasoning at the beginning. Please include references based on the reasoning of each diagnosis. Put the paper ID in the end of the reasoning sentence if relevant. All the references should be present in the references list with ID in the beginning. Please cite the references in the following format: [1]. Paper 1 title [2]. Paper 2 title ... Please output the reasoning in the following json format, with the key “reasoning” and “references”: { “reasoning”: <str>, “references”: <list> } Output: 
+
+> |23
+
+Prompt 
+
+Prompt 11. Prompt for Actions 
+
+You are provided with a case description and a diagnosis. You task is to give what exact actions are needed to confirm that the diagnosis is correct. List the actions in a concise and to the point manner, and the actions should be specific and detailed. For the case description {case_description}. The current diagnosis is {diagnosis}. The previous verification is {verification}. Please output the actions in the following format: { “actions”: <str> } Output: 
+
+Prompt 
+
+Prompt 12. Prompt for Management Plan 
+
+You are provided with a case description and multiple diagnoses. You task is to give the whole management plan considering all the diagnoses. The management plan should be concise and to the point, one of two summary sentences is present at the beginning. For the case description {case_description}. The current diagnoses are {diagnosis_list}. The overall reasoning is {overall_reasoning}. The actions for each diagnosis are {action_list}. Please output the management plan in the following json format, with the key “management_plan”: { “management_plan”: <str> } Output: 
+
+Prompt 
+
+Prompt 13. Prompt for Baseline Inference 
+
+You are provided with a patient case. Your task is to: 1. List the top 3 diagnostic hypotheses for the patient case. 2. List the top 3 must-not-miss diagnoses. 3. Provide reasoning for each diagnosis. 4. Provide the management plan for this patient case. Output should be in markdown format with the following 4 sections: 1. Top 3 Diagnoses 2. Top 3 Must-not-miss Diagnoses 3. Reasoning 4. Management The patient case is: {case_description} Output:              
+
+> |24 13510
+> 20%
+> 30%
+> 40%
+> 50%
+> 60%
+> 70% Mostly plateauing
+> beyond 5 specialists
+> Top-1 accuracy
+> 13510
+> Default
+> Top-2 accuracy
+> 13510
+> Top-3 accuracy
+> Diagnostic accuracy (%)
+> Number of specialist agents
+> GPT-oss-120B GPT-4.1 mini LLaMA-3.1-70B Qwen3-32B
+
+Figure 8 | Scaling with team size across model backbones. Top-1, Top-2, and Top-3 diagnostic accuracy as a function of the number of specialist agents (1, 3, 5, and 10). Across most backbones, gains are largest when moving from a single specialist to a small team of 3–5 specialists, after which improvements become modest. GPT-oss-120B remains the strongest backbone across team sizes, whereas LLaMA-3.1-70B and GPT-4.1 mini show the steepest early Top-1 gains. 
+
+Prompt 
+
+Prompt 14. Prompt for Evaluation 
+
+Your task is to identify whether the provided predicted differential diagnosis is correct based on the true diagnosis. Carefully review the information and determine the correctness of the prediction. Please notice same diagnosis might be in different words. Only return “Y” for yes or “N” for no, without any other words. The true diagnosis is: {true_diagnosis} The predicted diagnosis is: {predicted_diagnosis} Output: 
+
+## C Scaling with the Number of Specialist Agents 
+
+To define the optimal configuration for bedside deployment, we investigated how diagnostic performance scales with the number of specialized agents. We varied the specialist team size from 1 to 10 across multiple mid-sized and large-capacity backbone models (Figure 8). Diagnostic performance gains were most pronounced when increasing the number of agents from a single specialist to a compact ensemble of 3 to 5 specialists. Beyond this point, improvements began to plateau, with larger teams yielding diminishing returns. Marginal fluctuations in performance at higher team sizes likely reflect increased aggregation overhead and redundancy in agent reasoning, rather than foundation model limitations. This saturation behavior was consistent across model scales, suggesting that the default team size should balance hypothesis diversity against reasoning overlap. Based on these findings, we selected a compact five-specialist roster as the default AegisDx configuration for all subsequent experiments. This configuration provided a practical balance between diagnostic accuracy, inference efficiency, and rapid bedside response in time-pressured clinical settings. 
+
+## D Interactive Web Application 
+
+To facilitate interactive use and clinical review, we developed a web application interface for AegisDx 1.As shown in Figure 9, the interface is designed to support the core clinician workflow in two steps. First, users enter a case via free-text input (with optional attachment upload and voice input) along with key demographic context. Second, AegisDx generates clinician-readable results, including a concise reasoning 
+
+> 1
+
+https://clinicalnlp.org/AegisDx/ |25 Figure 9 | Web application interface for AegisDx. Left, case entry with free-text input and optional attachment/voice input. Right, output view presenting a structured clinical summary and AegisDx results, including reasoning, ranked diagnoses, and safety-oriented must-not-miss conditions. 
+
+summary, a ranked differential list, and safety-oriented must-not-miss conditions. In our deployment setting, AegisDx costs under $1 per case and typically returns results in under 1 minute, supporting timely clinical documentation and safety review. 
+
+|26
