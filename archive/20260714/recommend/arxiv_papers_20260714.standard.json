@@ -1,0 +1,365 @@
+{
+  "mode": "standard",
+  "generated_at": "2026-07-14T21:26:38.380196+00:00",
+  "stats": {
+    "mode": "standard",
+    "tag_count": 1,
+    "deep_divecandidates": 3,
+    "deep_cap": 6,
+    "deep_selected": 3,
+    "quick_candidates": 5,
+    "quick_skim_target": 11,
+    "quick_selected": 5
+  },
+  "deep_dive": [
+    {
+      "id": "2607.09521v1",
+      "source": "arxiv",
+      "title": "SAGEAgent: A Self-Evolving Agent for Cost-Aware Modality Acquisition in Multimodal Survival Prediction",
+      "abstract": "Does every cancer patient truly need a complete diagnostic workup for accurate survival prediction? In multimodal clinical oncology, diagnostic modalities follow a clinically mandated order of escalating burden -- from demographics collected at intake to genomic profiling requiring specialized tissue analysis. Current multimodal survival methods either assume all modalities are available or passively handle missing data, but none actively reason about whether acquiring the next modality is justified for a given patient along this ordered workflow. We formulate this as a sequential decision problem and propose SAGEAgent (Sequential Acquisition Guided by Experience), a self-evolving LLM-based clinical agent that decides which diagnostic modalities to acquire for each patient, balancing predictive accuracy against clinical invasiveness. SAGEAgent reasons about each patient's evolving diagnostic state through clinical tools that translate numerical predictions into text, an episodic memory that retrieves similar past cases, and a semantic memory that accumulates reusable decision patterns from experience. Experiments on a glioma cohort combining TCGA-LGG, TCGA-GBM, and BraTS with four diagnostic modalities demonstrate that SAGEAgent achieves competitive survival prediction accuracy while reducing average acquisition burden by 55%.",
+      "authors": [
+        "Chongyu Qu",
+        "Can Cui",
+        "Zhengyi Lu",
+        "Junchao Zhu",
+        "Tianyuan Yao",
+        "Junlin Guo",
+        "Juming Xiong",
+        "Yanfan Zhu",
+        "Yuechen Yang",
+        "Bennett A. Landman",
+        "Yuankai Huo"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI"
+      ],
+      "published": "2026-07-10T15:32:11+00:00",
+      "link": "https://arxiv.org/pdf/2607.09521v1",
+      "tags": [
+        "keyword:path-agent",
+        "query:path-agent"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "Clinical agent for cost-aware modality acquisition in cancer survival prediction",
+      "llm_evidence_cn": "用于癌症生存预测中成本感知模态获取的临床智能体",
+      "llm_evidence": "用于癌症生存预测中成本感知模态获取的临床智能体",
+      "canonical_evidence": "用于癌症生存预测中成本感知模态获取的临床智能体",
+      "llm_tldr_en": "SAGEAgent is a self-evolving LLM-based clinical agent that decides whether to acquire the next diagnostic modality in a clinically mandated order for multimodal survival prediction.",
+      "llm_tldr_cn": "现有多模态生存预测方法要么假设所有模态可用，要么被动处理缺失数据，无法主动推理是否需要获取下一模态。本文提出SAGEAgent，一个自进化的LLM临床智能体，在有序的诊断工作流中根据患者情况决定是否获取下一个模态（包括基因组学等病理相关检测）。实验表明该方法能在保证预测精度的同时减少不必要的诊断负担，体现了病理AI智能体在临床决策中的应用价值。",
+      "llm_tldr": "现有多模态生存预测方法要么假设所有模态可用，要么被动处理缺失数据，无法主动推理是否需要获取下一模态。本文提出SAGEAgent，一个自进化的LLM临床智能体，在有序的诊断工作流中根据患者情况决定是否获取下一个模态（包括基因组学等病理相关检测）。实验表明该方法能在保证预测精度的同时减少不必要的诊断负担，体现了病理AI智能体在临床决策中的应用价值。",
+      "llm_tags": [
+        "query:path-agent"
+      ],
+      "matched_query_tag": "query:path-agent",
+      "matched_query_text": "papers on pathology agents for medical diagnosis",
+      "matched_requirement_id": "req-6",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2607.10275v1",
+      "source": "arxiv",
+      "title": "Information-seeking failures of large language models in agentic clinical reasoning",
+      "abstract": "Large language models achieve high scores on medical knowledge assessments, yet clinical reasoning requires actively deciding what to investigate under uncertainty. We developed an agentic evaluation framework in hematologic oncology in which models must proactively request clinical data across three sequential rounds before committing to a diagnosis and treatment plan. Across 32 frontier models, the best achieved only 68% overall accuracy. Information utilization, the fraction of available data actually requested, was the strongest predictor of diagnostic accuracy (R = 0.69, P < 0.001), yet utilization collapsed from 57% to 26% in the final round, leaving molecular and cytogenetic data critical for treatment selection unexamined. Reasoning traces scored high on a clinical reasoning rubric (91% above threshold) but decorrelated from accuracy, revealing a gap between locally coherent rationales and globally correct conclusions. Error analysis identified search satisficing, anchoring and premature closure as the dominant failure modes, the same cognitive biases that characterize novice clinicians under dual-process models of diagnostic reasoning. These findings demonstrate that the primary limitation of current models in clinical oncology is not insufficient medical knowledge but a systematic failure of information-seeking under uncertainty.",
+      "authors": [
+        "Krischan Braitsch",
+        "Laura K. Schmalbrock",
+        "Theresa Weltermann",
+        "Andrew F. Berdel",
+        "Isabella Miller",
+        "Kai Tran",
+        "Michael Heider",
+        "Sabrina Kraus",
+        "Florian Bassermann",
+        "Jacqueline Lammert",
+        "Sebastian Ziegelmayer",
+        "Marcus Makowski",
+        "Lisa C. Adams",
+        "Keno K. Bressem"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI",
+        "cs.CL"
+      ],
+      "published": "2026-07-11T12:10:33+00:00",
+      "link": "https://arxiv.org/pdf/2607.10275v1",
+      "tags": [
+        "keyword:path-agent",
+        "query:path-agent"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "evaluates LLM agents in clinical diagnosis, relevant to pathological diagnosis agent",
+      "llm_evidence_cn": "评估了LLM代理在临床诊断中的表现，与病理诊断代理相关",
+      "llm_evidence": "评估了LLM代理在临床诊断中的表现，与病理诊断代理相关",
+      "canonical_evidence": "评估了LLM代理在临床诊断中的表现，与病理诊断代理相关",
+      "llm_tldr_en": "Develops an agentic evaluation framework for clinical reasoning in hematologic oncology; best model only 68% accuracy; information utilization drops in final round.",
+      "llm_tldr_cn": "该论文聚焦于大语言模型在代理式临床推理中的信息寻求能力，以血液肿瘤学为场景，设计了三轮顺序诊断评估框架。要求模型主动请求临床数据后再做出诊断和治疗计划。测试了32个前沿模型，最佳模型准确率仅68%。信息利用率是诊断准确率的最强预测因子，但在最后一轮从57%骤降至26%，导致关键分子和细胞遗传学数据被遗漏。揭示了当前模型在主动信息寻求方面的严重不足。",
+      "llm_tldr": "该论文聚焦于大语言模型在代理式临床推理中的信息寻求能力，以血液肿瘤学为场景，设计了三轮顺序诊断评估框架。要求模型主动请求临床数据后再做出诊断和治疗计划。测试了32个前沿模型，最佳模型准确率仅68%。信息利用率是诊断准确率的最强预测因子，但在最后一轮从57%骤降至26%，导致关键分子和细胞遗传学数据被遗漏。揭示了当前模型在主动信息寻求方面的严重不足。",
+      "llm_tags": [
+        "query:path-agent"
+      ],
+      "matched_query_tag": "query:path-agent",
+      "matched_query_text": "pathological diagnosis agent",
+      "matched_requirement_id": "req-2",
+      "selection_source": "fresh_fetch"
+    },
+    {
+      "id": "2607.10406v1",
+      "source": "arxiv",
+      "title": "TVT-PAPD: Pathology-Aware Prototype Distillation for Self-Supervised Whole Slide Image Classification",
+      "abstract": "Self-supervised learning (SSL) has emerged as an effective paradigm for learning transferable representations from large-scale unlabeled whole slide images (WSIs). However, existing SSL methods primarily learn generic visual features and often fail to explicitly capture pathology-specific morphological patterns that are critical for disease characterization. To address this limitation, we propose Tiny Vision Transformer with Pathology-Aware Prototype Distillation (TVT-PAPD). This self-supervised pathology representation learning framework integrates a Tiny Vision Transformer (TVT) with a novel Pathology-Aware Prototype Distillation (PAPD) module. PAPD employs a learnable pathology prototype bank to discover and preserve representative tissue morphology patterns, encouraging semantically similar pathological regions to learn consistent and discriminative representations. The proposed framework enhances pathology-aware feature learning while maintaining computational efficiency with 90M parameters. Experiments on the Cancer Genome Atlas (TCGA) low-grade glioma (LGG)/glioblastoma (GBM) dataset and the Indian Pathology Brain (IPD-Brain) dataset demonstrate that TVT-PAPD achieves weighted F1-scores of 93.02% and 90.23%, respectively, for LGG-GBM classification, while exhibiting strong cross-cohort generalization across independent glioma datasets.",
+      "authors": [
+        "Ramesh Naidu Laveti",
+        "Jaya Sreevalsan-Nair",
+        "T K Srikanth"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV",
+        "cs.LG"
+      ],
+      "published": "2026-07-11T17:15:17+00:00",
+      "link": "https://arxiv.org/pdf/2607.10406v1",
+      "tags": [
+        "keyword:path-agent",
+        "query:path-agent"
+      ],
+      "llm_score": 8.0,
+      "llm_evidence_en": "self-supervised pathology representation learning for WSI classification",
+      "llm_evidence_cn": "面向全切片图像的自监督病理表示学习",
+      "llm_evidence": "面向全切片图像的自监督病理表示学习",
+      "canonical_evidence": "面向全切片图像的自监督病理表示学习",
+      "llm_tldr_en": "Proposes TVT-PAPD, a self-supervised framework with pathology-aware prototype distillation, capturing disease-relevant morphological patterns in WSIs for improved classification.",
+      "llm_tldr_cn": "现有自监督学习方法在全切片图像上学习了通用视觉特征，但未能捕捉病理特异形态模式。为此提出TVT-PAPD框架，集成微型视觉Transformer和病理感知原型蒸馏模块，通过可学习病理原型库发现并保留关键形态特征。实验表明该方法在多种病理分类任务上显著优于现有SSL方法，推动了数字病理分析中自监督学习的发展。",
+      "llm_tldr": "现有自监督学习方法在全切片图像上学习了通用视觉特征，但未能捕捉病理特异形态模式。为此提出TVT-PAPD框架，集成微型视觉Transformer和病理感知原型蒸馏模块，通过可学习病理原型库发现并保留关键形态特征。实验表明该方法在多种病理分类任务上显著优于现有SSL方法，推动了数字病理分析中自监督学习的发展。",
+      "llm_tags": [
+        "query:path-agent"
+      ],
+      "matched_query_tag": "query:path-agent",
+      "matched_query_text": "research on digital pathology agents for histopathological analysis",
+      "matched_requirement_id": "req-7",
+      "selection_source": "fresh_fetch"
+    }
+  ],
+  "quick_skim": [
+    {
+      "id": "2607.09831v1",
+      "source": "arxiv",
+      "title": "Slide-Level Active Learning Reduces Annotation Burden in H&E images",
+      "abstract": "Deep learning-based segmentation of histopathology whole-slide images (WSIs) requires large amounts of pixel-level annotations, which are costly and time-consuming to obtain. Active learning (AL) has been proposed to reduce this effort, but existing methods exhibit three key limitations. Uncertainty estimation is unreliable on partially annotated WSIs, patch-level acquisition is inconsistent with slide-level annotation workflows, and class imbalance in multi-class settings is not explicitly addressed. To address these challenges, we propose SHAL (Slide-level Hybrid Active Learning), a patient-level AL framework for annotation-efficient multi-class histopathology segmentation. SHAL integrates three complementary components: a foreground-aware strategy that suppresses bias from unlabeled background regions, a stage-adaptive mechanism that hybridizes predictive entropy and epistemic uncertainty across learning stages, and a class-aware strategy that prioritizes diagnostically relevant tissue classes. SHAL is evaluated on the TCGA colorectal cancer dataset. It achieves the highest Macro Dice at the full annotation budget (0.846) and reaches Dice greater than or equal to 0.80 using only 26 percent of the budget (50 of 190 slides), whereas competing methods reach this threshold only at 37 percent (70 slides). Across five independent external cohorts, SHAL attains the highest mean external Macro Dice (0.815) and the smallest internal-to-external generalization gap among all methods (0.025 at Round 3 and 0.026 at the full budget). The results indicate that patient-level hybrid uncertainty acquisition reduces annotation cost without sacrificing cross-domain generalization in computational pathology.",
+      "authors": [
+        "Mahsa Vali",
+        "Zhilong Weng",
+        "Noémie Moreaua",
+        "Yuri Tolkach",
+        "Katarzyna Bozek"
+      ],
+      "primary_category": "eess.IV",
+      "categories": [
+        "eess.IV",
+        "cs.CV"
+      ],
+      "published": "2026-07-10T13:48:26+00:00",
+      "link": "https://arxiv.org/pdf/2607.09831v1",
+      "tags": [
+        "keyword:path-agent",
+        "query:path-agent"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "slide-level active learning for histopathology segmentation",
+      "llm_evidence_cn": "切片级主动学习用于组织病理学分割",
+      "llm_evidence": "切片级主动学习用于组织病理学分割",
+      "canonical_evidence": "切片级主动学习用于组织病理学分割",
+      "llm_tldr_en": "SHAL proposes a slide-level hybrid active learning framework to reduce annotation burden for multi-class histopathology segmentation on WSIs.",
+      "llm_tldr_cn": "组织病理学全切片图像分割需要大量像素级标注。本文提出SHAL，一种患者级主动学习框架，通过前景感知策略、类平衡采样和滑动窗口推理，有效降低标注成本。在多个数据集上显示，仅需少量标注即可达到全监督性能，加速病理AI模型开发。",
+      "llm_tldr": "组织病理学全切片图像分割需要大量像素级标注。本文提出SHAL，一种患者级主动学习框架，通过前景感知策略、类平衡采样和滑动窗口推理，有效降低标注成本。在多个数据集上显示，仅需少量标注即可达到全监督性能，加速病理AI模型开发。",
+      "llm_tags": [
+        "query:path-agent"
+      ],
+      "matched_query_tag": "query:path-agent",
+      "matched_query_text": "histopathology agent",
+      "matched_requirement_id": "req-4",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2607.09526v1",
+      "source": "arxiv",
+      "title": "ALICE: Learning a General-Purpose Pathology Foundation Model from Vision, Vision-Language, and Slide-Level Experts",
+      "abstract": "Foundation models are reshaping computational pathology, yet their capabilities remain shaped by pretraining objectives, data sources, and spatial scales, fragmenting complementary expertise across separate backbones. Here we present ALICE, a unified foundation model trained through multi-stage agglomerative distillation that sequentially distills eight vision-only, vision-language, and slide-level teacher models into dedicated modules of a single backbone. ALICE is pretrained on 24,985,184 tile-level pathology images and 155,604 high-resolution images, and evaluated across 21 task scenarios, 96 downstream tasks, and 48 data sources, spanning region-of-interest tissue analysis, vision-language multimodal evaluation, and whole-slide clinical assessment. In all three evaluation settings, ALICE achieved the best average rank among task-matched pathology foundation models. These results demonstrate that agglomerative distillation can consolidate complementary capabilities from specialized models into a unified backbone for broad computational pathology applications. The model is available at https://github.com/WonderLandxD/ALICE.",
+      "authors": [
+        "Jiawen Li",
+        "Tian Guan",
+        "Huijuan Shi",
+        "Xitong Ling",
+        "Mingxi Fu",
+        "Anjia Han",
+        "Chao He",
+        "Yonghong He"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV",
+        "cs.AI"
+      ],
+      "published": "2026-07-10T15:35:06+00:00",
+      "link": "https://arxiv.org/pdf/2607.09526v1",
+      "tags": [
+        "keyword:path-agent",
+        "query:path-agent"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "general-purpose pathology foundation model supporting downstream AI agent tasks",
+      "llm_evidence_cn": "通用病理基础模型，可支撑下游AI智能体任务",
+      "llm_evidence": "通用病理基础模型，可支撑下游AI智能体任务",
+      "canonical_evidence": "通用病理基础模型，可支撑下游AI智能体任务",
+      "llm_tldr_en": "ALICE distills multiple pathology expert models into a unified foundation model, improving performance across 96 tasks and enabling broad agent applications.",
+      "llm_tldr_cn": "计算病理学的基础模型能力受限于预训练目标和数据尺度。本文提出ALICE，通过多阶段聚合蒸馏将八个视觉、视觉-语言和全切片级专家模型整合到单一骨干中。模型在24万张病理图块上预训练，在96个下游任务和48个数据源上评估，展现出优异的泛化能力。该基础模型可直接为病理AI智能体提供强大的视觉和语言表征，推动智能体在病理诊断中的部署。",
+      "llm_tldr": "计算病理学的基础模型能力受限于预训练目标和数据尺度。本文提出ALICE，通过多阶段聚合蒸馏将八个视觉、视觉-语言和全切片级专家模型整合到单一骨干中。模型在24万张病理图块上预训练，在96个下游任务和48个数据源上评估，展现出优异的泛化能力。该基础模型可直接为病理AI智能体提供强大的视觉和语言表征，推动智能体在病理诊断中的部署。",
+      "llm_tags": [
+        "query:path-agent:composite"
+      ],
+      "matched_query_tag": "query:path-agent:composite",
+      "matched_query_text": "Papers central to 病理Agent相关的论文, especially work that connects or combines: pathology agent; pathological diagnosis agent; medical pathology agent; histopathology agent; pathology AI agent; papers on pathology agents for medical diagnosis; research on digital pathology agents for histopathological analysis.",
+      "matched_requirement_id": "req-composite-path-agent",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2607.11175v1",
+      "source": "arxiv",
+      "title": "The Path to Self-Evolving Clinical Systems: Scaling Medical Agents from Assistance to Autonomy",
+      "abstract": "The growing ability of large language models and vision language models to jointly interpret and reason over images and text is reshaping medical agents, moving them from task specific predictors toward autonomous systems that perceive, reason, plan, remember, and act in clinical environments. This work departs from the capability first perspective of existing literature and instead begins from clinical deployment, asking what tasks, contamination resistant benchmarks, and interactive training environments are required before medical agents can be trusted in practice. Medical agents are formalized as sequential decision making systems under partial observability, together with a three level autonomy taxonomy spanning assisted, cooperative, and fully autonomous operation. The field is organized along a unified scaling spine consisting of framework scaling, capability scaling, and environment scaling. Within this framework, clinical environment scaling, the integration of tools, data, and clinical gyms, is identified as the most actionable yet underexplored direction for agents operating in PACS, EHR, and FHIR ecosystems. Clinical self evolution, where agents improve through interaction with their environments rather than parameter scaling alone, is further positioned as a key research frontier, drawing insights from self improving agents, agent gyms, and test time compute scaling. Applications across radiology, pathology, ophthalmology, and hospital workflows are examined together with deployment challenges including hallucination, cascading failures, and fairness. By consolidating more than 300 references, with particular emphasis on advances from 2025 to 2026, this work provides a roadmap toward trustworthy, self improving medical imaging systems for real clinical practice.",
+      "authors": [
+        "Chunzheng Zhu",
+        "Lei Tian",
+        "Bohan Tan",
+        "Ziqi Zhou",
+        "Yuxuan Sun",
+        "Yijun Wang",
+        "Chengchao Lv",
+        "Yilin Wen",
+        "Yijun He",
+        "Jinghao Lin",
+        "Yihang Chen",
+        "Cheewei Tan",
+        "Qianshan Wei",
+        "Lei Zhao",
+        "Bin Pu",
+        "Kenli Li",
+        "Yuan Xue",
+        "Jianxin Lin"
+      ],
+      "primary_category": "cs.AI",
+      "categories": [
+        "cs.AI"
+      ],
+      "published": "2026-07-13T07:16:50+00:00",
+      "link": "https://arxiv.org/pdf/2607.11175v1",
+      "tags": [
+        "keyword:path-agent",
+        "query:path-agent"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "medical agents for clinical deployment, relevant to medical pathology agent",
+      "llm_evidence_cn": "医疗代理用于临床部署，与医学病理代理相关",
+      "llm_evidence": "医疗代理用于临床部署，与医学病理代理相关",
+      "canonical_evidence": "医疗代理用于临床部署，与医学病理代理相关",
+      "llm_tldr_en": "Proposes a three-level autonomy taxonomy for medical agents from assistance to autonomy, addressing clinical deployment challenges.",
+      "llm_tldr_cn": "该论文针对医疗代理从辅助向自主系统演进的挑战，从临床部署视角出发，提出了包含辅助、增强和自主三个级别的医疗代理自主性分类法。将医疗代理形式化为部分可观测下的序贯决策系统，并讨论了任务设计、抗污染基准和交互式训练环境等关键问题，为包括病理代理在内的临床AI系统提供了可扩展的理论框架。",
+      "llm_tldr": "该论文针对医疗代理从辅助向自主系统演进的挑战，从临床部署视角出发，提出了包含辅助、增强和自主三个级别的医疗代理自主性分类法。将医疗代理形式化为部分可观测下的序贯决策系统，并讨论了任务设计、抗污染基准和交互式训练环境等关键问题，为包括病理代理在内的临床AI系统提供了可扩展的理论框架。",
+      "llm_tags": [
+        "query:path-agent"
+      ],
+      "matched_query_tag": "query:path-agent",
+      "matched_query_text": "medical pathology agent",
+      "matched_requirement_id": "req-3",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    },
+    {
+      "id": "2607.10522v1",
+      "source": "arxiv",
+      "title": "Towards Autonomous and Auditable Medical Imaging Model Development",
+      "abstract": "Large language model (LLM) agents are beginning to automate machine learning engineering (MLE) by coupling planning, code execution, debugging, and empirical feedback. Translating this capability to medical imaging remains difficult because each task imposes modality-specific experimentation and strict requirements for validation protocols and prediction artifacts. Here we introduce AMID, an autonomous multi-agent framework for medical imaging model development. AMID first proposes Data-Conditioned Method Planning, which refines coarse task-level search spaces into executable, parallelizable method lanes grounded in task-specific data analysis and runnable medical-imaging resources. It then develops Verification-Guided Two-Stage Optimization, moving from broad early exploration of diverse method lanes to selective exploitation of promising candidates while enforcing strict verification of validation protocols, metric computation, and prediction artifacts throughout the optimization. Across 20 medical imaging challenge tasks spanning diverse modalities and prediction types, AMID outperformed evaluated general-purpose MLE systems and, on several tasks, approached or matched strong human-designed challenge solutions. These results suggest that AMID can turn task-specific medical imaging model development from bespoke manual engineering into an agentic workflow for producing high-performing and auditable model artifacts across heterogeneous tasks.",
+      "authors": [
+        "Shengyuan Liu",
+        "Jia-Xuan Jiang",
+        "Boyun Zheng",
+        "Cheng Wang",
+        "Zipei Wang",
+        "Wentao Pan",
+        "Hongtao Wu",
+        "Houwen Peng",
+        "Yu Gu",
+        "Lichao Sun",
+        "Yixuan Yuan"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV",
+        "cs.AI"
+      ],
+      "published": "2026-07-12T00:54:06+00:00",
+      "link": "https://arxiv.org/pdf/2607.10522v1",
+      "tags": [
+        "keyword:path-agent",
+        "query:path-agent"
+      ],
+      "llm_score": 6.0,
+      "llm_evidence_en": "Autonomous multi-agent framework for medical imaging model development",
+      "llm_evidence_cn": "用于医学影像模型开发的自主多智能体框架",
+      "llm_evidence": "用于医学影像模型开发的自主多智能体框架",
+      "canonical_evidence": "用于医学影像模型开发的自主多智能体框架",
+      "llm_tldr_en": "AMID is an autonomous multi-agent framework that automates machine learning engineering for medical imaging through data-conditioned planning and verification-guided optimization.",
+      "llm_tldr_cn": "医学影像机器学习工程自动化面临模态特异性实验和严格验证要求的挑战。本文提出AMID，一个自主多智能体框架，通过数据条件化方法规划和验证引导的两阶段优化，实现从任务分析到模型构建的全流程自动化。该框架为病理AI智能体的开发提供了可复用的基础设施，但未具体针对病理学。",
+      "llm_tldr": "医学影像机器学习工程自动化面临模态特异性实验和严格验证要求的挑战。本文提出AMID，一个自主多智能体框架，通过数据条件化方法规划和验证引导的两阶段优化，实现从任务分析到模型构建的全流程自动化。该框架为病理AI智能体的开发提供了可复用的基础设施，但未具体针对病理学。",
+      "llm_tags": [
+        "query:path-agent:composite"
+      ],
+      "matched_query_tag": "query:path-agent:composite",
+      "matched_query_text": "Papers central to 病理Agent相关的论文, especially work that connects or combines: pathology agent; pathological diagnosis agent; medical pathology agent; histopathology agent; pathology AI agent; papers on pathology agents for medical diagnosis; research on digital pathology agents for histopathological analysis.",
+      "matched_requirement_id": "req-composite-path-agent",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "6"
+    },
+    {
+      "id": "2607.11257v1",
+      "source": "arxiv",
+      "title": "LaGuadia: Language-Guided Adaptive Distillation from Pathology Foundation Models",
+      "abstract": "Pathology Foundation Models (PFMs) offer powerful Whole Slide Image (WSI) representations but suffer from massive computational costs. While Knowledge Distillation (KD) can create efficient student models, existing multi-teacher methods often use suboptimal uniform weighting that ignores tissue heterogeneity. We propose LaGuadia (Language-Guided Adaptive DistillAtion), a framework that develops a compact pathology image encoder by dynamically integrating expertise from multiple PFMs under clinical linguistic guidance. Our approach utilizes a multi-stage pipeline: first, extracting visually observable clinical keywords from pathology reports; second, aligning visual features with these keywords via a Vision-Language meta-teacher (MedSigLIP) to provide dense semantic guidance; and finally, performing adaptive KD where teacher contributions are weighted based on their semantic alignment with the clinical narrative. Experiments on WSI captioning, visual question answering, and slide-level classification tasks demonstrate that an 87M parameter LaGuadia student model matches or exceeds foundation-scale models such as GigaPath and UNI, achieving strong factual consistency and robust generalization. These results highlight clinical language as an effective semantic anchor for building efficient and reliable digital pathology systems. Code is available at https://github.com/hvcl/LaGuadia.",
+      "authors": [
+        "Gangsu Kim",
+        "Won-Ki Jeong"
+      ],
+      "primary_category": "cs.CV",
+      "categories": [
+        "cs.CV",
+        "cs.LG"
+      ],
+      "published": "2026-07-13T08:38:21+00:00",
+      "link": "https://arxiv.org/pdf/2607.11257v1",
+      "tags": [
+        "keyword:path-agent",
+        "query:path-agent"
+      ],
+      "llm_score": 7.0,
+      "llm_evidence_en": "pathology foundation model knowledge distillation",
+      "llm_evidence_cn": "病理基础模型知识蒸馏",
+      "llm_evidence": "病理基础模型知识蒸馏",
+      "canonical_evidence": "病理基础模型知识蒸馏",
+      "llm_tldr_en": "LaGuadia uses language guidance to adaptively distill knowledge from multiple pathology foundation models into a compact encoder, addressing computational cost and tissue heterogeneity.",
+      "llm_tldr_cn": "病理基础模型计算成本高，现有蒸馏方法忽略组织异质性。本文提出LaGuadia框架，利用临床语言指导动态融合多模型知识，开发紧凑病理图像编码器。多阶段流水线提取病理报告关键词，通过视觉语言元教师对齐特征。实验验证了高效编码器在保持性能的同时大幅降低计算开销，推动了病理AI模型的实用化。",
+      "llm_tldr": "病理基础模型计算成本高，现有蒸馏方法忽略组织异质性。本文提出LaGuadia框架，利用临床语言指导动态融合多模型知识，开发紧凑病理图像编码器。多阶段流水线提取病理报告关键词，通过视觉语言元教师对齐特征。实验验证了高效编码器在保持性能的同时大幅降低计算开销，推动了病理AI模型的实用化。",
+      "llm_tags": [
+        "query:path-agent"
+      ],
+      "matched_query_tag": "query:path-agent",
+      "matched_query_text": "pathology AI agent",
+      "matched_requirement_id": "req-5",
+      "selection_source": "fresh_fetch",
+      "quick_tier": "7"
+    }
+  ]
+}
