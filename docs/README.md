@@ -6,44 +6,38 @@
 </div>
 
 ## 每次日报
-- 最新运行日期：2026-07-14
-- 运行时间：2026-07-14 21:36:00 UTC
+- 最新运行日期：2026-07-15
+- 运行时间：2026-07-15 20:06:12 UTC
 - 运行状态：成功
-- 本次总论文数：8
-- 精读区：3
+- 本次总论文数：5
+- 精读区：0
 - 速读区：5
 
 ### 今日简报（AI）
-今日精读聚焦多模态生存预测与临床推理失败，速读关注主动学习、自进化系统及病理基础模型蒸馏。最值得看的是SAGEAgent在成本感知模态获取上的创新，以及LLM在临床推理中信息搜索失败的关键局限。下一步建议普通读者关注如何通过主动学习和自进化机制提升AI临床应用的可靠性与效率。
-- 详情：[/202607/14/README](/202607/14/README)
+今日速读5篇病理AI论文，均评7.0分，覆盖通用基础模型、弱监督分割及切片分类三个方向。  
+最值得关注《ALICE》的通用病理基础模型，以及《Toward Efficient Weakly Supervised Semantic Segmentation》的低倍镜图像高效分割。  
+建议优先精读《ALICE》掌握病理AI前沿，再结合CGRL的概念剪枝技术优化切片分类实验。
+- 详情：[/202607/15/README](/202607/15/README)
 
 ### 精读区论文标签
-1. [SAGEAgent: A Self-Evolving Agent for Cost-Aware Modality Acquisition in Multimodal Survival Prediction](/202607/14/2607.09521v1-sageagent-a-self-evolving-agent-for-cost-aware-modality-acquisition-in-multimodal-survival-prediction)  
-   标签：评分：8.0/10、query:path-agent
-   evidence：用于癌症生存预测中成本感知模态获取的临床智能体
-2. [Information-seeking failures of large language models in agentic clinical reasoning](/202607/14/2607.10275v1-information-seeking-failures-of-large-language-models-in-agentic-clinical-reasoning)  
-   标签：评分：8.0/10、query:path-agent
-   evidence：评估了LLM代理在临床诊断中的表现，与病理诊断代理相关
-3. [TVT-PAPD: Pathology-Aware Prototype Distillation for Self-Supervised Whole Slide Image Classification](/202607/14/2607.10406v1-tvt-papd-pathology-aware-prototype-distillation-for-self-supervised-whole-slide-image-classification)  
-   标签：评分：8.0/10、query:path-agent
-   evidence：面向全切片图像的自监督病理表示学习
+- 本次无精读推荐。
 
 ### 速读区论文标签
-1. [Slide-Level Active Learning Reduces Annotation Burden in H&E images](/202607/14/2607.09831v1-slide-level-active-learning-reduces-annotation-burden-in-he-images)  
+1. [ALICE: Learning a General-Purpose Pathology Foundation Model from Vision, Vision-Language, and Slide-Level Experts](/202607/15/2607.09526v1-alice-learning-a-general-purpose-pathology-foundation-model-from-vision-vision-language-and-slide-level-experts)  
    标签：评分：7.0/10、query:path-agent
-   evidence：切片级主动学习用于组织病理学分割
-2. [The Path to Self-Evolving Clinical Systems: Scaling Medical Agents from Assistance to Autonomy](/202607/14/2607.11175v1-the-path-to-self-evolving-clinical-systems-scaling-medical-agents-from-assistance-to-autonomy)  
+   evidence：病理基础模型，可作为病理AI代理的核心
+2. [Toward Efficient Weakly Supervised Semantic Segmentation Using Only Low-Magnification Histopathological Images](/202607/15/2607.10783v1-toward-efficient-weakly-supervised-semantic-segmentation-using-only-low-magnification-histopathological-images)  
    标签：评分：7.0/10、query:path-agent
-   evidence：医疗代理用于临床部署，与医学病理代理相关
-3. [LaGuadia: Language-Guided Adaptive Distillation from Pathology Foundation Models](/202607/14/2607.11257v1-laguadia-language-guided-adaptive-distillation-from-pathology-foundation-models)  
+   evidence：使用低倍放大组织病理图像的弱监督分割基准研究
+3. [CGRL: Concept-Guided Pruning and Representation Learning for Whole-Slide Image Classification](/202607/15/2607.12556v1-cgrl-concept-guided-pruning-and-representation-learning-for-whole-slide-image-classification)  
    标签：评分：7.0/10、query:path-agent
-   evidence：病理基础模型知识蒸馏
-4. [ALICE: Learning a General-Purpose Pathology Foundation Model from Vision, Vision-Language, and Slide-Level Experts](/202607/14/2607.09526v1-alice-learning-a-general-purpose-pathology-foundation-model-from-vision-vision-language-and-slide-level-experts)  
+   evidence：计算病理弱监督全切片图像分类方法
+4. [Towards Precision Therapy in Hepatocellular Carcinoma: A Clinical-Reasoning LLM for Risk Stratification and Treatment Guidance](/202607/15/2607.08602v1-towards-precision-therapy-in-hepatocellular-carcinoma-a-clinical-reasoning-llm-for-risk-stratification-and-treatment-guidance)  
    标签：评分：6.0/10、query:path-agent
-   evidence：通用病理基础模型，可支撑下游AI智能体任务
-5. [Towards Autonomous and Auditable Medical Imaging Model Development](/202607/14/2607.10522v1-towards-autonomous-and-auditable-medical-imaging-model-development)  
+   evidence：用于肝细胞癌病理风险分层和治疗指导的临床推理大语言模型
+5. [Towards Autonomous and Auditable Medical Imaging Model Development](/202607/15/2607.10522v1-towards-autonomous-and-auditable-medical-imaging-model-development)  
    标签：评分：6.0/10、query:path-agent
-   evidence：用于医学影像模型开发的自主多智能体框架
+   evidence：面向医学影像模型开发的自主多代理框架，可应用于病理智能体构建
 
 
 <div class="dpr-home-promo-card">
