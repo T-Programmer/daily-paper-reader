@@ -1,0 +1,577 @@
+Title: Patho-AgenticRAG: Towards Multimodal Agentic Retrieval-Augmented Generation for Pathology VLMs via Reinforcement Learning
+
+URL Source: https://ojs.aaai.org/index.php/AAAI/article/download/40239/44200
+
+Number of Pages: 9
+
+Markdown Content:
+# Patho-AgenticRAG: Towards Multimodal Agentic Retrieval-Augmented Generation for Pathology VLMs via Reinforcement Learning 
+
+Wenchuan Zhang 1,2* , Jingru Guo 3* , Hengzhe Zhang 4* , Penghao Zhang 5, Jie Chen 2,Shuwan Zhang 6, Zhang Zhang 1, Yuhao Yi 1,2† , Hong Bu 1,2 
+
+> 1
+
+Department of Pathology, West China Hospital, Sichuan University 
+
+> 2
+
+Institute of Clinical Pathology, West China Hospital, Sichuan University 
+
+> 3
+
+University of Toronto 
+
+> 4
+
+School of Engineering and Computer Science, Victoria University of Wellington 
+
+> 5
+
+Independent Researcher 
+
+> 6
+
+Department of Pathology, Shengjing Hospital of China Medical University zhangwenchuan@stu.scu.edu.cn, yuhaoyi@scu.edu.cn 
+
+Abstract 
+
+Although Vision Language Models (VLMs) have shown gen-eralization in medical imaging, pathology presents unique challenges due to ultra-high resolution, complex tissue struc-tures, and nuanced semantics. These factors make pathology VLMs prone to hallucinations, i.e., generating outputs incon-sistent with visual evidence, which undermines clinical trust. Existing RAG approaches in this domain largely depend on text-based knowledge bases, limiting their ability to leverage diagnostic visual cues. To address this, we propose Patho-AgenticRAG, a multimodal RAG framework with a database built on page-level embeddings from authoritative pathology textbooks. Unlike traditional text-only retrieval systems, it supports joint text–image search, enabling retrieval of text-book pages that contain both the queried text and relevant visual cues, thus avoiding the loss of critical image-based in-formation. Patho-AgenticRAG also supports reasoning, task decomposition, and multi-turn search interactions, improv-ing accuracy in complex diagnostic scenarios. Experiments show that Patho-AgenticRAG significantly outperforms ex-isting multimodal models in complex pathology tasks like multiple-choice diagnosis and visual question answering. 
+
+Code —https://github.com/Wenchuan-Zhang/Patho-AgenticRAG 
+
+Extended version — https://arxiv.org/abs/2508.02258 
+
+1 Introduction 
+
+With the continuous development of large-scale vision-language models (VLMs), multimodal learning has made breakthrough progress in many fields such as natural im-age understanding, image-text generation, and medical im-age analysis. Compared with other medical images (such as X-rays, CT, and MRI), pathological images, with their ultra-high resolution, fine-grained structure, and complex seman-tic relationships, have put forward higher requirements on 
+
+> *
+
+These authors contributed equally. 
+
+> †
+
+Corresponding author. Copyright © 2026, Association for the Advancement of Artificial Intelligence (www.aaai.org). All rights reserved. 
+
+the perception, reasoning, and factual consistency capabili-ties of the model. In recent years, many studies have introduced VLMs into digital pathology tasks, such as diagnostic assistance (Chen et al. 2025a), risk stratification (Liu et al. 2025), and question-answering systems (Lu et al. 2024). However, existing pathology VLMs face challenges like hallucina-tions and lack of structured semantic control in retrieval mechanisms, particularly in tasks requiring factual support and traceable evidence. Building a reliable, multimodally pathology VLM with consistency assurance is a key issue. While Retrieval-Augmented Generation (RAG) has been ap-plied to medical multimodal tasks to enhance the accuracy and credibility of medical reasoning, limitations remain in pathological image analysis. MMed-RAG proposed a gen-eral multimodal medical RAG system (Xia et al. 2025), but its image vector library lacks fine-grained annotation for or-gan or tissue systems, categorizing only by imaging modal-ity (e.g., CT, X-ray). Some studies rely solely on text re-trieval, ignoring the crucial role of images in supporting VLM reasoning, especially in image-text consistency and vi-sual evidence scenarios (Jabal et al. 2024; Cheetirala et al. 2025). Methods such as MedRAG and Medical Graph RAG introduce complex reasoning guided by knowledge graphs but suffer from complicated design, lack of scalability, and poor adaptation to clinical tasks (Zhao et al. 2025; Wu et al. 2024). The RAG module in Liu et al. also struggles with in-sufficient instruction-following, hindering stable knowledge extraction (Liu et al. 2023). This study aims to build an intel-ligent retrieval augmented generation framework for pathol-ogy VLMs, to improve the credibility and interpretability of the model in complex question-answering and reasoning tasks. Our method focuses on three dimensions: multimodal knowledge retrieval, intelligent planning capabilities, and adaptability to pathology scenarios. Unlike previous RAG framework based on static prompts or text retrieval, Patho-AgenticRAG introduces a multimodal image-text retrieval module and an agent mechanism with planning capabili-The Fortieth AAAI Conference on Artificial Intelligence (AAAI-26) 
+
+29921 Filtered high quality  
+
+> textbook pages
+> Vision
+> encoder
+> Qwen2
+> LM
+> Decoder
+> Proj.
+> Partion1: Breast
+> Partion2: Histology and
+> Embryology
+> Partion15: General and
+> Comprehensive
+> ……
+> HNSW Index
+> OCR
+> VLM
+> Text
+> Caption
+> Text
+> Embed.
+> Model
+
+Traditional Multimodal RAG Patho -AgenticRAG(ours): enables text -based querying over text -rich images without preprocessing  
+
+> Milvus Vector Database
+> ColQwen 7.22s/page 0.39s/page
+
+Agent SFT Cold Start + Reinforcement Learning Multimodal Fusion Formula for Retriever                
+
+> Data Distillation
+> Train
+> <think>This question pertains to
+> ... we need to understand ... it
+> falls under the ...</think>
+> <tool_call >... </ tool_call >
+> Lack of Generalizable
+> Capabilities &
+> Rigid Output Patterns
+
+❌
+
+➕  
+
+> Asmall amount of data for
+> SFT as cold start
+
+➕
+
+✅ 
+
+> 1. Format
+> 2. Retrieval Query
+> Correctness
+> 3. Partition Select Correctness
+> Reward Design for GRPO
+> Performs best
+> in the ablation
+> study
+> Accelerates the
+> convergence of
+> reinforcement
+> learning
+> Evaluate
+> on the
+> training
+> set
+> Modify
+> the
+> formula
+
+❌
+
+> Pages consisting
+> entirely of images
+> are easily retrieved
+> Accurately retrieves
+> areas with high
+> similarity
+> concentration
+
+🌟       
+
+> 𝑆 !+𝜋 (𝑆 !,𝑆 ")
+> 𝑺 𝒕 +𝝅 (𝜿 (𝑺 𝒕 ),𝜿 (𝑺 𝒕 ))
+
+Figure 1: Knowledge Base Construction and Agent Training Method in the Patho-AgenticRAG ties, which enables the model to more effectively retrieve target images and corresponding knowledge content from the structured pathology knowledge base, and to reasonably integrate and reason. We also incorporate a reinforcement learning optimization strategy to make the agent more robust and generalizable in the complex and uncertain question-answering environment (see Figure 1). The main contribu-tions are summarized as follows: • We proposed a novel Multimodal Retrieval Mech-anism that combines multimodal (image-text) vector space modeling with a tissue-aware retrieval strategy. This significantly improves the recall rate of the target knowledge fragment while ensuring accuracy, provid-ing a guarantee for fine-grained knowledge alignment in pathology diagnosis tasks. • We built a planning-capable intelligent agent within the Agentic RAG system , which autonomously plans multi-round retrieval and reasoning trajectories in re-sponse to complex natural language pathology questions. It dynamically invokes relevant multimodal knowledge and effectively supports long-term dependency modeling and multi-hop reasoning in diagnostic tasks. • We proposed a Tool-Integrated Reasoning training paradigm tailored for medical diagnostics , built upon GRPO. This paradigm enables the agent to make fine-grained decisions, such as whether to invoke retrieval, how to reformulate questions, and how to assign do-mainspecific tools or classifiers within complex pathol-ogy question answering scenarios. It addresses the high-stakes nature of medical reasoning by promoting robust decision-making and reliable tool coordination. 
+
+2 Related Work 
+
+2.1 Multimodal Agentic RAG 
+
+Retrieval-Augmented Generation enhances large language models by integrating external knowledge to improve com-pleteness and factual accuracy (Lewis et al. 2020; Huang et al. 2025). Traditional RAG systems—such as Na”ive RAG (Zhai et al. 2023; Lee et al. 2024) and Advanced RAG (Yu et al. 2024; Cho et al. 2024)—follow a fixed “retrieve-then-read” pipeline that works for simple queries but falls short on tasks requiring multi-step reasoning, adap-tive retrieval, or tool use (Singh et al. 2025). Agentic RAG advances this paradigm by introducing autonomous agents (Gao et al. 2023) that can plan retrieval (Joshi et al. 2024), call tools (Chen et al. 2025b), refine outputs (Ravuru, Sakhinana, and Runkana 2024), and collaborate across roles or modalities (Wang et al. 2025; Jin et al. 2025; Wu et al. 2025). However, in the medical domain, studies have largely centered on text or structured data (Thakrar, Basavatia, and Daftardar 2025; Zeggai et al. 2025), over-looking the rich diagnostic information embedded in medi-cal images—especially in visually driven fields like pathol-ogy, where tissue morphology, staining patterns, and spatial structures are essential. 
+
+2.2 Reinforcement Learning for Medical VLMs 
+
+Reinforcement learning (RL) offers a promising way to align VLM outputs with clinical accuracy requirements, particu-larly in high-risk settings where hallucinations can be harm-29922 ful (Zhang et al. 2025). A key challenge is maintaining fac-tual consistency between visual evidence and textual out-puts (Sun et al. 2025; Chen et al. 2024). Direct end-to-end RL for large VLMs, however, is impractical due to lim-ited high-quality physician-annotated rewards (Pham and Ngo 2025), training instability, and poor interpretability of learned behaviors (Zhu et al. 2025). Recent work instead adopts agent-centric approaches, applying RL to external agents rather than model parameters. These agents optimize decision-making—such as formulating better queries, vali-dating responses, or selecting external knowledge (Xia et al. 2025; Jin et al. 2025; Wu et al. 2025)—providing safer, more transparent, and more controllable optimization. 
+
+3 Methodology 
+
+3.1 Overall Framework 
+
+The overall architecture adopts a modular design and con-tains four main components. 1. Multimodal pathology knowledge base: This is a specialized vector database con-taining a rich collection of pathology textbook pages. It acts as an external storage for agent queries to collect rel-evant evidence, such as images of similar cases and their corresponding diagnostic descriptions; 2. Intelligent agentic router: This is the central processing unit of our framework. It accepts the initial diagnosis query, decomposes it into log-ically sequential subtasks, and plans; 3. VRAG Agent (Chen et al. 2025b): This module supports multi-turn retrieval and summarization. It interacts with the knowledge base and dis-tills the returned textbook images into concise, useful in-formation. 4. Core vision language model (inference en-gine) (Zhang et al. 2025): We use the pretrained pathol-ogy VLM as the basic inference engine. With the contextual summaries provided by the VRAG agent, it performs infer-ence to address the diagnostic query. 
+
+3.2 Construction of a Multimodal Pathology Knowledge Base 
+
+To support retrieval-augmented reasoning in pathology, we construct a high-quality multimodal knowledge base that integrates authoritative textual and visual information. We curated a large corpus by collecting over 600 authoritative pathology textbooks—approximately 300,000 pages in to-tal and, after removing irrelevant content, retained more than 200,000 high-quality pages, which were converted into image-based samples for diagnostic relevance. Using the ColQwen2 model (Faysse et al. 2025), we embed image-text pairs into a unified vector space that captures both visual and semantic signals. The embeddings are indexed with the HNSW algorithm (Malkov and Yashunin 2018) and stored in Milvus (Wang et al. 2021) to support efficient high-dimensional retrieval during reasoning. Full construction de-tails are provided in Appendix A. 
+
+3.3 Multimodal Fusion 
+
+Method Let St ∈ RNt×Nd denote the text–document sim-ilarity matrix and Sv ∈ RNv ×Nd the image–document simi-larity matrix, where Nt is the number of text tokens, Nv the number of image patches, and Nd the number of document tokens. These two modalities are fused by the following ex-pression: std  std (St[i, :])  × mean  κ(St[i, :])  2
+
+×mean  κ(Sv [i, :])  + mean  max( St[i, :]) , (1) where κ(St[i, :]) denotes the kurtosis of the similarity scores between all document tokens and text token i, and κ(Sv [i, :]) 
+
+denotes the kurtosis of the similarity scores between all doc-ument tokens and image patch i. The first term captures how the standard deviation std (·) and kurtosis κ(·) reflect the variation of similarity scores across tokens or image patches with respect to the database document, represented as rows in St or Sv . This encourages the retrieval results to have dif-ferent importance for various tokens in the document, in-dexed by j = 1 , . . . , N d. The reason for this is, in practice, only a portion of a page is typically relevant to the database document, meaning only some j-th elements in St[i, j ] or 
+
+Sv [i, j ] contribute meaningfully. When all parts of a docu-ment exhibit high responsiveness, resulting in a low standard deviation, this may indicate a noisy document with problem-atic embeddings, which should be deprioritized. The sec-ond term, mean  max( St[i, :]) , as in CoPaLi (Faysse et al. 2025), quantifies the maximum relevance max( St[i, :]) of each token to any token in the document. It is important to note that the similarity matrix of the image modality with respect to the document embedding, i.e., Sv ∈ RNv ×Nd , is used only to calculate the kurto-sis κ(Sv [i, :]) , and the average similarity information from the image modality, such as mean (Sv [i, :]) , is not incorpo-rated. This design emphasizes attention to the most relevant portions of a page, identified via large values of κ(Sv [i, :]) .When a token or patch shows high similarity to all parts of a document, it is treated as a noisy retrieval result and is as-signed a lower score during re-ranking. 
+
+Explanation To intuitively understand how Equation (1) influences the re-ranking process, we present the similar-ity matrices of the first- and second-ranked documents with respect to the query text embedding and image embed-ding in Figure 3. As shown in Figure 3, the second-ranked document exhibits a more uniform similarity, or attention, across the tokens of the document embedding. In contrast, the first-ranked document demonstrates more concentrated and higher similarity on fewer tokens of the document em-bedding. In this case, the high similarity of the first-ranked document to the query is meaningful, as it is caused by fo-cused attention on the most informative tokens. On the other hand, the high similarity of the second-ranked document to the query results from more diffuse attention, likely caused by noise. Thus, although the second-ranked feature initially has the highest text similarity in the retrieval process, after re-ranking by the fusion formula, it drops to second place, while the original second-ranked document is promoted to the top rank due to its combination of high similarity and concentrated attention. 29923 Final Answer:   
+
+> <think>The Indian -file pattern is a hallmark of invasive lobular
+> carcinoma, where tumor cells infiltrate the stroma in single -file lines.
+> Lobular carcinoma cells are typically small and uniform with scant
+> cytoplasm and round nuclei. In contrast, ductal carcinoma (B) forms
+> solid nests and trabeculae, papillary carcinoma (C) has fibrovascular
+> cores in papillary structures, and mucinous carcinoma (D) shows
+> tumor cells in mucin pools. The observation of small cells, uniform
+> nuclei, and single -file infiltration aligns specifically with lobular
+> carcinoma morphology.</think>
+> <answer>A</answer>
+> Text Query:
+> Small, uniform tumor
+> cells infiltrate in an
+> Indian -file pattern.
+> Which breast cancer
+> type is this?
+> A. Lobular breast cancer
+> B. Ductal breast cancer
+> C. Papillary breast cancer
+> D. Mucinous breast
+> cancer
+> External
+> Knowledge
+> Tool Call1: {"name": "rag", "parameters": {"query":
+> "Histological features of invasive lobular carcinoma of the
+> breast,
+
+including Indian -file pattern "}} 
+
+> {"name": ”classifier", "parameters": {”partition": ”Breast"}}
+> Tool Call2: {"name": "rag", "parameters": {"query": "How
+> to differentiate
+
+ductal ,
+
+papillary , and 
+
+mucinous breast 
+
+> carcinoma histologically"}}
+> Text
+> Retrieval Max Sim .
+
+…
+
+> Top20 Pages for each
+> query
+
+Patho -R1      
+
+> Pathology Reasoning Model
+> Rerank by the
+> similiary
+> of image query
+> Crop &
+> summarize info .
+
+Database: over 
+
+> 200k pages of
+> textbook
+> over 150m vectors
+
+Vrag Agent 
+
+> Multi -Turn
+> Intercation
+> Think
+> Image Query:
+
+Ground Truth: A     
+
+> Q1:Histological features of invasive lobular
+> carcinoma of the breast, including Indian -file
+> pattern
+> A: Histological features of invasive lobular
+> carcinoma of the breast include uniform small
+> round tumor cells infiltrating the stroma in a
+> single -file (Indian -file) arrangement and
+> circumferentially around ducts in a target -like
+> pattern.
+> Q2:How to differentiate ductal, papillary, and
+> mucinous breast carcinoma histologically
+> A: Histologically, ductal carcinoma shows
+> glandular, papillary, cribriform, or diffuse growth
+> patterns, often forming nests, trabeculae, or
+> cords. Papillary carcinoma is characterized by
+> prominent papillary structures with central
+> fibrovascular cores. Mucinous carcinoma displays
+> abundant extracellular mucin, with tumor cells
+> floating loosely in mucin pools.
+> Summarized Information
+> Invasive lobular
+> carcinoma .
+> Characteristic
+> histologic
+> features are:
+> one cell wide
+> files of round
+> regular tumour
+> cells ( Indian
+> file )
+
+Top1 for tool call 1  
+
+> Ductal and lobular
+> carcinomas
+> represent75% and
+> 25% of
+> metastases…,
+> papillary ,
+> cribriform or
+> diffuse patterns…
+> mucinous carcinoma
+> … B Hybrid
+> endometrioid -
+> like/ mucinous
+
+Top1 for tool call 2 
+
+Agentic Router(ours) Figure 2: An illustration of the multi-turn retrieval and summarization process. 
+
+3.4 Agentic Diagnostic Workflow with Multimodal Evidence Tracing 
+
+Our system employs a multi-agent workflow that trans-forms diagnostic queries into evidence-based conclusions. The Agentic Router module parses the query, breaks it down into sub-tasks for each diagnostic candidate, and cre-ates a high-level retrieval plan. It delegates the retrieval and evidence aggregation to the VRAG Agent , which performs a multi-turn retrieval process on the multimodal knowl-edge base. Initially, it conducts text-based retrieval with candidate-specific keywords, then re-ranks the results based on image-text similarity. Through iterative evidence refine-ment, as shown in Figure 2, the agent constructs a structured prompt containing the top visual evidence for each candi-date. This prompt is passed to a vision-language model, which performs contrastive reasoning to generate a diagno-sis and evidence-supported report. Further details are in Ap-pendix B. 
+
+3.5 Tool Integrated RL for Agentic Router 
+
+Traditional RAG systems are static and don’t adapt to query complexity. To address this, we introduce a reinforcement learning framework that allows an agent to learn dynamic routing strategies (Qian et al. 2025). The agent’s task is to generate a decision path specifying whether and how to call the RAG system. Formally, given an input query Qorig , the agent’s policy π outputs a path P , optimized to maximize the expected similarity to a ground-truth decision path Pgt 
+
+max 
+
+π EP ∼π(Qorig ) [Rfinal (P, P gt )] (2) The hierarchical reward Rfinal compares the generated path to the target path step by step (see Algorithm 1). The agent performs a sequence of decisions to construct the path: • Decision 1: Whether to invoke RAG? – Path A (No RAG Invocation): If the agent decides 
+
+False , the decision process terminates. This is for simple queries that can be answered without external knowledge. Final path: {rag : False }
+
+– Path B (Invoke RAG): If True , proceed to the next decision. • Decision 2: How to decompose the task? (Only applies if RAG is invoked) The agent may choose to rewrite the query one or more times to better surface its core semantics and improve retrieval quality. This is not a mechanical rewriting pro-cess, but a targeted transformation to better align with the retrieval engine. • Decision 3: Whether to use a tissue-specific classifier? 
+
+(Only applies if RAG is invoked) The agent decides whether to enable a classifier to restrict retrieval to a relevant knowledge partition. 
+
+– Path B.1 (Global Retrieval): If False , RAG retrieves documents from the full corpus. Fi-29924 Original Text Query:          
+
+> This image shows monophasic synovial sarcoma . What are its key histologic
+> features?
+> A. Dense, uniform spindle cells with scant cytoplasm in short, intersecting
+> fascicles.
+> B. Biphasic: glandular epithelium with spindle cell stroma.
+> C. Scattered adipocytes in fibrous stroma with atypia.
+> D. Large polygonal cells with coarse eosinophilic granules.
+> Rewrited Search Query:
+> What are the histological features of monophasic synovial sarcoma ?
+> Each query token embedding is matched to the most similar image -patch
+> embedding on indexed pages, and their similarity scores are summed to rank
+> the pages.
+> Image Query:
+
+Retrieval    
+
+> Patho -Fusion
+> Score:
+> Text
+> Similarity
+> Matrix
+> Image
+> Similarity
+> Matrix
+> 0.6638 0.6671
+> Cytologic
+> appearance of
+> sarcoma /PNET ...
+> Ewing
+> 0.5878
+> Top20
+> from
+> text
+> retriev
+> al
+> ……
+> Monophasic
+> synovial
+> sarcoma. The
+> tumor ...
+> 0.6558
+> … monophasic
+> synovial
+> sarcoma with
+> ...
+> 0.6190
+> Synovial
+> sarcoma with
+> adenocarcinom
+> a-like
+> appearance
+> 0.6602
+
+Rerank  
+
+> Final Top1 Lose
+
+Figure 3: Illustration of the reranking process utilizing modality fusion. nal path: {rag : True , rewrite count :
+
+n, classifier : False }
+
+– Path B.2 (Classifier-Based Retrieval): If True , pro-ceed to the next decision. • Decision 4: Whether the classifier assigns the query to the correct partition? (Only applies if a classifier is enabled) The agent selects a classifier from the available set 
+
+{C1, . . . , C m} and attempts to assign the query to the correct partition. The effectiveness of this deci-sion depends on both the selection of the classifier and the correctness of the classification. Final path: 
+
+{rag : True , rewrite count : n, classifier :
+
+True , partition : Cj }
+
+RL Training with GRPO We use the GRPO algo-rithm (Shao et al. 2024) to train the policy πθ . For each query 
+
+Qorig , the agent generates multiple decision paths: 
+
+GQ = {(P1, r 1), (P2, r 2), . . . , (Pn, r n)} (3) where each Pi is a complete decision path and ri is its corre-sponding reward score ri ∈ [0 , 4] based on the hierarchical Algorithm 1: Hierarchical Reward Computation 
+
+Require: Agent path P , Ground Truth Pgt 
+
+1: Rfinal ← 0
+
+2: if P. rag ̸ = Pgt .rag then 
+
+3: return Rfinal ▷ Incorrect Decision 1 
+
+4: end if 
+
+5: if Pgt .rag = False then 
+
+6: Rfinal ← 4 ▷ Correct Decision 1 (Path A) 
+
+7: else 
+
+8: Rfinal ← 1 ▷ Correct Decision 1 (Path B) 
+
+9: if P. rewrite count = Pgt .rewrite count 
+
+then 
+
+10: Rfinal ← Rfinal + 1 ▷ Correct Decision 2 
+
+11: end if 
+
+12: if P. classifier = Pgt .classifier then 
+
+13: if P. classifier = False then 
+
+14: Rfinal ← Rfinal + 2 ▷ Correct Decision 3 (Path B.1) 
+
+15: else 
+
+16: Rfinal ← Rfinal + 1 ▷ Correct Decision 3 (Path B.2) 
+
+17: if P. partition = Pgt .partition then 
+
+18: Rfinal ← Rfinal + 1 ▷ Correct Decision 4 
+
+19: end if 
+
+20: end if 
+
+21: end if 
+
+22: end if 
+
+23: return Rfinal 
+
+reward function. We normalize the rewards within the group to compute the advantage function Ai(Pi | Q):
+
+Ai(Pi | Q) = ri − μQ
+
+σQ + η (4) where μQ and σQ are the mean and standard deviation of rewards within group GQ, and η is a small constant for nu-merical stability. To update the policy, we apply the GRPO objective, which extends PPO by group-wise normalized advantages and KL regularization with a reference model. Specifically, for each group of outputs {oi}Gi=1 , from the same query, we optimize: 
+
+JGRPO (θ) = Eq∼P (Q),{oi}Gi=1 ∼πθold (O|q)
+
+ 1
+
+G
+
+GX
+
+i=1 
+
+1
+
+|oi|
+
+|oi|
+
+X
+
+t=1 
+
+min 
+
+ πθ (oi,t | q, o i,<t )
+
+πθold (oi,t | q, o i,<t ) ˆAi,t ,
+
+clip 
+
+ πθ (oi,t | q, o i,<t )
+
+πθold (oi,t | q, o i,<t ) , 1 − ϵ, 1 + ϵ
+
+
+
+ˆAi,t 
+
+
+
+− βD KL 
+
+
+
+πθ (oi,t | q, o i,<t ) πref (oi,t | q, o i,<t )
+
+ 
+
+(5) Here, ˆAi,t is the advantage at step t within each output, computed relative to other outputs for the same query. This group-wise comparison helps the agent learn from relative improvements, leading to more effective decision-making in complex reasoning paths. See Appendix C for details. 29925 Method Rec@1 Rec@5 MRR@1 MRR@5 MRR@20 NDCG@1 NDCG@5 NDCG@20 CoPaLi (Text) 0.640 (2) 0.900 (1) 0.640 (2) 0.734 (2) 0.736 (2) 0.740 (2) 0.804 (2) 0.796 (2) CoPaLi (Image) 0.060 (3) 0.220 (3) 0.060 (3) 0.112 (3) 0.170 (3) 0.080 (3) 0.174 (3) 0.359 (3) WeiMoCIR 0.060 (3) 0.200 (4) 0.060 (3) 0.102 (4) 0.158 (4) 0.080 (3) 0.163 (4) 0.342 (4) 
+
+Patho-Fusion (ours) 0.720 (1) 0.880 (2) 0.720 (1) 0.777 (1) 0.784 (1) 0.820 (1) 0.824 (1) 0.827 (1) 
+
+Table 1: Comparison of retrieval methods. Numbers in parentheses denote rank. 
+
+4 Experiments 
+
+4.1 Multimodal Fusion 
+
+Baseline Methods For baseline comparisons, we evaluate the proposed method against CoPaLi (Faysse et al. 2025) and Weighted Modality Fusion and Similarity for Composed Image Retrieval (WeiMoCIR) (Wu, Lin, and Yang 2024). • For CoPaLi (Faysse et al. 2025), which supports only a single modality, we apply retrieval separately for each modality. The scoring function is 
+
+> Nq
+
+X
+
+> i=1
+
+max 
+
+> j=1 ,...,N d
+
+Eq (i), E d(j) , (6) where Eq is either Et or Ev so Nq = Nt or Nq = Nv ,and ⟨· , ·⟩ denotes the inner product. Each query embed-ding Eq (i) is matched to the most relevant document em-bedding Ed(j), where j = 1 , . . . , N d, and the results are aggregated over all query tokens or patches. • In WeiMoCIR, the query embedding is computed as 
+
+q = (1 − α) · ev + α · et, (7) where ev = mean (Ev (i, :)) is the average vision em-bedding over all patches i = 1, . . . , N v , and et =
+
+mean (Et(i, :)) is the average text embedding over all to-kens i = 1 , . . . , N t. The parameter α = 0 .1 represents the weighting coefficient for the text modality. The final similarity score between the query and a database docu-ment is computed using the inner product as 
+
+1
+
+NdNdX
+
+> j=1
+
+⟨q, ed,j ⟩ , (8) where ed,j is the j-th token embedding of the document. 
+
+Dataset and Evaluation Protocol The dataset consists of 100 pairs of images, questions, and answers curated by do-main experts. We randomly split the dataset, using 50% for training and 50% for testing. The modality fusion function is optimized only on the training data to prevent potential data leakage. All modality fusion methods are evaluated on the test set, and recall, mean reciprocal rank (MRR), and normalized discounted cumulative gain (NDCG) metrics are reported. 
+
+Experimental Results The experimental results are shown in Table 1. Recall@20 is omitted since there are only 20 results in the re-ranking stage and the Recall@20 is iden-tical for all algorithms. The results demonstrate a clear ad-vantage for the proposed modality fusion method over the baseline approaches. While using only the text modality for retrieval can already achieve good performance, the re-trieval results remain suboptimal without the proposed fu-sion strategy in Equation (1). Methods using only the image modality or WeiMoCIR perform worse than the proposed fu-sion by a significant margin. This is primarily because both heavily rely on the image modality for retrieval, whereas pathology images require strong domain expertise to inter-pret and general-purpose embedding methods may not pro-vide optimal representations for this task. Although WeiMo-CIR achieves strong results on general retrieval benchmarks, it underperforms in the medical multimodal retrieval setting. Overall, these findings demonstrate that general multimodal fusion strategies are not sufficient for the pathology domain and the specifically designed fusion mechanism proposed here offers superior effectiveness. 
+
+4.2 Patho-AgenticRAG Evaluation Results 
+
+Ablation Analysis We conducted three main ablation studies to investigate the necessity and data proportion of SFT before GRPO. The results show that skipping SFT leads to poor convergence during GRPO. However, perform-ing SFT with a large amount of data causes the model to lack generalizable capabilities and exhibit rigid output pat-terns. Therefore, using a small amount of SFT data as a cold start before GRPO is the optimal strategy. Notably, adopting a lightweight SFT phase (e.g., SFT400) before GRPO achieves the best overall balance. This setting con-sistently outperforms both the ”no-SFT” and ”large-SFT” baselines across multiple datasets. For example, on the Path-VQA benchmark, using SFT400+GRPO4k improves per-formance from 77.51% (GRPO4k only) to 80.34%. Simi-larly, on the Quilt-VQA dataset, performance improves from 60.93% (GRPO4k) to 75.80%, a +14.87% increase, indi-cating that a small amount of supervised guidance before preference optimization significantly enhances model capa-bility. These results suggest that SFT400 provides an effec-tive “cold start” that guides the policy initialization without compromising flexibility or generalization, as shown by Fig-ure 4. 
+
+Close-Ended Benchmarks Results Closed-ended ques-tions play a crucial role in pathology-related tasks, partic-ularly in diagnostic classification. To evaluate model perfor-mance on such tasks, we consider two types of close-ended question datasets: (1) Yes/No questions, selected from Path-VQA and Quilt-VQA; and (2) multiple-choice questions, sourced from PathMMU (Sun et al. 2024), MedXpertQA (Zuo et al. 2025), and OmniMedVQA (Hu et al. 2024). The results on close-ended benchmarks are summa-29926 Accuracy(%)     
+
+> 0.00% 25.00% 50.00% 75.00% 100.00%
+> Pathmmu_test Pathmmu_test_tiny MedXpertQA OmniMedVQA BRIGHTChallenge Path-VQA Quilt-VQA
+
+Patho-R1 +Qwen3 +GRPO4k +SFT4k-GRPO400 +SFT400-GRPO4k Figure 4: Ablation study results across multiple medical QA datasets. 
+
+Model PathMMU-test PathMMU-test-tiny 
+
+Atlas EduContent PathCLS PubMed SocialPath Atlas EduContent PathCLS PubMed SocialPath InternVL2-8B 43.68 44.86 23.77 44.56 45.40 46.63 50.59 21.47 49.11 51.38 InternVL2.5-8B 50.06 50.62 32.84 50.02 50.87 51.44 50.59 29.38 55.87 57.80 InternVL3-8B 54.07 50.80 39.09 54.04 53.32 58.17 54.90 42.94 57.65 60.55 Llama-3.2-11B-VI 41.05 37.49 26.72 38.82 39.21 45.19 38.04 29.38 39.50 41.74 Llama-3.2V-11B-cot 51.81 45.45 30.76 48.15 46.10 49.04 47.06 29.94 53.38 45.41 LLaVA-Onevision-7B 21.65 21.27 12.01 27.77 21.25 31.25 21.18 13.56 31.32 18.35 Qwen2.5VL-7B 41.18 43.20 24.82 42.77 39.67 44.23 49.41 24.86 44.84 40.83 
+
+Patho-R1-7B 75.34 66.43 45.40 66.06 67.93 81.73 75.29 44.63 72.24 67.89 
+
+Patho-AgenticRAG 78.32 70.96 53.16 69.69 71.06 79.33 76.47 57.22 72.24 74.70 
+
+Table 2: Comparison of model performance across multiple tasks. The left group shows results on PathMMU-test, and the right group on PathMMU-test-tiny. Best and second-best performances are bolded and underlined respectively. 
+
+Model YorN MedXpert OmniMed 
+
+Quilt Path Path Bright InternVL2-8B 60.56 61.36 10.00 40.56 InternVL2.5-8B 60.06 64.78 22.22 49.78 InternVL3-8B 33.82 18.56 15.56 65.28 Llama-3.2-11B-VI 63.27 63.50 13.33 47.08 Llama-3.2V-11B-cot 54.81 56.42 21.11 54.83 LLaVA-Onevision-7B 24.20 52.38 16.67 31.46 Qwen2.5VL-7B 52.19 41.82 12.22 43.60 
+
+Patho-R1-7B 64.72 46.97 22.00 70.79 
+
+Patho-AgenticRAG 75.80 80.34 60.00 90.11 
+
+Table 3: Performance comparison on Quilt-VQA, Path-VQA, MedXpert, and OmniMed. rized in Tables 2 and 3. Patho-AgenticRAG achieves the best overall performance across most tasks, significantly outperforming both general-purpose vision-language mod-els (e.g., InternVL3, Qwen2.5VL) and domain-specialized baselines such as Patho-R1-7B (Zhang et al. 2025). Specif-ically, Patho-AgenticRAG achieves +13.37% improvement on Quilt-VQA (75.80% vs. 64.72%) and +38.00% on MedXpertQA (60.00% vs. 22.00%) over Patho-R1. The largest margin appears on MedXpertQA, highlighting the importance of retrieval-augmented reasoning in knowledge-intensive tasks. On OmniMedVQA Bright Challenge, the model improves from 70.79% (Patho-R1) to 90.11%, a +19.32% increase, demonstrating substantial gains in both generalization and diagnostic precision. Details are in Ap-pendix D. 
+
+5 Conclusion 
+
+We proposed Patho-AgenticRAG, a novel multimodal retrieval-augmented generation framework tailored for pathology diagnosis. By leveraging intelligent agents for dy-namic querying of image-based vector databases, as well as employing task decomposition, query planning, and ev-idence aggregation, our approach significantly enhances the reasoning capabilities of vision-language models in pathol-ogy tasks. Our framework addresses the critical issue of hallucination in pathology diagnosis by promoting knowl-edge alignment, supporting evidence-based reasoning, and improving factual consistency in generated outputs. Patho-AgenticRAG demonstrates significant improvements over existing state-of-the-art multimodal models in key metrics, including answer precision and evidence traceability, rep-resenting a notable advancement in the integration of image content and reasoning for real-world pathology applications. 29927 Acknowledgments 
+
+This work is supported by the National Natural Science Foundation of China (No. 62303338). 
+
+References 
+
+Cheetirala, S. N.; Raut, G.; Patel, D.; Sanatana, F.; Freeman, R.; Levin, M. A.; Nadkarni, G. N.; Dawkins, O.; Miller, R.; Steinhagen, R. M.; et al. 2025. Less Context, Same Per-formance: A RAG Framework for Resource-Efficient LLM-Based Clinical NLP. arXiv:2505.20320. Chen, C.; Weishaupt, L. L.; Williamson, D. F.; Chen, R. J.; Ding, T.; Chen, B.; Vaidya, A.; Le, L. P.; Jaume, G.; Lu, M. Y.; et al. 2025a. Evidence-based diagnostic reasoning with multi-agent copilot for human pathology. arXiv:2506.20964. Chen, J.; Ouyang, R.; Gao, A.; Chen, S.; Chen, G. H.; Wang, X.; Zhang, R.; Cai, Z.; Ji, K.; Yu, G.; Wan, X.; and Wang, B. 2024. HuatuoGPT-Vision, Towards Injecting Medical Visual Knowledge into Multimodal LLMs at Scale. arXiv:2406.19280. Chen, Y.; Shen, Y.; Huang, W.; Zhou, S.; Lin, Q.; Cai, X.; Yu, Z.; Shi, B.; and Qiao, Y. 2025b. Learning Only with Im-ages: Visual Reinforcement Learning with Reasoning, Ren-dering, and Visual Feedback. arXiv:2507.20766. Cho, J.; Mahata, D.; Irsoy, O.; He, Y.; and Bansal, M. 2024. M3docrag: Multi-modal retrieval is what you need for multi-page multi-document understanding. arXiv:2411.04952. Faysse, M.; Sibille, H.; Wu, T.; Omrani, B.; Viaud, G.; Hudelot, C.; and Colombo, P. 2025. ColPali: Efficient Doc-ument Retrieval with Vision Language Models. In ICLR .Gao, Y.; Xiong, Y.; Gao, X.; Jia, K.; Pan, J.; Bi, Y.; Dai, Y.; Sun, J.; Wang, H.; and Wang, H. 2023. Retrieval-augmented generation for large language models: A survey. arXiv:2312.10997. Hu, Y.; Li, T.; Lu, Q.; Shao, W.; He, J.; Qiao, Y.; and Luo, P. 2024. Omnimedvqa: A new large-scale comprehensive evaluation benchmark for medical lvlm. In Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition , 22170–22183. Huang, L.; Yu, W.; Ma, W.; Zhong, W.; Feng, Z.; Wang, H.; Chen, Q.; Peng, W.; Feng, X.; Qin, B.; et al. 2025. A survey on hallucination in large language models: Principles, tax-onomy, challenges, and open questions. ACM Transactions on Information Systems , 43(2): 1–55. Jabal, M. S.; Warman, P.; Zhang, J.; Gupta, K.; Jain, A.; Mazurowski, M.; Wiggins, W.; Magudia, K.; and Calabrese, E. 2024. Language Models and Retrieval Augmented Gen-eration for Automated Structured Data Extraction from Di-agnostic Reports. arXiv:2409.10576. Jin, B.; Zeng, H.; Yue, Z.; Yoon, J.; Arik, S.; Wang, D.; Za-mani, H.; and Han, J. 2025. Search-r1: Training llms to rea-son and leverage search engines with reinforcement learn-ing. arXiv:2503.09516. Joshi, A.; Sarwar, S. M.; Varshney, S.; Nag, S.; Agrawal, S.; and Naik, J. 2024. Reaper: Reasoning based retrieval plan-ning for complex rag systems. In Proceedings of the 33rd ACM International Conference on Information and Knowl-edge Management , 4621–4628. Lee, C.; Roy, R.; Xu, M.; Raiman, J.; Shoeybi, M.; Catan-zaro, B.; and Ping, W. 2024. Nv-embed: Improved tech-niques for training llms as generalist embedding models. arXiv:2405.17428. Lewis, P.; Perez, E.; Piktus, A.; Petroni, F.; Karpukhin, V.; Goyal, N.; K¨ uttler, H.; Lewis, M.; Yih, W.-t.; Rockt¨ aschel, T.; et al. 2020. Retrieval-augmented generation for knowledge-intensive nlp tasks. Advances in neural infor-mation processing systems , 33: 9459–9474. Liu, H.; Son, K.; Yang, J.; Liu, C.; Gao, J.; Lee, Y. J.; and Li, C. 2023. Learning customized visual models with retrieval-augmented knowledge. In Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition ,15148–15158. Liu, P.; Ji, L.; Gou, J.; Fu, B.; and Ye, M. 2025. Interpretable Vision-Language Survival Analysis with Ordinal Inductive Bias for Computational Pathology. In The Thirteenth Inter-national Conference on Learning Representations .Lu, M. Y.; Chen, B.; Williamson, D. F.; Chen, R. J.; Zhao, M.; Chow, A. K.; Ikemura, K.; Kim, A.; Pouli, D.; Patel, A.; et al. 2024. A multimodal generative AI copilot for human pathology. Nature , 634(8033): 466–473. Malkov, Y. A.; and Yashunin, D. A. 2018. Efficient and ro-bust approximate nearest neighbor search using hierarchical navigable small world graphs. IEEE Transactions on Pattern Analysis and Machine Intelligence , 42(4): 824–836. Pham, T.-H.; and Ngo, C. 2025. RARL: Improving Medi-cal VLM Reasoning and Generalization with Reinforcement Learning and LoRA under Data and Hardware Constraints. arXiv:2506.06600. Qian, C.; Acikgoz, E. C.; He, Q.; Wang, H.; Chen, X.; Hakkani-T¨ ur, D.; Tur, G.; and Ji, H. 2025. Toolrl: Reward is all tool learning needs. arXiv:2504.13958. Ravuru, C.; Sakhinana, S. S.; and Runkana, V. 2024. Agen-tic retrieval-augmented generation for time series analysis. arXiv:2408.14484. Shao, Z.; Wang, P.; Zhu, Q.; Xu, R.; Song, J.; Bi, X.; Zhang, H.; Zhang, M.; Li, Y.; Wu, Y.; et al. 2024. Deepseekmath: Pushing the limits of mathematical reasoning in open lan-guage models. arXiv:2402.03300. Singh, A.; Ehtesham, A.; Kumar, S.; and Khoei, T. T. 2025. Agentic retrieval-augmented generation: A survey on agen-tic rag. arXiv:2501.09136. Sun, Y.; Si, Y.; Zhu, C.; Zhang, K.; Shui, Z.; Ding, B.; Lin, T.; and Yang, L. 2025. CPathAgent: An Agent-based Foun-dation Model for Interpretable High-Resolution Pathology Image Analysis Mimicking Pathologists’ Diagnostic Logic. arXiv:2505.20510. Sun, Y.; Wu, H.; Zhu, C.; Zheng, S.; Chen, Q.; Zhang, K.; Zhang, Y.; Wan, D.; Lan, X.; Zheng, M.; et al. 2024. Path-mmu: A massive multimodal expert-level benchmark for un-derstanding and reasoning in pathology. In European Con-ference on Computer Vision , 56–73. 29928 Thakrar, K.; Basavatia, S.; and Daftardar, A. 2025. Culti-vating Multimodal Intelligence: Interpretive Reasoning and Agentic RAG Approaches to Dermatological Diagnosis. arXiv:2507.05520. Wang, J.; Yi, X.; Guo, R.; Jin, H.; Xu, P.; Li, S.; Wang, X.; Guo, X.; Li, C.; Xu, X.; et al. 2021. Milvus: A Purpose-Built Vector Data Management System. In Proceedings of the 2021 International Conference on Management of Data ,2614–2627. Wang, Q.; Ding, R.; Chen, Z.; Wu, W.; Wang, S.; Xie, P.; and Zhao, F. 2025. Vidorag: Visual document retrieval-augmented generation via dynamic iterative reasoning agents. arXiv:2502.18017. Wu, J.; Deng, Z.; Li, W.; Liu, Y.; You, B.; Li, B.; Ma, Z.; and Liu, Z. 2025. MMSearch-R1: Incentivizing LMMs to Search. arXiv:2506.20670. Wu, J.; Zhu, J.; Qi, Y.; Chen, J.; Xu, M.; Menolascina, F.; and Grau, V. 2024. Medical graph rag: Towards safe medical large language model via graph retrieval-augmented gener-ation. arXiv:2408.04187. Wu, R.-D.; Lin, Y.-Y.; and Yang, H.-F. 2024. Training-free Zero-shot Composed Image Retrieval via Weighted Modal-ity Fusion and Similarity. In International Conference on Technologies and Applications of Artificial Intelligence , 77– 90. Springer. Xia, P.; Zhu, K.; Li, H.; Wang, T.; Shi, W.; Wang, S.; Zhang, L.; Zou, J.; and Yao, H. 2025. MMed-RAG: Versatile Mul-timodal RAG System for Medical Vision Language Mod-els. In The Thirteenth International Conference on Learning Representations .Yu, S.; Tang, C.; Xu, B.; Cui, J.; Ran, J.; Yan, Y.; Liu, Z.; Wang, S.; Han, X.; Liu, Z.; et al. 2024. Visrag: Vision-based retrieval-augmented generation on multi-modality docu-ments. arXiv:2410.10594. Zeggai, A.; Traikia, I.; Lakehal, A.; and Boulesnane, A. 2025. AI-VaxGuide: An Agentic RAG-Based LLM for Vac-cination Decisions. arXiv:2507.03493. Zhai, X.; Mustafa, B.; Kolesnikov, A.; and Beyer, L. 2023. Sigmoid loss for language image pre-training. In Proceed-ings of the IEEE/CVF international conference on computer vision , 11975–11986. Zhang, W.; Zhang, P.; Guo, J.; Cheng, T.; Chen, J.; Zhang, S.; Zhang, Z.; Yi, Y.; and Bu, H. 2025. Patho-R1: A Mul-timodal Reinforcement Learning-Based Pathology Expert Reasoner. arXiv:2505.11404. Zhao, X.; Liu, S.; Yang, S.-Y.; and Miao, C. 2025. Medrag: Enhancing retrieval-augmented generation with knowledge graph-elicited reasoning for healthcare copilot. In Proceed-ings of the ACM on Web Conference 2025 , 4442–4457. Zhu, W.; Dong, X.; Li, X.; Qiu, P.; Chen, X.; Razi, A.; Sotiras, A.; Su, Y.; and Wang, Y. 2025. Toward Effective Reinforcement Learning Fine-Tuning for Medical VQA in Vision-Language Models. arXiv:2505.13973. Zuo, Y.; Qu, S.; Li, Y.; Chen, Z.; Zhu, X.; Hua, E.; Zhang, K.; Ding, N.; and Zhou, B. 2025. MedXpertQA: Bench-marking Expert-Level Medical Reasoning and Understand-ing. arXiv:2501.18362. 29929

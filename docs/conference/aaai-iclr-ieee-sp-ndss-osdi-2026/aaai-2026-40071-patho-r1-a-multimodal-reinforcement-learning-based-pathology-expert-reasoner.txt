@@ -1,0 +1,515 @@
+Title: Patho-R1: A Multimodal Reinforcement Learning-Based Pathology Expert Reasoner
+
+URL Source: https://ojs.aaai.org/index.php/AAAI/article/download/40071/44032
+
+Number of Pages: 9
+
+Markdown Content:
+# Patho-R1: A Multimodal Reinforcement Learning-Based Pathology Expert Reasoner 
+
+## Wenchuan Zhang 1,2* , Penghao Zhang 3* , Jingru Guo 4* , Tao Cheng 5, Jie Chen 2,Shuwan Zhang 6, Zhang Zhang 1, Yuhao Yi 1,2† , Hong Bu 1,2 
+
+> 1
+
+Department of Pathology, West China Hospital, Sichuan University 
+
+> 2
+
+Institute of Clinical Pathology, West China Hospital, Sichuan University 
+
+> 3
+
+Independent Researcher 
+
+> 4
+
+University of Toronto 
+
+> 5
+
+Business School, Sichuan University 
+
+> 6
+
+Department of Pathology, Shengjing Hospital of China Medical University zhangwenchuan@stu.scu.edu.cn, yuhaoyi@scu.edu.cn 
+
+Abstract 
+
+Recent advances in vision-language models (VLMs) have enabled broad progress in the general medical field. How-ever, pathology still remains a more challenging sub-domain, with current pathology-specific VLMs exhibiting limitations in both diagnostic accuracy and reasoning plausibility. Such shortcomings are largely attributable to the nature of cur-rent pathology datasets, which are primarily composed of image–description pairs that lack the depth and structured diagnostic paradigms employed by real-world pathologists. In this study, we leverage pathology textbooks and real-world pathology experts to construct high-quality, reasoning-oriented datasets. Building on this, we introduce Patho-R1, a multimodal RL-based pathology Reasoner, trained through a three-stage pipeline: (1) continued pretraining on 3.5 mil-lion image-text pairs for knowledge infusion; (2) supervised fine-tuning on 500k high-quality Chain-of-Thought samples for reasoning incentivizing; (3) reinforcement learning using Group Relative Policy Optimization and Decoupled Clip and Dynamic sAmpling Policy Optimization strategies for mul-timodal reasoning quality refinement. To further assess the alignment quality of our dataset, we propose Patho-CLIP, trained on the same figure-caption corpus used for contin-ued pretraining. Comprehensive experimental results demon-strate that both Patho-CLIP and Patho-R1 achieve robust per-formance across a wide range of pathology-related tasks, in-cluding zero-shot classification, cross-modal retrieval, Visual Question Answering, and Multiple Choice Question. 
+
+Code — https://github.com/Wenchuan-Zhang/Patho-R1 
+
+Extended version — https://arxiv.org/abs/2505.11404 
+
+## Introduction 
+
+In the medical domain, pathology, as the gold standard of modern clinical diagnosis, plays a pivotal role in guiding 
+
+> *
+
+These authors contributed equally. 
+
+> †
+
+Corresponding author. Copyright © 2026, Association for the Advancement of Artificial Intelligence (www.aaai.org). All rights reserved. 
+
+therapeutic decisions (Foersch et al. 2023). However, build-ing robust AI systems for pathology presents significantly greater challenges compared to other medical imaging tasks like MRI (Wu et al. 2023) or CT (Wu, Zhuang, and Chen 2024). This stems from the inherent complexity and fine-grained nature of pathology data, coupled with the scarcity of high-quality, expert-annotated multimodal datasets (Xie et al. 2024). While general vision-language models (VLMs), such as CLIP (Radford et al. 2021) and LLaVA (Liu et al. 2023), have shown promising results across various med-ical imaging tasks (Wang et al. 2022; Moor et al. 2023), their performance in pathology remains limited, especially in terms of cross-disease generalization and the comprehen-sion of complex diagnostic tasks, highlighting the urgent need for pathology-specific solutions (Moor et al. 2023; Li et al. 2023). To address this gap, recent efforts introduced pathology-adapted multimodal datasets (Ikezogwo et al. 2023; Huang et al. 2023; Sun et al. 2025). While models trained on these datasets show competitive performance on tasks like Multi-ple Choice Question (MCQ) and Visual Question Answer-ing (VQA), their decision-making processes remain opaque, limiting their clinical applicability where interpretability and trust are essential. Existing datasets, sourced from educa-tional videos, social media, and institutional archives, tend to favor surface-level descriptions over semantically rich, diagnostically grounded interpretations. “Textbook-quality” data (Gunasekar et al. 2023), encompassing detailed disease mechanisms and organized domain knowledge, could enable models to reason more clinically. Notably, recent success in reinforcement learning (RL), exemplified by DeepSeek-R1 (Guo et al. 2025) and OpenAI o1 (Jaech et al. 2024), highlights RL’s potential in enhancing reasoning within language models. Among existing meth-ods, the Group Relative Policy Optimization (GRPO) stands out for its simple but effective ground truth-driven reward design, and has been validated in logic-intensive tasks like math and coding, as well as in domains requiring systematic thinking (Huang et al. 2025; Yang et al. 2025). The Fortieth AAAI Conference on Artificial Intelligence (AAAI-26) 
+
+28418 SocialPath  
+
+> Pubmed
+> PathCLS
+> EduContent
+> Atlas Qwen2.5VL-3B
+> Qwen2.5VL-7B
+> InternVL3-8B
+> Llama-3.2V-11B-cot
+> LLaVA-Med-v1.5-7B
+> HuatuoGPT-Vision-7B
+> Quilt-LLaVA-v1.5-7B
+> PathGen-LLaVA-13B
+> Patho-R1-7B
+> Overall
+> Atlas EduContent
+> PathCLS
+> Pubmed
+> SocialPath
+> Overall
+> BRIGHTChallenge
+> OmniMedVQA
+> PathMMU_Test
+> PathMMU_Test_Tiny
+> 57
+> 75
+> 70
+> 72
+> 78 70
+> 60
+> 70
+> 70
+> 70
+> 73
+> 85
+> 78 BMT
+> SICAPv2
+> WSSSLUAD
+> LC-Colon
+> LC-Lung PLIP
+> PathCLIP
+> CONCH
+> QuiltNet
+> MUSK
+> Patho-CLIP-B
+> Patho-CLIP-L
+> ARCH(i2t)
+> ARCH(t2i)
+> Achive(i2t)
+> Achive(t2i)
+> Zero-shot
+> Retrieval
+> i2t : image-to-text
+> t2i : text-to-image
+> 100
+> 100
+> 100
+> 60
+> 50 65
+> 65
+> 25
+> 25
+
+Figure 1: The performance of the proposed Patho-CLIP (left), and the Patho-R1 (right). More intriguingly, there are works that push it forward: the Decoupled Clip and Dynamic sAmpling Policy Opti-mization (DAPO) (Yu et al. 2025b) leverages a higher clip ratio and dynamically sampled training batches to yield promising performance with fewer training steps, offering an inspiring alternative to domain-aligned reward mecha-nism design. Specifically, our key contributions include: • We propose a comprehensive data curation pipeline re-quiring minimal human effort while ensuring scalable generation of high-quality SFT data with reasoning .• We present Patho-CLIP , an open-source pathology adapted CLIP model, which outperforms state-of-the-art models in classification and retrieval tasks. • We explore the end-to-end training process of domain adaptation of pretrained vision-language models, espe-cially the latest reinforcement learning methods: GRPO 
+
+and DAPO . We release the model weights of our vision-language pathology reasoning model: Patho-R1 , which demonstrates superior performance on various bench-marks as shown in Figure 1. 
+
+## Related Work 
+
+Large Vision Language Models in Medical Fields. The advent of general-purpose VLMs such as CLIP (Radford et al. 2021) has propelled multimodal progress in the med-ical domain. To better capture domain-specific semantics, various CLIP-based adaptations have been proposed, includ-ing PubMedCLIP (Eslami, Meinel, and De Melo 2023), MedCLIP (Wang et al. 2022), UniMed-CLIP (Khattak et al. 2024), and Med-PaLM (Singhal et al. 2023); for computa-tional pathology in particular, specialized variants such as PLIP (Huang et al. 2023), CONCH (Lu et al. 2024a), MUSK (Xiang et al. 2025), TITAN (Ding et al. 2024), and Quilt-Net (Ikezogwo et al. 2023) further tailor the image–text pre-training paradigm to histopathology images and reports. To further enhance the utility of medical VLMs, a new line of multimodal medical assistants has emerged, including Med-Flamingo (Moor et al. 2023), LLaVA-Med (Li et al. 2023), RadFM (Wu et al. 2023), and HuatuoGPT-Vision (Chen et al. 2024); their pathology-centric derivatives, including PathAsst (Sun et al. 2024b), Quilt-LLaVA (Seyfioglu et al. 2024), PathChat (Lu et al. 2024b), PathGen-LLaVA (Sun et al. 2025), and PA-LLaVA (Dai et al. 2024). These models use large language models for image-conditioned dialogue and question answering, enhancing interactive and context-aware medical understanding. 
+
+Vision-Language Reinforcement Learning for Post-Training. Recently, the focus of large language model (LLM) research has been shifting from traditional super-vised learning to RL as a means to enhance reasoning ca-pabilities (Guo et al. 2025; Jaech et al. 2024). One line of work focuses on Chain-of-Thought (CoT) prompting, which involves creating structured multimodal reasoning datasets and using instruction tuning to enhance reasoning traceabil-ity, as seen in LLaVA-CoT (Xu et al. 2024) and LlamaV-o1 (Thawakar et al. 2025). In contrast, approaches like Visual-RFT (Liu et al. 2025), VLM-R1 (Shen et al. 2025), and Perception-R1 (Yu et al. 2025a) bypass CoT-style tuning and instead apply reinforcement learning to directly im-prove visual perception, guided by carefully designed re-ward functions under unsupervised or weakly supervised settings. Building on this, methods such as R1-OneVision (Yang et al. 2025), R1-V (Chen et al. 2025), and Vision-R1 (Huang et al. 2025) introduce a novel cross-modal reason-ing pipeline: they first convert images into formalized lan-guage representations capturing visual semantics, then con-struct language-centric visual reasoning datasets for instruc-tion tuning, followed by an RL phase to incentivize deeper multimodal reasoning. While these methods have achieved notable progress in general domains, their application to medical imaging remains nascent. For instance, MedVLM-R1 (Pan et al. 2025) and Med-R1 (Lai et al. 2025) represent only preliminary adaptations, lacking systematic modeling and expert-guided task design. 28419 Dataset Curation 
+
+> Layout
+> Analysis
+> Extraction
+> Panel cropping
+> & alignment
+
+3.5 million   
+
+> CPT Dataset
+> Model training  Textbook -
+> Extracted data
+> PathGen
+> Quilt -1m
+> PathCap
+> Patho -R1 -CPT
+> PathoCLIP Txt
+> Img
+> Pathologists
+> Efficient -Net
+> Classification
+> 4Downstream
+> Tasks
+> Data
+> Crafting
+
+500k  
+
+> SFT
+> Dataset
+> H&E
+> Gross
+> IHC
+> Cytology
+> FISH
+> other
+> Weight Sampling
+> tissue system
+> classification
+> DAPO training GRPO training
+
+Continued Pretraining Supervised Fine -Tuning Reinforcement Learning   
+
+> Policy
+> model
+> prompt
+> Policy
+> model
+> prompt
+> Reward
+> function
+> Reference
+> model
+> Group
+> computation
+> KL div. Sample -level loss
+> O1
+> O2
+> OG…
+> Reward
+> function
+> If group all 0
+> or group all 1 :
+> drop group
+> Group
+> computation
+> Dynamic Sampling
+> Token -level Loss Clip Higher
+
+# Patho -R1     
+
+> Fig1. A. …
+> Fig1 .B.…
+> Captions
+> Inline refs
+> Figures
+> Training  Training
+> 3Level -specific
+> CoTs
+> Filtering
+> Training  Patho -R1 -SFT
+
+10k RL      
+
+> Dataset
+> O1
+> O2
+> OG…
+> r1
+> r2
+> rG…
+> A1
+> A2
+> AG…
+> A1
+> A2
+> AG…
+> r1
+> r2
+> rG…
+> O1
+> O2
+> OG
+> …
+
+Figure 2: The sequential pipeline for developing Patho-R1. We start by extracting and aligning figures, captions, and in-line references. The image caption pairs, combined with public datasets, will be used for Patho-CLIP training and CPT for Patho-R1 training. Pairs with in-line references will be categorized into pathological sub-fields, clustered by difficulty, applied into tasks with level-specific CoTs to construct SFT data. Data with diagnosis information will be sampled for the final RL. 
+
+## Method 
+
+Dataset Overview 
+
+As VLMs continue to show promise in domain-specific ap-plications, the construction of high-quality datasets becomes increasingly vital for developing clinically meaningful mod-els. However, existing datasets face two key limitations: (1) they primarily focus on general medical domains, lack-ing coverage of pathology-specific data; and (2) they often omit detailed, authoritative diagnostic reasoning, empha-sizing only brief descriptions and conclusions. To address these gaps, we curated a large-scale, pathology-specific mul-timodal corpus comprising three public datasets and 660 au-thoritative pathology textbooks and educational notes. An overview of our data curation and model training pipeline is presented in Figure 2, with datasets for each training phase detailed below. For further information, refer to Appendix A. 
+
+Continued Pretraining (CPT): Our CPT dataset com-prises a total of 3.5 million image-text pairs , of which 2.8 million are from PubMed (Sun et al. 2024b), Quilt (Ike-zogwo et al. 2023), PathGen (Sun et al. 2025), and 0.7 mil-lion from pathology textbooks and notes. This dataset also serves as the training data for our Patho-CLIP. 
+
+Supervised Fine-tuning (SFT): Our SFT dataset com-prises 500k samples drawn from 5 pathological sub-fields: histopathology, gross examination, immunohisto-chemistry (IHC), cytology, fluorescence in situ hybridiza-tion (FISH); with 3 distinct levels of Chain-of-Thoughts per subfield; spanning 4 downstream task types: descrip-tive analysis, complex reasoning, multi-turn conversations, multiple-choice questions. This results in a total of 60 data combination types. 
+
+Reinforcement Learning: Our RL dataset comprises 10k diagnostic-oriented MCQs, aligned with the same five pathological subfields defined in the SFT stage. 
+
+Continued Pretraining and Patho-CLIP Training 
+
+Data Preparation. We first scanned pathology textbooks into high-resolution images and used DocLayoutYolo (Zhao et al. 2024) to segment each page into body text, figure pan-els, and captions. Figure-caption pairs were matched based on spatial layout, and captions were extracted using OCR. For multi-panel figures, we applied edge detection and label recognition to split composite images and align sub-figures with corresponding caption segments. To leverage the rich contextual information in textbook narratives, we also ex-tracted body text via OCR and used the Qwen-max model to automatically identify in-line references between figures and surrounding text, reducing the need for manual annotation. Further details are provided in Appendix A.2. 
+
+Patho-CLIP Training. We adopt OpenAI-CLIP-B and CLIP-L as backbone architectures and design a two-stage progressive training paradigm inspired by (Sun et al. 2025) to build a cross-modal model with fine-grained morpho-logical representation and clinical pathology understanding. In Stage I, the model is initialized via contrastive learning on the PathGen-1.6M dataset, emphasizing tissue-cell mor-phology and spatial organization to establish high-resolution morphological priors. In Stage II, we retain these representa-tions while integrating PathGen-1.6M with Quilt-1M, Path-Cap, and our textbook-derived dataset, forming a compos-ite corpus of 3.5 million image–text pairs. Empirical results show that this approach significantly improves the model’s ability to capture tissue heterogeneity and achieves state-28420 of-the-art performance in semantic understanding and im-age–text retrieval on multiple pathology benchmarks. See Appendix B.1 for further training details. 
+
+Patho-R1 Continued Pretraining. Continued pretrain-ing has proven effective for infusing domain-specific knowl-edge into pretrained language models (Parmar et al. 2024), often yielding performance on par with or exceeding that of larger models (Chen et al. 2024). To ensure broad coverage of pathological knowledge, we combined all publicly avail-able pathology datasets with our curated context-rich im-age–caption pairs. Given the scale of the dataset (3.5 million samples), we selected Qwen2.5VL-3B and Qwen2.5VL-7B as base models to balance model capacity and data volume. 
+
+Invoking Reasoning Ability via SFT 
+
+While continued pretraining on domain-specific corpora imparts domain knowledge, it can compromise a model’s instruction-following ability (Cheng, Huang, and Wei 2024). Our goals in this phase are twofold: (1) to restore instruction-following capabilities , and (2) to elicit reason-ing behavior aligned with pathological diagnostics . Unlike general tasks, pathological diagnosis follows a highly struc-tured, systematic process. Thus, a cost-effective data gener-ation strategy that balances granularity and diagnostic speci-ficity is essential for this training phase. We began by categorizing textbook-extracted im-age–caption pairs into pathology subfields. A small subset was manually labeled to train an EfficientNet-based (Tan and Le 2019) classifier. Predictions on unlabeled data were manually reviewed and corrected, then added back into training to iteratively improve classifier accuracy. From 10 initial subfields, we selected 5 with the highest data volume and clinical relevance for SFT: histopathology, gross exam-ination, IHC, cytology, and FISH. However, these subfields still lacked sufficient data diversity. To address this, inspired by (Zhang et al. 2023), we applied three-way K-means clus-tering within each subfield using joint image–caption em-beddings. Interestingly, clusters consistently reflected differ-ent difficulty levels, which we used to define three tiers of Chain-of-Thought reasoning: easy, medium, and hard. We then paired these 15 CoTs with 4 downstream task types: MCQ, detailed description, complex reasoning, and multi-turn conversation, resulting in 60 total prompts for SFT data generation. See Appendix A.3 for further details. We selected DeepSeek-R1 as our SFT data generation model for two main reasons. First, current VLMs are not yet adapted to the pathology domain, and their performance in pathological imagery understanding is not satisfactory. In our experiments, supplying them with image–caption–CoT prompt triplets did not outperform strong text-only models using just captions. Second, DeepSeek-R1 excels in multi-step reasoning and long-context understanding—both es-sential for our complex CoT-style prompts. However, this choice introduced challenges, such as language mixing in medical terms and repetitive outputs. To address these, we applied a quality control stage involving rule-based filtering and selective manual verification. The final cleaned dataset contains 500k samples. See Appendix B.2 for implementa-tion details. 
+
+Reinforcement Learning 
+
+For reinforcement learning data generation, we created a diagnosis-oriented MCQ dataset using a non-overlapping subset of the SFT data. To ensure diversity, we applied pro-portionate stratified sampling based on subfield distribution. For the two largest subfields, namely histopathology and gross examination, we further stratified by tissue system. The selected samples were then paired with diagnostic in-formation to generate MCQs. See Appendix A.4 for details. For each training iteration, GRPO and DAPO sample G can-didate output {oi}Gi=1 from the old policy πold , then maxi-mize the following objectives respectively and optimize the model πθ :
+
+JGRPO (θ) = Ev∼P (V), {oi}G  
+
+> i=1 ∼πθold (O|v)
+
+[1
+
+G
+
+> G
+
+X
+
+> i=1
+
+1
+
+|oi|
+
+> |oi|
+
+X
+
+> t=1
+
+min ( ri,t Ai,t , clip ( ri,t , 1 − ϵ, 
+
+1 + ϵ) Ai,t ) − βD KL (πθ ∥ πref ))] 
+
+JDAPO (θ) = Ev∼P (V), {oi}G  
+
+> i=1 ∼πθold (O|v)
+
+[1
+
+PGi=1 |oi|
+
+> G
+
+X
+
+> i=1
+> |oi|
+
+X
+
+> t=1
+
+min ( ri,t Ai,t , clip ( ri,t ,
+
+1 − ϵlow , 1 + ϵhigh ) Ai,t )] 
+
+s.t. 0 < {oi | is equivalent (a, o i)} < G. 
+
+where Ai = ri−μ(r) 
+
+> σ(r)
+
+denotes the group-relative advan-tage, which emphasizes outputs that surpass the group aver-age for prioritized optimization. 
+
+Reward Function Design. We design reward functions to guide model learning from structured and accurate re-sponses. For the Format Reward , we require the model to format its response using <think >... </think > for interme-diate reasoning steps and <answer >... </answer > for the final answer. A reward score of 1 is assigned if both tag pairs appear exactly once and no content exists outside these tags; otherwise, the score is 0. For the Accuracy Reward ,the content within the <answer >... </answer > tags is ex-tracted using regular expressions, and only exact matches to a valid option from the predefined set A, B, C, D, E, F are accepted. A reward score of 1 is assigned if the extracted answer matches the ground-truth label and 0 otherwise. For the Length-Aware Penalty , we implement a soft overlong punishment similar to the original work of DAPO. For more details on reward function design, see Appendix B.2. For GRPO, the reward function is: 
+
+RGRPO (ai) = 0 .1 Rfmt (ai) + 0 .9 Racc (ai)
+
+where Rfmt denotes the format reward and Racc denotes the accuracy reward. This reward is applied only when 
+
+Rfmt (ai) = Racc (ai) = 1 ; otherwise, the reward is 0. 
+
+RDAPO (ai) = 0 .5 Racc (ai) + 0 .5 Rlen (ai)
+
+where Racc denotes the accuracy reward and Rlen denotes the length-aware reward. This reward is applied only when 
+
+Racc (ai) = Rlen (ai) = 1 ; otherwise, the reward is −1.28421 Model ARCH (@k) Archive (@k) @1 @5 @10 @20 Aver. @1 @5 @10 @20 Aver.                                                                    
+
+> OpenAI-CLIP-B 0.41/0.22 1.08/1.34 1.97/2.19 3.57/3.42 1.76/1.79 1.93/1.54 4.71/4.54 6.83/6.76 10.98/11.05 6.11/5.97 OpenAI-CLIP-L 0.86/0.71 2.86/2.75 4.46/4.69 7.33/7.63 3.88/3.95 2.45/2.52 6.31/6.54 9.51/9.58 14.31/14.51 8.15/8.29 PLIP 2.31/3.27 8.07/9.15 13.24/14.21 19.79/21.58 10.85/12.05 2.03/2.25 7.42/6.41 10.72/9.67 15.54/15.69 8.93/8.51 PathCLIP 9.86/10.42 24.48/24.74 32.63/33.26 44.12/43.34 27.77/27.94 1.50/1.41 3.14/3.20 4.31/4.71 5.85/6.70 3.70/4.01 CONCH 24.07/25.63 48.29/50.22 60.04/62.43 70.42/72.62 50.71/52.73 0.03/0.10 0.26/0.36 0.52/0.59 1.21/0.98 0.51/0.51 PathGen-CLIP 14.17/14.99 34.15/32.29 45.20/41.44 56.99/51.75 37.63/35.12 0.62/0.62 1.70/1.67 2.81/2.58 3.69/4.18 2.21/2.26 PathGen-CLIP-L 18.71/17.52 40.55/35.97 52.79/46.13 63.76/56.32 43.95/38.99 1.34/1.11 2.88/2.61 4.28/4.18 6.34/6.14 3.71/3.51 QuiltNet 2.49/3.68 8.59/11.20 12.91/17.26 20.68/25.22 11.17/14.34 0.78/1.08 2.19/2.68 3.89/4.35 6.14/6.41 3.25/3.63 PubmedCLIP 0.15/0.19 0.82/1.00 1.23/1.60 1.97/2.94 1.04/1.43 2.03/2.25 7.42/6.41 10.72/9.67 16.54/15.69 9.18/8.51 MUSK 25.52/23.96 50.04/49.29 62.09/62.20 73.36/73.47 52.75/52.23 1.86/1.90 4.41/5.29 6.18/7.84 8.63/11.18 5.27/6.55
+> Patho-CLIP-B 27.53/26.71 55.69/55.13 67.60/67.08 77.57/77.08 57.10/56.50 3.63/3.43 10.49/10.78 16.01/16.50 23.24/24.15 13.34/13.72
+> Patho-CLIP-L 30.73/28.20 61.01/59.45 73.92/71.91 83.44/81.77 62.28/60.33 6.27/6.14 17.29/18.27 25.62/26.93 36.05/37.19 21.31/22.13
+
+Table 1: Cross-modal retrieval results on the ARCH and Archive dataset. In each cell, results are displayed as “i2t / t2i” in the format (%/%). The best-performing results highlighted in bold, with the second-best underlined. Aver. = Average. 
+
+## Experiments 
+
+Zero-shot cross-modal retrieval 
+
+We compared Patho-CLIP against ten baseline CLIP vari-ants: OpenAI-CLIP-B, OpenAI-CLIP-L, PLIP, PathCLIP, CONCH, PathGen-CLIP, PathGen-CLIP-L, QuiltNet, Pub-medCLIP, and MUSK. We evaluated each model on two image–caption pairing datasets: Archive, compiled in-house from diverse pathology texts, and ARCH (Gamper and Ra-jpoot 2021); performance was measured using Recall@K. As shown in Table 1, on ARCH, Patho-CLIP-L achieves the highest scores across all four Recall@K settings, obtaining mean i2t and t2i recalls of 62.28% and 60.33%, respectively, substantially outperforming the leading baseline, CONCH (50.71% and 52.73%); moreover, Patho-CLIP-B also sur-passes CONCH. In the Archive dataset, Patho-CLIP-B at-tains mean i2t and t2i recalls of 13.34% and 13.72%, respec-tively, whereas Patho-CLIP-L achieves 21.31% and 22.13%, far exceeding PubmedCLIP’s 9.18% and 8.51%. These re-sults demonstrate that the latent-space alignment strategy of Patho-CLIP confers state-of-the-art accuracy and robustness in cross-modal retrieval. 
+
+Zero-shot image classification 
+
+To demonstrate Patho-CLIP’s zero-shot classification per-formance, we evaluated it on five pathology datasets: LC-Lung and LC-Colon (Borkowski et al. 2019), WSSSLUAD (Han et al. 2022), SICAPv2 (Silva-Rodr´ ıguez 2020), and BMT (Welch et al. 2024). For each dataset, we augmented class labels with synonyms (e.g., in LC-Colon dataset, the “colon adenocarcinoma” class was enriched with terms such as “adenocarcinoma of the colon” and “colorectal adenocar-cinoma”) and constructed category-specific text templates (e.g., “an H&E image of CLASSNAME.”, “an image of CLASSNAME.”). As shown in Table 2, Patho-CLIP-L surpasses CONCH by 30.75% on WSSSLUAD dataset and by 7.73% on SICAPv2 dataset, achieving the highest accuracy across all five datasets with a mean accuracy of 76.14%. No-tably, on BMT dataset, Patho-CLIP-B attains 49.33% ac-curacy—exceeding Patho-CLIP-L and substantially outper-forming QuiltNet (33.83%) and PathGen-CLIP (37.17%). The strong performance of Patho-CLIP underscores the di-versity of our pathology training data and validates our two-stage progressive training paradigm for enhancing semantic understanding in CLIP models.                                                               
+
+> Model Lung Colon WSSSL SICAPv2 BMT Aver.
+> OpenAI-CLIP-B 54.71 67.78 81.25 25.68 31.43 52.17 OpenAI-CLIP-L 70.34 70.25 76.25 15.41 26.27 51.70 PLIP 88.79 78.38 86.21 50.61 33.33 67.47 PathCLIP 86.74 96.29 91.25 39.30 34.33 69.58 CONCH 88.93 97.35 65.14 47.36 40.67 67.89 PathGen-CLIP 91.15 96.44 81.06 54.15 37.17 71.99 PathGen-CLIP-L 91.85 98.30 82.50 53.39 47.21 74.65 QuiltNet 62.73 58.15 90.50 41.85 33.83 57.41 PubmedCLIP 86.73 95.66 91.25 39.07 34.83 69.51 MUSK 92.93 98.54 87.50 44.96 45.33 73.25
+> Patho-CLIP-B 89.90 98.60 91.80 49.01 49.33 75.28
+> Patho-CLIP-L 93.78 97.48 95.89 55.09 38.44 76.14
+
+Table 2: Comparison of different CLIP models on zero-shot pathology image classification datasets with accuracy (%). The top performance is highlighted in bold, with the second-best underlined. Aver. = Average. 
+
+Few-shot image classification with linear probing 
+
+We also discuss the effectiveness of the model in few-shot learning, which is fine-tuned by linear probing of the pre-extracted feature representations of the model. We selected two representative datasets, LC-Lung and BMT, for testing under different training sizes of 2, 8, 16, 32, 64 and 128 samples, each of which implements 10 random samples. For each sample setting, we run 10 independent experiments, and finally the performance of the model under multivari-ate conditions is visualized by box-and-line plots. The experimental results show that the Patho-CLIP se-ries demonstrates excellent performance in extreme low-sample scenarios, providing a viable solution for annotation-poor clinical environments. As shown in Figure 3, on the BMT dataset, the Patho-CLIP-L model achieves 73% ac-curacy with only 2 training samples, which is a significant advantage over the comparative models such as CONCH, 28422 Figure 3: Comparison of few-shot classification accuracy (%) across different CLIP models on various pathology image classi-fication datasets. For reference, the zero-shot performance of each model is shown as a dashed line on the same plot. 
+
+Model PathMMU-val (705) / test-tiny (1139) / test (8454) YorN (3705) 
+
+Atlas EduContent PathCLS PubMed SocialPath Average Quilt Path 
+
+Small model without thinking ability 
+
+Paligemma2-3b-pt-224 1.3/1.0/0.5 1.4/2.0/3.2 0.0/0.0/0.1 2.2/2.1/2.0 0.7/0.9/1.6 1.3/1.3/1.6 32.9 44.7 VILA1.5-3B 22.5/28.9/26.5 27.4/29.4/30.6 16.7/16.4/15.1 31.3/34.9/29.1 30.0/23.9/30.7 27.2/27.6/26.7 46.7 52.4 Llama3.2-3B-vl 36.3/30.3/35.8 26.0/27.8/25.0 7.3/7.3/7.0 27.9/27.8/25.4 26.0/30.3/28.9 25.3/25.6/23.4 69.4 55.4 
+
+Large model without thinking ability 
+
+LLaVA-Med-v1.5 22.5/25.0/21.4 20.6/21.6/21.5 7.3/7.3/7.7 18.9/24.6/21.3 18.0/22.5/20.5 17.9/20.9/18.6 67.4 55.4 HuatuoGPT-Vision-7B 61.3/65.9/58.1 54.1/60.0/54.7 38.5/40.1/36.6 55.4/61.9/61.4 60.7/58.7/59.4 54.6/58.2/54.6 59.2 65.9 
+
+Quilt-LLaVA-v1.5-7B 45.0/42.8/41.4 32.9/38.4/36.7 17.7/14.1/14.7 34.3/37.0/34.8 34.7/32.6/35.3 33.1/34.0/32.0 21.3 20.8 PathGen-LLaVA-13B 67.5/68.3/63.8 61.0/62.4/58.5 50.0 /55.9 /56.2 59.7/62.3/59.2 53.3/59.6/58.5 58.2/61.9/58.8 47.5 45.8 
+
+Small model with thinking ability 
+
+DeepSeek-VL2-Tiny 36.3/38.5/32.2 28.8/33.7/35.4 17.7/19.8/19.2 28.3/38.8/35.4 34.0/36.7/32.1 29.1/34.2/31.4 44.3 46.3 Qwen2.5VL-3B 52.5/46.6/45.1 45.9/44.3/45.3 28.1/23.7/23.7 51.1/49.8/46.8 44.7/46.8/48.1 45.7/43.4/42.1 40.5 43.7 
+
+Patho-R1-3B 71.3/74.5/72.2 60.3/67.5/62.5 33.3/36.7/35.0 62.7/67.6/61.1 59.3/66.5/64.1 58.4/63.8/57.9 64.1 49.3 
+
+Large model with thinking ability 
+
+InternVL2-8B 41.3/46.6/43.7 41.1/50.6/44.9 24.0/21.5/23.8 42.9/49.1/44.6 45.3/51.4/45.4 40.3/45.1/40.7 63.6 61.4 InternVL2.5-8B 46.3/51.4/50.1 52.1/50.6/50.6 33.3/29.4/32.8 47.6/55.9/50.0 54.0/57.8/50.9 47.8/50.1/47.0 60.1 64.8 InternVL3-8B 52.5/58.2/54.1 45.9/54.9/50.8 40.6/42.9/39.1 52.4/57.7/54.0 54.0/60.6/53.3 49.8/55.4/50.4 33.8 18.6 Llama-3.2-11B-VI 46.3/45.2/41.1 36.3/38.0/37.5 32.3/29.4/26.7 36.1/39.5/38.8 39.3/41.7/39.2 37.5/39.1/36.5 63.3 63.5 Llama-3.2V-11B-cot 46.3/49.0/51.8 42.5/47.1/45.5 35.4/29.9/30.8 47.6/53.4/48.2 52.7/45.4/46.1 45.8/46.0/44.2 54.8 56.4 LLaVA-Onevision-7B 20.0/31.3/21.7 19.2/21.2/21.3 16.7/13.6/12.0 30.0/31.3/27.8 23.3/18.4/21.3 23.4/23.8/23.4 24.2 52.4 Qwen2.5VL-7B 43.8/44.2/41.2 34.9/49.4/43.2 29.2/24.9/24.8 39.9/44.8/42.8 42.7/40.8/39.7 38.4/41.9/38.7 52.2 41.8 
+
+Patho-R1-7B 82.5 /81.7 /75.3 63.0 /75.3 /66.4 41.7/44.6/45.4 64.0 /72.2 /66.1 64.7 /67.9 /67.9 63.0 /69.5 /63.4 64.7 47.0 
+
+Table 3: Comparison of model performance across multiple tasks. Accuracy (%) is reported for each dataset in the following order: PathMMU val, test-tiny, test, Quil-VQA, and Path-VQA PLIP, MUSK, PathGen-CLIP, etc. (none of the comparative models exceeds 70% accuracy), and the performance of the Patho-CLIP-L model improves faster and converges faster as the number of training samples increases. The model out-performs comparable methods in terms of performance im-provement and convergence speed as the number of training samples increases. The narrower distribution interval pre-sented by its box-and-line plot further confirms the leading edge of the model in terms of task adaptability and robust-ness. Further experiments are provided in Appendix C.1. 
+
+Patho-R1 Evaluation Results 
+
+Closed-ended Benchmarks Closed-ended questions play a crucial role in pathology-related tasks, particularly in di-agnostic classification. To evaluate model performance on such tasks, we consider two types of close-ended question datasets: (1) Yes/No questions, selected from Path-VQA and Quilt-VQA; and (2) multiple-choice questions, sourced from PathMMU (Sun et al. 2024a), MedXpertQA (Zuo et al. 2025), and OmniMedVQA (Hu et al. 2024). For both types, we report accuracy as the evaluation metric to ensure con-sistency and comparability across datasets. Experimental re-sults Table 3 demonstrate that Patho-R1 outperforms previ-ous state-of-the-art pathology-focused LMMs. Specifically, it surpasses PathGen-LLaVA-13B by 7.6 % on the Path-MMU test-tiny split (PathGen-LLaVA-13B: 61.9%), by ap-proximately 5% on the PathMMU test set and PathMMU validation set. For ablation studies and other experiments, see Appendix C.2 and C.3. 28423 What is the condition of 
+
+the interstitial in the image? Ground truth: The interstitial in the image looks normal. 
+
+<think> The image shows a terminal duct lobular unit 
+
+(TDLU) with preserved architecture , including intact 
+
+acini and ducts. The interstitial tissue lacks fibrosis, 
+
+necrosis, or inflammatory infiltrates, ruling out reactive 
+
+or neoplastic processes. The acini are arranged in a 
+
+regular, non -overlapping pattern without nuclear 
+
+enlargement, hyperchromasia , or mitotic activity. The 
+
+absence of nuclear atypia, stromal desmoplasia, or 
+
+architectural distortion supports a benign interpretation. 
+
+These features align with normal breast tissue or a 
+
+benign proliferative lesion (e.g., fibrocystic changes) 
+
+rather than malignancy. The lack of infiltrative growth or 
+
+cytological atypia further excludes invasive carcinoma 
+
+</think> 
+
+<answer> The interstitial tissue in the image is normal ,
+
+showing a terminal duct lobular unit with intact acini and 
+
+ducts. There is no evidence of atypia, 
+
+fibrosis, or inflammation, consistent with 
+
+benign breast tissue or a non -neoplastic 
+
+proliferative change </answer> 
+
+Patho -R1 7B 
+
+<think> To determine what the image shows, I will follow a structured approach: 
+
+1. Examine the Image: I will carefully observe the image to identify any visible features, such 
+
+as … recognizable patterns. 2. Identify Key Features: I will … 4. Make an Informed 
+
+Conclusion: … I will deduce what the image most likely represents. </think> 
+
+<answer> The image shows a section of tissue that appears to have glands and surrounding 
+
+stroma . The presence of … or system. Given … lobules and stroma. The appearance of these 
+
+elements is consistent with a normal or benign breast tissue sample. </answer> 
+
+The image 
+
+shows fibrosis 
+
+Sample source: 
+
+Quilt -VQA 
+
+<think> After deciding that an image shows a borderline ovarian tumor , the next 
+
+consideration should be to assess the specific features of the tumor that … This includes 
+
+evaluating the degree of atypia… The next step would … which may include surveillance, 
+
+surgery, or chemotherapy depending on the specific characteristics of the tumor. </think> 
+
+<answer> The next consideration should be to perform a thorough histopathological 
+
+examination to confirm the diagnosis and to determine the appropriate management plan, 
+
+which may include surveillance, surgery, or chemotherapy depending on the specific 
+
+characteristics of the tumor. </answer> 
+
+DeepSeek -VL tiny 
+
+Llama -3.2V -11B -cot 
+
+<think> The tissue appears to have irregular 
+
+cell structures and increased cellularity. </think> 
+
+<answer> The tissue shows signs of malignancy. 
+
+</answer> 
+
+InternVL 3 8B 
+
+Qwen 2.5VL 7B Figure 4: A representative example from the VQA task. While other models exhibit issues in answer formatting, factual accu-racy, and reasoning coherence, our model consistently delivers well-structured, accurate, and logically sound responses. 
+
+Figure 5: Evaluation of models with reasoning capabilities on final answer accuracy, coherence, and logical consistency of their reasoning steps using Quilt-VQA and Path-VQA. 
+
+Open-ended Benchmarks Our proposed model, Patho-R1, is designed to perform step-by-step reasoning and pro-duce accurate final answers. As shown in Figure 4, exist-ing general-purpose and medical models do not necessar-ily possess the reasoning capability required to correctly answer pathology-specific questions. To evaluate its per-formance, we follow a fuzzy evaluation strategy in which Deepseek-R1 acts as the LLM-judge, scoring generated out-puts based on ten well-defined criteria (Thawakar et al. 2025). Evaluations are conducted using the VLMEvalKit (Duan et al. 2024) framework on two publicly available pathology VQA datasets: Quilt-VQA and Path-VQA. This setup ensures consistency, reproducibility, and fair com-parison with other models. Our comprehensive evaluation highlights the strength of Patho-R1 in advancing multi-modal reasoning in pathology. In addition to the traditional CoT prompts, we also used the latest Chain-of-Draft (CoD) prompts (Xu et al. 2025) to explore whether simplifying the reasoning chain affects model performance. Our experimental results in Figure 5 show that Patho-R1 achieves the highest accuracy on both the Quilt VQA and Path VQA open-ended question-answering datasets, while also ranking highly in reasoning quality. An interesting find-ing is that CoD prompts do help improve answer accu-racy, especially on the relatively simpler Quilt VQA dataset, where the overall accuracy is higher. 
+
+## Conclusion 
+
+In this study, we proposed a data curation pipeline for the three phases of pathology VLM training. Leveraging this pipeline, we constructed a corpus comprising 3.5 million image–text pairs, 500k reasoning-enhanced SFT samples, and 10k diagnosis-oriented MCQs for reinforcement learn-ing. We further developed Patho-R1 and Patho-CLIP, two open-source models adapted via end-to-end domain trans-fer of pretrained VLMs. These models advance pathology-specific vision–language research and lay a foundation for future development across diverse clinical applications. 28424 Acknowledgments 
+
+This work is supported by the National Natural Science Foundation of China (No. 62303338). 
+
+## References 
+
+Borkowski, A. A.; Bui, M. M.; Thomas, L. B.; Wilson, C. P.; DeLand, L. A.; and Mastorides, S. M. 2019. Lung and Colon Cancer Histopathological Image Dataset (LC25000). arXiv:1912.12142. Chen, J.; Gui, C.; Ouyang, R.; Gao, A.; Chen, S.; Chen, G.; Wang, X.; Cai, Z.; Ji, K.; Wan, X.; et al. 2024. Towards injecting medical visual knowledge into multimodal llms at scale. In Proceedings of the 2024 Conference on Empirical Methods in Natural Language Processing , 7346–7370. Chen, L.; Li, L.; Zhao, H.; Song, Y.; and Vinci. 2025. R1-V: Reinforcing Super Generalization Ability in Vision-Language Models with Less Than $3. https://github.com/ Deep-Agent/R1-V. Accessed: 2025-02-02. Cheng, D.; Huang, S.; and Wei, F. 2024. Adapting Large Language Models to Domains via Reading Comprehension. arXiv:2309.09530. Dai, D.; Zhang, Y.; Xu, L.; Yang, Q.; Shen, X.; Xia, S.; and Wang, G. 2024. Pa-llava: A large language-vision assistant for human pathology image understanding. In 
+
+2024 IEEE International Conference on Bioinformatics and Biomedicine (BIBM) , 3138–3143. Ding, T.; Wagner, S. J.; Song, A. H.; Chen, R. J.; Lu, M. Y.; Zhang, A.; Vaidya, A. J.; Jaume, G.; Shaban, M.; Kim, A.; et al. 2024. Multimodal Whole Slide Foundation Model for Pathology. arXiv:2411.19666. Duan, H.; Yang, J.; Qiao, Y.; Fang, X.; Chen, L.; Liu, Y.; Dong, X.; Zang, Y.; Zhang, P.; Wang, J.; et al. 2024. Vlmevalkit: An open-source toolkit for evaluating large multi-modality models. In Proceedings of the 32nd ACM International Conference on Multimedia , 11198–11201. Eslami, S.; Meinel, C.; and De Melo, G. 2023. Pubmed-clip: How much does clip benefit visual question answering in the medical domain? In Findings of the Association for Computational Linguistics: EACL 2023 , 1181–1193. Foersch, S.; Glasner, C.; Woerl, A.-C.; Eckstein, M.; Wag-ner, D.-C.; Schulz, S.; Kellers, F.; Fernandez, A.; Tserea, K.; Kloth, M.; et al. 2023. Multistain deep learning for predic-tion of prognosis and therapy response in colorectal cancer. 
+
+Nature medicine , 29(2): 430–439. Gamper, J.; and Rajpoot, N. 2021. Multiple Instance Captioning: Learning Representations From Histopathology Textbooks and Articles. In Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR) , 16549–16559. Gunasekar, S.; Zhang, Y.; Aneja, J.; Mendes, C. C. T.; Giorno, A. D.; Gopi, S.; Javaheripi, M.; Kauffmann, P.; de Rosa, G.; Saarikivi, O.; Salim, A.; Shah, S.; Behl, H. S.; Wang, X.; Bubeck, S.; Eldan, R.; Kalai, A. T.; Lee, Y. T.; and Li, Y. 2023. Textbooks Are All You Need. arXiv:2306.11644. Guo, D.; Yang, D.; Zhang, H.; Song, J.; Zhang, R.; Xu, R.; Zhu, Q.; Ma, S.; Wang, P.; Bi, X.; et al. 2025. Deepseek-r1: Incentivizing Reasoning Capability in LLMs via Reinforce-ment Learning. arXiv:2501.12948. Han, C.; Pan, X.; Yan, L.; Lin, H.; Li, B.; Yao, S.; Lv, S.; Shi, Z.; Mai, J.; Lin, J.; et al. 2022. WSSS4LUAD: Grand Chal-lenge on Weakly-Supervised Tissue Semantic Segmentation for Lung Adenocarcinoma. arXiv:2204.06455. Hu, Y.; Li, T.; Lu, Q.; Shao, W.; He, J.; Qiao, Y.; and Luo, P. 2024. Omnimedvqa: A new large-scale comprehensive evaluation benchmark for medical lvlm. In Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition , 22170–22183. Huang, W.; Jia, B.; Zhai, Z.; Cao, S.; Ye, Z.; Zhao, F.; Xu, Z.; Hu, Y.; and Lin, S. 2025. Vision-r1: Incentivizing Rea-soning Capability in Multimodal Large Language Models. arXiv:2503.06749. Huang, Z.; Bianchi, F.; Yuksekgonul, M.; Montine, T. J.; and Zou, J. 2023. A visual–language foundation model for pathology image analysis using medical twitter. Nature medicine , 29(9): 2307–2316. Ikezogwo, W.; Seyfioglu, S.; Ghezloo, F.; Geva, D.; Sheikh Mohammed, F.; Anand, P. K.; Krishna, R.; and Shapiro, L. 2023. Quilt-1m: One million image-text pairs for histopathology. Advances in neural information processing systems , 36: 37995–38017. Jaech, A.; Kalai, A.; Lerer, A.; Richardson, A.; El-Kishky, A.; Low, A.; Helyar, A.; Madry, A.; Beutel, A.; Carney, A.; et al. 2024. OpenAI O1 System Card. arXiv:2412.16720. Khattak, M. U.; Kunhimon, S.; Naseer, M.; Khan, S.; and Khan, F. S. 2024. Unimed-clip: Towards a Unified Image-Text Pretraining Paradigm for Diverse Medical Imaging Modalities. arXiv:2412.10372. Lai, Y.; Zhong, J.; Li, M.; Zhao, S.; and Yang, X. 2025. Med-R1: Reinforcement Learning for Generalizable Medical Reasoning in Vision-Language Models. arXiv:2503.13939. Li, C.; Wong, C.; Zhang, S.; Usuyama, N.; Liu, H.; Yang, J.; Naumann, T.; Poon, H.; and Gao, J. 2023. Llava-med: Train-ing a large language-and-vision assistant for biomedicine in one day. Advances in Neural Information Processing Sys-tems , 36: 28541–28564. Liu, H.; Li, C.; Wu, Q.; and Lee, Y. J. 2023. Visual in-struction tuning. Advances in neural information processing systems , 36: 34892–34916. Liu, Z.; Sun, Z.; Zang, Y.; Dong, X.; Cao, Y.; Duan, H.; Lin, D.; and Wang, J. 2025. Visual-rft: Visual Reinforcement Fine-Tuning. arXiv:2503.01785. Lu, M. Y.; Chen, B.; Williamson, D. F.; Chen, R. J.; Liang, I.; Ding, T.; Jaume, G.; Odintsov, I.; Le, L. P.; Gerber, G.; et al. 2024a. A visual-language foundation model for com-putational pathology. Nature Medicine , 30(3): 863–874. Lu, M. Y.; Chen, B.; Williamson, D. F.; Chen, R. J.; Zhao, M.; Chow, A. K.; Ikemura, K.; Kim, A.; Pouli, D.; Patel, A.; et al. 2024b. A multimodal generative AI copilot for human pathology. Nature , 634(8033): 466–473. 28425 Moor, M.; Huang, Q.; Wu, S.; Yasunaga, M.; Dalmia, Y.; Leskovec, J.; Zakka, C.; Reis, E. P.; and Rajpurkar, P. 2023. Med-flamingo: a multimodal medical few-shot learner. In 
+
+Machine Learning for Health (ML4H) , 353–367. Pan, J.; Liu, C.; Wu, J.; Liu, F.; Zhu, J.; Li, H. B.; Chen, C.; Ouyang, C.; and Rueckert, D. 2025. MedVLM-R1: Incentivizing Medical Reasoning Capability of Vision-Language Models (VLMs) via Reinforcement Learning. arXiv:2502.19634. Parmar, J.; Satheesh, S.; Patwary, M.; Shoeybi, M.; and Catanzaro, B. 2024. Reuse, Don’t Retrain: ARecipe for Continued Pretraining of Language Models. arXiv:2407.07263. Radford, A.; Kim, J. W.; Hallacy, C.; Ramesh, A.; Goh, G.; Agarwal, S.; Sastry, G.; Askell, A.; Mishkin, P.; Clark, J.; et al. 2021. Learning transferable visual models from nat-ural language supervision. In International conference on machine learning , 8748–8763. Seyfioglu, M. S.; Ikezogwo, W. O.; Ghezloo, F.; Krishna, R.; and Shapiro, L. 2024. Quilt-llava: Visual instruction tuning by extracting localized narratives from open-source histopathology videos. In Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition ,13183–13192. Shen, H.; Liu, P.; Li, J.; Fang, C.; Ma, Y.; Liao, J.; Shen, Q.; Zhang, Z.; Zhao, K.; Zhang, Q.; et al. 2025. VLM-R1: A Stable and Generalizable R1-Style Large Vision-Language Model. arXiv:2504.07615. Silva-Rodr´ ıguez, J. 2020. SICAPv2-prostate whole slide im-ages with gleason grades annotations. Mendeley Data .Singhal, K.; Azizi, S.; Tu, T.; Mahdavi, S. S.; Wei, J.; Chung, H. W.; Scales, N.; Tanwani, A.; Cole-Lewis, H.; Pfohl, S.; et al. 2023. Large language models encode clinical knowl-edge. Nature , 620(7972): 172–180. Sun, Y.; Wu, H.; Zhu, C.; Zheng, S.; Chen, Q.; Zhang, K.; Zhang, Y.; Wan, D.; Lan, X.; Zheng, M.; et al. 2024a. Path-mmu: A massive multimodal expert-level benchmark for un-derstanding and reasoning in pathology. In European Con-ference on Computer Vision , 56–73. Sun, Y.; Zhang, Y.; Si, Y.; Zhu, C.; Zhang, K.; Shui, Z.; Li, J.; Gong, X.; LYU, X.; Lin, T.; and Yang, L. 2025. PathGen-1.6M: 1.6 Million Pathology Image-text Pairs Generation through Multi-agent Collaboration. In The Thirteenth In-ternational Conference on Learning Representations .Sun, Y.; Zhu, C.; Zheng, S.; Zhang, K.; Sun, L.; Shui, Z.; Zhang, Y.; Li, H.; and Yang, L. 2024b. Pathasst: A genera-tive foundation ai assistant towards artificial general intelli-gence of pathology. In Proceedings of the AAAI Conference on Artificial Intelligence , volume 38, 5034–5042. Tan, M.; and Le, Q. 2019. EfficientNet: Rethinking Model Scaling for Convolutional Neural Networks. In Chaudhuri, K.; and Salakhutdinov, R., eds., Proceedings of the 36th In-ternational Conference on Machine Learning , volume 97 of 
+
+Proceedings of Machine Learning Research , 6105–6114. Thawakar, O.; Dissanayake, D.; More, K.; Thawkar, R.; Heakl, A.; Ahsan, N.; Li, Y.; Zumri, M.; Lahoud, J.; Anwer, R. M.; et al. 2025. LlamaV-O1: Rethinking Step-by-Step Visual Reasoning in LLMs. arXiv:2501.06186. Wang, Z.; Wu, Z.; Agarwal, D.; and Sun, J. 2022. Med-clip: Contrastive Learning from Unpaired Medical Images and Text. In Proceedings of the 2022 Conference on Empir-ical Methods in Natural Language Processing , 3876–3887. Welch, E. C.; Lu, C.; Sung, C. J.; Zhang, C.; Tripathi, A.; and Ou, J. 2024. BMT: A Cross-Validated ThinPrep Pap Cervical Cytology Dataset for Machine Learning Model Training and Validation. Scientific Data , 11(1): 1444. Wu, C.; Zhang, X.; Zhang, Y.; Wang, Y.; and Xie, W. 2023. Towards Generalist Foundation Model for Radi-ology by Leveraging Web-Scale 2D&3D Medical Data. arXiv:2308.02463. Wu, L.; Zhuang, J.; and Chen, H. 2024. Voco: A simple-yet-effective volume contrastive learning framework for 3d medical image analysis. In Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition ,22873–22882. Xiang, J.; Wang, X.; Zhang, X.; Xi, Y.; Eweje, F.; Chen, Y.; Li, Y.; Bergstrom, C.; Gopaulchan, M.; Kim, T.; et al. 2025. A vision–language foundation model for precision oncology. Nature , 638(8051): 769–778. Xie, Y.; Zhou, C.; Gao, L.; Wu, J.; Li, X.; Zhou, H.-Y.; Liu, S.; Xing, L.; Zou, J.; and Xie, C. 2024. Medtrinity-25m: A large-scale multimodal dataset with multigranular anno-tations for medicine. arXiv:2408.02900. Xu, G.; Jin, P.; Li, H.; Song, Y.; Sun, L.; and Yuan, L. 2024. LLaVA-CoT: Let Vision Language Models Reason Step-by-Step. arXiv:2411.10440. Xu, S.; Xie, W.; Zhao, L.; and He, P. 2025. Chain of Draft: Thinking Faster by Writing Less. arXiv:2502.18600. Yang, Y.; He, X.; Pan, H.; Jiang, X.; Deng, Y.; Yang, X.; Lu, H.; Yin, D.; Rao, F.; Zhu, M.; et al. 2025. R1-onevision: Ad-vancing Generalized Multimodal Reasoning Through Cross-Modal Formalization. arXiv:2503.10615. Yu, E.; Lin, K.; Zhao, L.; Yin, J.; Wei, Y.; Peng, Y.; Wei, H.; Sun, J.; Han, C.; Ge, Z.; et al. 2025a. Perception-R1: Pioneering Perception Policy with Reinforcement Learning. arXiv:2504.07954. Yu, Q.; Zhang, Z.; Zhu, R.; Yuan, Y.; Zuo, X.; Yue, Y.; Fan, T.; Liu, G.; Liu, L.; Liu, X.; et al. 2025b. Dapo: An Open-Source LLM Reinforcement Learning System at Scale. arXiv:2503.14476. Zhang, Z.; Zhang, A.; Li, M.; and Smola, A. 2023. Auto-matic Chain of Thought Prompting in Large Language Mod-els. In The Eleventh International Conference on Learning Representations .Zhao, Z.; Kang, H.; Wang, B.; and He, C. 2024. DocLayout-YOLO: Enhancing Document Layout Analysis through Di-verse Synthetic Data and Global-to-Local Adaptive Percep-tion. arXiv:2410.12628. Zuo, Y.; Qu, S.; Li, Y.; Chen, Z.; Zhu, X.; Hua, E.; Zhang, K.; Ding, N.; and Zhou, B. 2025. MedXpertQA: Bench-marking Expert-Level Medical Reasoning and Understand-ing. arXiv:2501.18362. 28426
